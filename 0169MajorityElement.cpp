@@ -22,6 +22,13 @@ Output: 2
 
 */
 
+/*
+Boyer-Moore Voting Algorithm  
+https://segmentfault.com/a/1190000004905350
+https://blog.csdn.net/kimixuchen/article/details/52787307
+ 
+*/
+
 #include "stdio.h"
 #include "stdlib.h"
 #include <iostream>
