@@ -1,6 +1,6 @@
 /**
  * @file 0169MajorityElement.cpp
- * @brief 
+ * @brief
  * @author MonkeyHe
  * @version 1.0
  * @date 2018-09-17
@@ -8,7 +8,7 @@
 
 
 /*
-    
+
 Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 You may assume that the array is non-empty and the majority element always exist in the array.
 
@@ -23,10 +23,12 @@ Output: 2
 */
 
 /*
-Boyer-Moore Voting Algorithm  
+BOP 2.3
+
+Boyer-Moore Voting Algorithm
 https://segmentfault.com/a/1190000004905350
 https://blog.csdn.net/kimixuchen/article/details/52787307
- 
+
 */
 
 #include "stdio.h"
@@ -50,23 +52,23 @@ public:
         int val = 0;
         for (it = m.begin(); it != m.end(); ++it) {
             if (it->second > max)  {
-                max = it->second;        
+                max = it->second;
                 val = it->first;
             }
-        } 
+        }
         return val;
     }
 };
 
 int majorityElement(int* nums, int numsSize) {
-    return 0; 
+    return 0;
 }
 
 
 int main() {
     const int len = 7;
     int nums[len] = {2,2,1,1,1,2,2};
-    vector<int> nu(nums, nums+len);   
+    vector<int> nu(nums, nums+len);
 
     // c
     int res = majorityElement(nums, len);
