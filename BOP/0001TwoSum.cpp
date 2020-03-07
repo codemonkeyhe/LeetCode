@@ -1,13 +1,13 @@
 /**
  * @file 0001TwoSum.cpp
- * @brief 
+ * @brief
  * @author MonkeyHe
  * @version 1.0
  * @date 2018-09-16
  */
 
 /*
- 
+
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
@@ -23,12 +23,20 @@ return [0, 1].
 #include "stdlib.h"
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
 class Solution {
 public:
 vector<int> twoSum(vector<int>& nums, int target) {
+    //return M1(nums, target);
+    //return M3(nums, target);
+    return M4(nums, target);
+}
+
+vector<int> M1(vector<int>& nums, int target) {
     vector<int> res;
     int size = nums.size();
     for (int i =0; i< size-1; i++) {
@@ -41,8 +49,68 @@ vector<int> twoSum(vector<int>& nums, int target) {
         }
     }
     return res;
-
 }
+
+vector<int> M3(vector<int>& nums, int target) {
+    vector<int> res;
+    unordered_multimap<int, int> hashnums;
+    int size = nums.size();
+    for (int i = 0; i < size; i++) {
+        hashnums.insert(make_pair(nums[i], i));
+    }
+    unordered_multimap<int, int>::const_iterator it;
+    for (int i = 0; i < size; i++) {
+        int e = target - nums[i];
+        auto range = hashnums.equal_range(e);
+        if (range.first == range.second) {
+            continue;
+        }
+        bool find = false;
+        for (auto it = range.first; it!= range.second; it++) {
+            if (it->second != i) {
+                res.push_back(i);
+                res.push_back(it->second);
+                find = true;
+                break;
+            }
+        }
+        if (find) {
+            break;
+        }
+    }
+    return res;
+}
+
+
+vector<int> M4(vector<int>& nums, int target) {
+    vector<int> res;
+    vector<int> tmp(nums.begin(), nums.end());
+    stable_sort(tmp.begin(), tmp.end());
+    size_t i = 0;
+    size_t j = tmp.size()-1;
+    while(i<j) {
+        int sum = tmp[i] + tmp[j];
+        if ( sum == target) {
+            break;
+        } else if (sum < target) {
+            i++;
+        } else {
+            j--;
+        }
+    }
+    for (size_t k = 0; k < nums.size(); ++k) {
+        if (nums[k] == tmp[i])  {
+            res.push_back(k);
+        } else if (nums[k] == tmp[j]){
+            res.push_back(k);
+        }
+        if (res.size()==2) {
+            break;
+        }
+    }
+    return res;
+}
+
 };
 
 
@@ -66,20 +134,21 @@ int* twoSum(int* nums, int numsSize, int target) {
 
 int main() {
     const int len = 4;
-    int nums[len] = {2, 7, 11, 15};
+    int nums[len] = {7,2, 11, 15};
     int target = 9;
 
     // c
-    int *res = twoSum(nums, len, target);
-    for (size_t i = 0; i < sizeof(res)/sizeof(int); ++i) {
+    int* res = twoSum(nums, len, target);
+    int rs = (sizeof(res)) / (sizeof(int));
+    for (size_t i = 0; i < (size_t)rs; ++i) {
         printf("%d ", res[i]);
     }
-    free(res);
     printf("\n");
+    free(res);
 
     // cpp
     Solution s;
-    vector<int> nu(nums, nums+len);   
+    vector<int> nu(nums, nums+len);
     vector<int> re;
     re = s.twoSum(nu, target);
     for (size_t i = 0; i < re.size(); ++i) {
@@ -90,3 +159,13 @@ int main() {
     return 0;
 }
 
+
+/*
+Tips
+BOP 2.12
+M1 暴力法  O(N^2)
+M2 排序+二分查找法O(N*logN)
+M3 哈希查找 O(N)
+M4 排序 + 两端逼近O(NlogN) + O(N)
+
+*/
