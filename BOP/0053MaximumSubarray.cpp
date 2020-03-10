@@ -2,8 +2,9 @@
  * @file 0053MaximumSubarray.cpp
  * @brief  最大子段和
  * @author MonkeyHe
- * @version 1.0
+ * @version 2.0
  * @date 2018-09-17
+ * @date 2020-03-06
  *
  */
 

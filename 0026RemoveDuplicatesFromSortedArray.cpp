@@ -1,13 +1,13 @@
 /**
  * @file 0026RemoveDuplicatesFromSortedArray.cpp
- * @brief 
+ * @brief
  * @author MonkeyHe
  * @version 1.0
  * @date 2018-09-17
  */
 
 /*
- 
+
 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
 
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
@@ -43,7 +43,7 @@ for (int i = 0; i < len; i++) {
              直到下一个元素比当前元素小，则停止遍历
 
 思路2 因为不需要在乎数组的原样保存，参见discuss答案
-      从头开始遍历， k指向有序数组尾部, j向右移动，忽略重复的，遇到不重复的添加到k处
+      k指向有序数组首部, 从头开始遍历，忽略重复的，遇到不重复的添加到k++处
 
 */
 
@@ -95,7 +95,7 @@ int main() {
 
     // cpp
     Solution s;
-    vector<int> nu;   
+    vector<int> nu;
     int re = s.removeDuplicates(nu);
     cout << re << endl;
 
