@@ -4,6 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-03-08
+ * @date 2020-03-11
  */
 
 /*
@@ -34,8 +35,36 @@ using namespace std;
 class Solution {
    public:
     int findDuplicate(vector<int>& nums) {
-
-
+       int len = nums.size();
+       if (len == 0) {
+           return 0;
+       }
+       int slow = nums[0];
+       int fast = nums[0];
+       bool existCycle = false;
+       while(nums[slow] < len) {
+           if (nums[fast] >=len) {
+               break;
+           }
+           if (nums[nums[fast]] >=len) {
+               break;
+           }
+           slow = nums[slow];
+           fast = nums[nums[fast]];
+           if (slow == fast) {
+               existCycle =  true;
+               break;
+           }
+       }
+       if (!existCycle) {
+           return 0;
+       }
+       fast = nums[0];
+       while (fast != slow) {
+           fast = nums[fast];
+           slow = nums[slow];
+       }
+       return slow;
     }
 
     int MFool(vector<int>& nums) {
@@ -72,7 +101,27 @@ class Solution {
     }
 };
 
-int findDuplicate(int* nums, int numsSize) { return 0; }
+// 因为有 at least one duplicate number must exist.  所以肯定有环
+int findDuplicate(int* nums, int numsSize) {
+    if (numsSize == 0) {
+        return 0;
+    }
+    int slow = nums[0];
+    int fast = nums[0];
+    while (true) {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+        if (slow == fast) {
+            break;
+        }
+    }
+    fast = nums[0];
+    while (fast != slow) {
+        fast = nums[fast];
+        slow = nums[slow];
+    }
+    return slow;
+}
 
 int main() {
     const int len = 5;
