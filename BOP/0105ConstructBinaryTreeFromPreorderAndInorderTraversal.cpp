@@ -119,5 +119,31 @@ M2 M1递归的基础上优化 find过程
 M3 用Stack来解决
     TODO
 
+sample 16 ms submission
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if (preorder.size() == 0) return NULL;
+        stack<TreeNode*> s;
+        TreeNode* root = new TreeNode(preorder[0]), *cur = root;
+        for (int i = 1, j = 0; i < preorder.size(); ++i) {
+            if (cur->val != inorder[j]) {
+                s.push(cur);
+                cur->left = new TreeNode(preorder[i]);
+                cur = cur->left;
+            }
+            else {
+                j++;
+                while (!s.empty() && s.top()->val == inorder[j]) {
+                    cur = s.top();
+                    s.pop();
+                    j++;
+                }
+                cur = cur->right = new TreeNode(preorder[i]);
+            }
+        }
+        return root;
+    }
+};
 
 */
