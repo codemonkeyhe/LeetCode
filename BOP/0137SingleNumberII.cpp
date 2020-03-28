@@ -4,6 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-03-14
+ * @date 2020-03-27
  */
 
 /*
@@ -31,33 +32,72 @@ using namespace std;
 class Solution {
 public:
 
+    //M1 按位置思考
     int singleNumber(vector<int>& nums) {
         int res = 0;
+        vector<int> count(32,0);
         for (size_t i = 0; i < nums.size(); ++i) {
-            res^= nums[i];
+            int& num = nums[i];
+            for (int j = 0; j < 32; ++j) {
+                if ((num>>j) & 0x01) {
+                    count[j]+=1;
+                }
+            }
         }
-
-        for (size_t i = 0; i < nums.size(); ++i) {
-            res^= nums[i];
+        for (size_t i = 0; i < 32; ++i) {
+            if (count[i]%3) {
+                res |= (1 << i);
+            }
         }
         return res;
     }
+
+    // M2.3  bit操作推导 【最通用的解法】
+    int singleNumberM23(vector<int>& nums) {
+        int x1 = 0, x2 = 0, mask = 0;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            const int& num = nums[i];
+            x2 ^= (x1 & num);
+            x1 ^= num;
+            mask = ~(x2 & x1);
+            x2 &= mask;
+            x1 &= mask;
+        }
+        return x1;
+    }
 };
 
-int singleNumber(int* nums, int numsSize){
-    return 0;
+// M1 按位置思考 S从O(32)到O(1)
+// Line 14: Char 28: runtime error: left shift of 1 by 31 places cannot be
+// represented in type 'int' (solution.c)
+// https://stackoverflow.com/questions/53566029/1-31-cannot-be-represented-by-type-int
+// UINT32_C
+int singleNumber(int* nums, int numsSize) {
+    long int res = 0;
+    int count = 0;
+    for (int j = 0; j < 32; ++j) {
+        for (int i = 0; i < numsSize; ++i) {
+            if ((nums[i]>>j) & 0x01) {
+                count += 1;
+            }
+        }
+        if (count % 3) {
+            res |= UINT32_C(1) << j;
+        }
+        count = 0;
+    }
+    return res;
 }
-
-
 
 int main() {
     int len = 7;
     int nums[len] = {0,1,0,1,0,1,99};
+    //int nums[len] = {2,2,3,2};
     vector<int> nu(nums, nums+len);
     printf("%d\n", singleNumber(nums, len));
 
     Solution s;
-    cout << s.singleNumber(nu) << endl;
+    cout << s.singleNumberM23(nu) << endl;
 
 
     return 0;
