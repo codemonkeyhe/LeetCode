@@ -225,8 +225,8 @@ M2 分治法 O(N*logN)
 M3 动态规划 O(N)
     MaxSum[0..N]  = max { A[0],  A[0]+ Start[1], MaxSum[1..N]}, Start[1] = 以A[1]打头的最大和
     ...
-    MaxSum[n-1, N] = max { A[n-1], A[n-1] + start[n-1], MaxSum[n-1..n]}
-    其中Start[n-1] = A[n-1] , MaxSum[n-1..n] = A[n-1]
+    MaxSum[n-1, N] = max { A[n-1], A[n-1] + start[n], MaxSum[n..n]}
+    其中Start[n] = A[n] , MaxSum[n..n] = A[n]
 
 
 M4 规律法 O(N) 和 动态规划很相似

@@ -9,7 +9,7 @@
 
 /*
 
-Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+Given an array of size n, find the majority element. The majority element is the element that appears more than 鈱?n/2 鈱?times.
 You may assume that the array is non-empty and the majority element always exist in the array.
 
 Example 1:
@@ -65,7 +65,7 @@ class Solution {
 };
 
 
-// M2 ???2??????
+// M2 投票算法
 //Runtime: 16 ms, faster than 95.06% of C online submissions for Majority Element.
 //Memory Usage: 7.3 MB, less than 100.00% of C online submissions for Majority Element.
 int majorityElement(int* nums, int numsSize) {
@@ -109,16 +109,18 @@ int main() {
 
 /*
 Tips
-M0 map ?? unordered_map
+M0 map  unordered_map
 
-M1 sort ????
+M1 sort 中位数
     stable_sort(nums.begin(), nums.end());
     return nums[nums.size()/2];
     Runtime: 36 ms, faster than 9.54% of C++ online submissions for Majority
 Element.
 
-M2 ???2??????
+M2 投票算法
 
+
+Same as 0229
 
 
 */

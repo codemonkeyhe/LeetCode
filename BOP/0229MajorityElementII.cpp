@@ -70,9 +70,9 @@ int* majorityElement(int* nums, int numsSize, int* returnSize){
     int a = 0;
     int b = 0;
     for (int i = 0; i < numsSize; ++i) {
-        if (cnta && nums[i] == ma) {
+        if (cnta && (nums[i] == ma)) {
             a++;
-        } else if (cntb && nums[i] == mb) {
+        } else if (cntb && (nums[i] == mb)) {
             b++;
         }
     }
