@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief   P6
+ * @brief   P6   similar 105-106-889
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-03-14
@@ -96,7 +96,7 @@ Memory Usage: 21.4 MB, less than 23.81% of C++ online submissions for Construct 
     /*
      INT_MIN两个作用：
      1是占位符，为了触发递归函数的调用
-     2是 INT_MIN不能和inOrder[0]相同，否则报错
+     2是 INT_MIN 不能和inOrder[0]相同，否则报错
      例如，当树只有一个根节点时，根节点的值不能和占位符相同，否则会报错
      因此占位符尽量用不可能出现的数字，于是采用INT_MIN，但是如果只有一个根节点，且它的值也是INT_MIN，则会报错，返回NULL，而不是预期的INT_MIN根节点
 INT_MIN=-2147483648
