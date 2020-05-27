@@ -71,6 +71,8 @@ Memory Usage: 19 MB, less than 100.00% of C++ online submissions for Maximum Dep
 /*
 Runtime: 8 ms, faster than 93.00% of C++ online submissions for Maximum Depth of Binary Tree.
 Memory Usage: 19.1 MB, less than 98.90% of C++ online submissions for Maximum Depth of Binary Tree.
+使用stack模拟真实的根到叶的路径，容易编写出错。最好还是用 stack<pair<TreeNode*, Depth> >，方便编写
+借鉴了 LXR 树的遍历的迭代写法
 */
     int DFS(TreeNode* root) {
         stack<TreeNode*> s;
@@ -103,6 +105,7 @@ Memory Usage: 19.1 MB, less than 98.90% of C++ online submissions for Maximum De
 /*
 Runtime: 4 ms, faster than 99.50% of C++ online submissions for Maximum Depth of Binary Tree.
 Memory Usage: 19 MB, less than 100.00% of C++ online submissions for Maximum Depth of Binary Tree.
+使用nullptr作为每一层的标记，相当于换行符，这样做比较蠢
 */
 
     int BFS(TreeNode* root) {
