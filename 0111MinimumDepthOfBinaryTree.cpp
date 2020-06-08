@@ -236,7 +236,8 @@ M2.2 pure stack, stack element is TreeNode*
     just like 094 InOrderTraversal
 
 M3 iterate queue BFS
-    pure queue, calc batch size
+    pure queue, return the depth of the frist leaf node when walk by level
+
 
 深度优先搜索方法的缺陷是所有节点都必须访问到，以保证能够找到最小深度。因此复杂度是 O(N)O(N) 。
 一个优化的方法是利用广度优先搜索，我们按照树的层去迭代，第一个访问到的叶子就是最小深度的节点，这样就不用遍历所有的节点了。

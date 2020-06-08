@@ -10,6 +10,7 @@ struct TreeNode {
     TreeNode* left;
     TreeNode* right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 
@@ -95,7 +96,7 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-ListNode* buildList(vector<int>& data, int len) {
+ListNode* buildList(vector<int>& data, size_t len) {
     if (data.size() == 0) {
         return NULL;
     }
@@ -117,6 +118,16 @@ void printList(ListNode* head) {
         p = p->next;
     }
     cout << endl;
+}
+
+void parseMatrix(int ** matrix, int row, int col, vector<vector<int>> *vv) {
+    for (auto i=0;i < row; ++i) {
+        vector<int> v;
+        for (auto j = 0; j < col; ++j) {
+            v.push_back(matrix[i][j]);
+        }
+        vv->push_back(v);
+    }
 }
 
 #endif
