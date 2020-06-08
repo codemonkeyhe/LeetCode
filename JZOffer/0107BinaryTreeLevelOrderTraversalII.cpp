@@ -28,13 +28,48 @@ return its bottom-up level order traversal as:
 #include "stdlib.h"
 #include "common.h"
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+/*
+Runtime: 4 ms, faster than 94.96% of C++ online submissions for Binary Tree Level Order Traversal II.
+Memory Usage: 12.9 MB, less than 100.00% of C++ online submissions for Binary Tree Level Order Traversal II.
+*/
+    int getDepth(TreeNode* root) {
+        if (root == NULL) {
+            return 0;
+        }
+        return max(getDepth(root->left), getDepth(root->right)) +1;
+    }
 
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        if (root == NULL) {
+            return vector<vector<int>>();
+        }
+        int depth = getDepth(root);
+        vector<vector<int> > res(depth, vector<int>());
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = 0;
+        while(!q.empty()) {
+            int size = q.size();
+            vector<int> v;
+            while(size--) {
+                TreeNode* cur = q.front();
+                q.pop();
+                v.push_back(cur->val);
+                if (cur->left)
+                    q.push(cur->left);
+                if (cur->right)
+                    q.push(cur->right);
+            }
+            res[depth-level-1] = v;
+            level++;
+        }
+        return res;
     }
 
 };
