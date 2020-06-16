@@ -56,7 +56,7 @@ Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for Binary Tre
         vector<int> res;
         // M1
         // M2 stack
-        int m = 4;
+        int m = 5;
         switch (m) {
             case 0:
                 XLR(root, res);
@@ -72,6 +72,9 @@ Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for Binary Tre
                 break;
             case 4:
                 Morris(root, res);
+                break;
+            case 5:
+                MorrisChangeTree(root, res);
                 break;
         }
         return res;
@@ -166,6 +169,28 @@ just one line diff with 094
         }
     }
 
+/*
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Binary Tree Preorder Traversal.
+Memory Usage: 8 MB, less than 80.05% of C++ online submissions for Binary Tree Preorder Traversal.
+*/
+    void MorrisChangeTree(TreeNode* root, vector<int>& res) {
+        TreeNode* cur = root;
+        TreeNode* pre;
+        while (cur!=NULL) {
+            if (cur->left == NULL) {
+                res.push_back(cur->val);
+                cur = cur->right;
+            } else {
+                pre = cur->left;
+                while(pre->right != NULL) {
+                    pre = pre->right;
+                }
+                pre->right = cur->right;
+                cur->right = cur->left;
+                cur->left = NULL;
+            }
+        }
+    }
 };
 
 const int EMPTY_V = 0x80000000;
@@ -234,6 +259,8 @@ X L R to stack
 M2.5 nullptr as mark
 
 M3 morris
+M3.1 Morris (Not Change tree)
+M3.2 Morris (Change Tree to Threaded Tree)
 
 
 https://leetcode.com/problems/binary-tree-preorder-traversal/discuss/45266/Accepted-iterative-solution-in-Java-using-stack.

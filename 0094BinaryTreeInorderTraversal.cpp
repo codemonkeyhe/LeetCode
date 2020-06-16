@@ -188,7 +188,7 @@ Memory Usage: 8.4 MB, less than 100.00% of C++ online submissions for Binary Tre
                 while(pre->right!=NULL && pre->right != cur){
                     pre = pre->right;
                 }
-                if (pre->right == NULL) { // leaf node
+                if (pre->right == NULL) {  // first time to visit left tree the rightmost leaf node, pre points leaf node
                     pre->right = cur;
                     cur = cur->left;
                 } else {

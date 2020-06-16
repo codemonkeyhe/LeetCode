@@ -26,6 +26,7 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <deque>
 #include <set>
 
 using namespace std;
@@ -50,7 +51,7 @@ public:
 
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> res;
-        int m = 5;
+        int m = 6;
         switch (m) {
             case 0:
                 LRX(root, res);
@@ -69,6 +70,9 @@ public:
                 break;
             case 5:
                 Morris(root, res);
+                break;
+            case 6:
+                MorrisChangeTree(root, res);
                 break;
         }
         return res;
@@ -180,14 +184,6 @@ Memory Usage: 8.4 MB, less than 100.00% of C++ online submissions for Binary Tre
 /*
 Runtime: 0 ms, faster than 100.00% of C++ online submissions for Binary Tree Postorder Traversal.
 Memory Usage: 8.4 MB, less than 100.00% of C++ online submissions for Binary Tree Postorder Traversal.
-
-postOrder=LRX
-preOrder=XLR
-
-use preOrder-Morris method but switch left and right logic, turns XLR to XRL
-and reverse XRL to LRX
-Reverse( preOrderMorris(root)) = PostOrder
-
 */
     void Morris(TreeNode* root, vector<int> &res) {
         TreeNode* cur = root;
@@ -215,6 +211,28 @@ Reverse( preOrderMorris(root)) = PostOrder
         res.assign(tmp.rbegin(), tmp.rend());
     }
 
+//Runtime: 4 ms, faster than 43.41% of C++ online submissions for Binary Tree Postorder Traversal.
+//Memory Usage: 8.7 MB, less than 22.04% of C++ online submissions for Binary Tree Postorder Traversal.
+    void MorrisChangeTree(TreeNode* root, vector<int> &res) {
+        TreeNode* cur = root;
+        TreeNode* pre;
+        deque<int> d;
+        while (cur!=NULL) {
+            d.push_front(cur->val);
+            if (cur->right == NULL) {
+                cur=cur->left;
+            } else {
+                pre = cur->right;
+                while(pre->left != NULL) {
+                    pre = pre->left;
+                }
+                pre->left = cur->left;
+                cur->left = NULL;
+                cur = cur->right;
+            }
+        }
+        res.assign(d.begin(), d.end());
+    }
 
 };
 
@@ -291,5 +309,24 @@ postorder=LRX 所以压栈顺序为 XRL ，但是在X之后，压入一个Null�
 
 
 M3 Morris Traversal (Threaded BinaryTree)
+M3.1 Morris (unchanged Tree)
+postOrder=LRX
+preOrder=XLR
+use preOrder-Morris method but switch left and right logic, turns XLR to XRL
+and reverse XRL to LRX
+Reverse( preOrderMorris(root)) = PostOrder
+
+改进版
+
+
+M3.2 Morris (Change Tree)
+LRX = 逆序实现 XRL
+M3.1的镜像版， 之前是按照右指针展开成链表，现在是按照左指针展开成链表
+1) 先访问X，
+2) 如果X的右节点==NULL，
+    X=X->left
+3) 否则
+    然后把右子树中的最左孩子的left指针 指向 左子树
+    X再指向右子树。
 
 */
