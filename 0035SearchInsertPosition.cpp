@@ -1,6 +1,6 @@
 /**
  * @file 0035SearchInsertPosition.cpp
- * @brief 
+ * @brief
  * @author MonkeyHe
  * @version 1.0
  * @date 2018-09-16
@@ -40,7 +40,7 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
         int i = 0;
-        for (i = 0; i < static_cast<int>(nums.size()); ++i) {
+        for (i = 0; i < (int)nums.size(); ++i) {
             if (nums[i] == target) {
                 break;
             } else if (nums[i] < target ) {
@@ -53,19 +53,24 @@ public:
     }
 };
 
-
+//M2
+//Runtime: 4 ms, faster than 90.40% of C online submissions for Search Insert Position.
+//Memory Usage: 5.6 MB, less than 88.89% of C online submissions for Search Insert Position.
 int searchInsert(int* nums, int numsSize, int target) {
-    int i = 0;
-    for (i = 0; i < numsSize; ++i) {
-        if (nums[i] == target) {
-            break;
-        } else if (nums[i] < target ) {
-            continue;
+    int l = 0;
+    int r = numsSize-1;
+    int mid = 0;
+    while(l<=r) {
+        mid = l + (r-l)/2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target){
+            l = mid+1;
         } else {
-            break;
+            r = mid-1;
         }
     }
-    return i;
+    return l;
 }
 
 
@@ -80,7 +85,7 @@ int main() {
 
     // cpp
     Solution s;
-    vector<int> nu(nums, nums+len);   
+    vector<int> nu(nums, nums+len);
     int re = s.searchInsert(nu, target);
     cout << re << endl;
 
@@ -88,3 +93,11 @@ int main() {
 }
 
 
+/*
+Tips
+M1 暴力法
+Runtime: 9 ms
+
+M2 二分法
+
+*/
