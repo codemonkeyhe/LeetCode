@@ -3,7 +3,8 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-07-14
+ * @date 2020-08-
+ * @tag
  */
 
 /*
@@ -25,12 +26,7 @@ public:
 
 
 
-int main() {
 
-    Solution s;
-
-    return 0;
-}
 
 
 /*
@@ -40,3 +36,7 @@ M1
 M2
 
 */
+
+int main() {
+}
+
