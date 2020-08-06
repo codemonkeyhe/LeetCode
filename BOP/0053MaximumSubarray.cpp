@@ -1,6 +1,6 @@
 /**
  * @file 0053MaximumSubarray.cpp
- * @brief  最大子段和
+ * @brief  最大子段和   JZOffer:P31  CCI5th:17.8
  * @author MonkeyHe
  * @version 2.0
  * @date 2018-09-17
@@ -50,7 +50,8 @@ public:
                 //maxSum=M3V3(nums);
             break;
             case 4:
-                maxSum=M4(nums);
+               // maxSum=M4(nums);
+                maxSum=M4V2(nums);
             break;
         }
         return maxSum;
@@ -135,8 +136,28 @@ public:
         }
         return maxSum;
     }
-};
 
+    /*
+    //M4V2 规律法  来自CCI5th:17.8
+    //Runtime: 8 ms, faster than 98.38% of C++ online submissions for Maximum Subarray.
+    //Memory Usage: 13.1 MB, less than 82.77% of C++ online submissions for Maximum Subarray.
+    Input:[-1]  Expect: [-1]
+    */
+    int M4V2(vector<int>& nums) {
+        int curSum = 0;
+        int maxSum = 0x80000000;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            curSum+=nums[i];
+            if (curSum > maxSum) {
+                maxSum = curSum;
+            }
+            if (curSum < 0) {
+                curSum = 0;
+            }
+        }
+        return maxSum;
+    }
+};
 
 int getMaxCenter(int *nums, int pos, int left, int right);
 int maxSubSum(int *nums, int left, int right);
@@ -223,7 +244,7 @@ M2 分治法 O(N*logN)
         Case3 =MaxCenterSum(A[i..N/2-1.N/2..k])
 
 M3 动态规划 O(N)
-    MaxSum[0..N]  = max { A[0],  A[0]+ Start[1], MaxSum[1..N]}, Start[1] = 以A[1]打头的最大和
+    MaxSum[0..N]  = max { A[0],  A[0]+ Start[1], MaxSum[1..N]}, 其中Start[1] = 以A[1]打头的最大和
     ...
     MaxSum[n-1, N] = max { A[n-1], A[n-1] + start[n], MaxSum[n..n]}
     其中Start[n] = A[n] , MaxSum[n..n] = A[n]
@@ -239,4 +260,6 @@ M4 规律法 O(N) 和 动态规划很相似
        即 必有 以i-1结尾向A0延伸的子数组 之和 <=0 ， 即 Sum[k...i-1] <= 0 且 0<=k <i
        因此从左开始遍历数组，但凡遇到 Sum[k...i-1]　<=0的，直接舍弃，则i为潜在的MaxSum的左边界。
        左边界找到了，因此往右遍历，尝试每一个右边界，把每次新加进来的右边界节点求和，与MaxSum比较。
+
+M4缺点： 如果数组的元素全是负数，M4最后的结果maxsum=0，不一定符合题意
 */
