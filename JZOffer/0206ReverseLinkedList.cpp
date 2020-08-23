@@ -35,16 +35,47 @@ public:
 Runtime: 8 ms, faster than 78.29% of C++ online submissions for Reverse Linked List.
 Memory Usage: 8 MB, less than 100.00% of C++ online submissions for Reverse Linked List.
 */
+
+   //改变了head指针，head充当ne
     ListNode* reverseList(ListNode* head) {
-        ListNode* p1 = NULL;
-        ListNode* p2 = head;
-        while (head!=NULL) {
-            head = head->next;
-            p2->next = p1;
-            p1=p2;
-            p2=head;
+        ListNode* pre = NULL;
+        ListNode* cur = head;
+        while (cur != NULL) {
+            head = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = head;
         }
-        return p1;
+        return pre;
+    }
+
+    //不改变head，返回pre
+     ListNode*  reverseList(ListNode* head) {
+        ListNode* pre = NULL;
+        ListNode* cur = head;
+        ListNode* ne = head;
+        while (cur != NULL) {
+            ne = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = ne;
+        }
+        return pre;
+    }
+
+
+    //改变head，返回void
+     void  reverseList(ListNode* head) {
+        ListNode* pre = NULL;
+        ListNode* cur = head;
+        ListNode* ne = head;
+        while (cur != NULL) {
+            ne = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = ne;
+        }
+        head = pre;
     }
 
 };
@@ -78,7 +109,6 @@ int main() {
 2. head->next = NULL;
 只是为了让新表的尾节点指向NULL而已，对于其他节点算是冗余操作
 3. 递归终止条件 head->next == NULL是为了锁定到最后一个节点，而非最末位的NULL。
-
 4. 修改指向时，是通过head节点去操作。每一层递归栈都指向当前的节点。
     head->next->next = head;
 
