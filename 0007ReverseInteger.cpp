@@ -3,7 +3,7 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-08-
+ * @date 2020-08-23
  * @tag
  */
 
@@ -30,9 +30,6 @@ Assume we are dealing with an environment which could only store integers within
 #include "stdlib.h"
 #include "common.h"
 #include <iostream>
-#include <stack>
-#include <unordered_map>
-#include <map>
 
 using namespace std;
 

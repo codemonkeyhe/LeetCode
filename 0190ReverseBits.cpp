@@ -3,13 +3,12 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-08-
+ * @date 2020-08-23
  * @tag
  */
 
 /*
 Reverse bits of a given 32 bits unsigned integer.
-
 Example 1:
 Input: 00000010100101000001111010011100
 Output: 00111001011110000010100101000000
@@ -35,9 +34,6 @@ The input must be a binary string of length = 32
 #include "stdlib.h"
 #include "common.h"
 #include <iostream>
-#include <stack>
-#include <unordered_map>
-#include <map>
 
 using namespace std;
 
@@ -89,7 +85,9 @@ Memory Usage: 5.9 MB, less than 79.94% of C++ online submissions for Reverse Bit
 };
 
 
-
+int main() {
+    Solution s;
+}
 
 
 
@@ -130,7 +128,4 @@ abcdefgh -> efghabcd -> ghefcdab -> hgfedcba
 
 */
 
-int main() {
-    Solution s;
-}
 
