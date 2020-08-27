@@ -4,6 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-05-25
+ * @similar 104 110
  */
 
 /*
@@ -236,7 +237,7 @@ M2.2 pure stack, stack element is TreeNode*
     just like 094 InOrderTraversal
 
 M3 iterate queue BFS
-    pure queue, return the depth of the frist leaf node when walk by level
+    pure queue, return the depth of the first leaf node when walk by level
 
 
 深度优先搜索方法的缺陷是所有节点都必须访问到，以保证能够找到最小深度。因此复杂度是 O(N)O(N) 。
