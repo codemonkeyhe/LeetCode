@@ -3,8 +3,9 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-08-
+ * @date 2020-09-0
  * @tag
+ * @similar
  */
 
 /*
@@ -27,6 +28,9 @@ public:
 
 
 
+int main() {
+    Solution s;
+}
 
 
 /*
@@ -37,6 +41,4 @@ M2
 
 */
 
-int main() {
-}
 

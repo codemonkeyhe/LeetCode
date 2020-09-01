@@ -1,9 +1,9 @@
 /**
  * @file 0027RemoveElement.cpp
- * @brief 
+ * @brief
  * @author MonkeyHe
  * @version 1.0
- * @date 2018-09-17
+ * @date 2018-09-17;2020-09-01
  */
 
 /*
@@ -48,7 +48,10 @@ using namespace std;
 
 class Solution {
 public:
-    int removeElement(vector<int>& nums, int val) {
+    // M1
+    //Runtime: 4 ms, faster than 67.09% of C++ online submissions for Remove Element.
+    //Memory Usage: 9.1 MB, less than 28.47% of C++ online submissions for Remove Element.
+    int removeElementM1(vector<int>& nums, int val) {
         int len = 0;
         int nsize = nums.size();
         for (int i = 0; i < nsize; ++i) {
@@ -60,6 +63,31 @@ public:
             }
         }
         return len;
+    }
+
+/*
+swap时，依然可能把要删除的val swap到前面，因此不能i++
+[3]　3
+[3 3]  3
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Remove Element.
+Memory Usage: 9.1 MB, less than 10.86% of C++ online submissions for Remove Element.
+*/
+    int removeElement(vector<int>& nums, int val) {
+        int len = nums.size();
+        int k = len - 1;
+        int i = 0;
+        while (i <= k) {
+            if (nums[i] == val) {
+                nums[i] = nums[k];
+                //不用 swap也可以
+                //swap(nums[i], nums[k]);
+                k--;
+            } else {
+                i++;
+            }
+        }
+        return i;
     }
 };
 
@@ -99,5 +127,12 @@ int main() {
     return 0;
 }
 
+/* Tips
+M1 保持元素顺序 O(N)
+把元素往前挪
 
+M2 不用保持顺序
+要删除的元素swap到末尾
+
+*/
 
