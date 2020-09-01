@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief
+ * @brief  CCI-1.6
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-09-01
