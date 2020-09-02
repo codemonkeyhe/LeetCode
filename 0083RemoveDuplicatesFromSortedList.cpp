@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief
+ * @brief  CCI-2.1
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-08-27
@@ -77,6 +77,7 @@ int main() {
 /*
 Tips
 M1 双指针
+T-O(N)
 不需要主动free
 It is unnecessary to free, because using it only if you are sure that the nodes have been allocated with malloc function. please refer to https://leetcode.com/discuss/7188/concise-solution-and-memory-freeing
 

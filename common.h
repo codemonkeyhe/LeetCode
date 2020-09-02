@@ -130,4 +130,40 @@ void parseMatrix(int ** matrix, int row, int col, vector<vector<int>> *vv) {
     }
 }
 
+//used for graph
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
+namespace onlyC {
+/* use for graph c langage
+ * Definition for a Node.
+*/
+struct Node {
+    int val;
+    int numNeighbors;
+    struct CNode** neighbors;
+};
+
+}
+
+
+
 #endif
