@@ -137,8 +137,10 @@ Lists. Memory Usage: 5.8 MB, less than 100.00% of C online submissions for Merge
 Two Sorted Lists.
 */
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
-    struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
-    struct ListNode* tail = head;
+    //struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
+    //struct ListNode* tail = head;
+    struct ListNode head; //避免后续的free
+    struct ListNode* tail = &head;
     while (l1 != NULL && l2 != NULL) {
         if (l1->val <= l2->val) {
             tail->next = l1;
@@ -154,10 +156,12 @@ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
     } else {
         tail->next = l2;
     }
-    struct ListNode* sentinel = head;
-    head = head->next;
-    free(sentinel);
-    return head;
+    return head.next;
+
+    // struct ListNode* sentinel = head;
+    //head = head->next;
+    //free(sentinel);
+    //return head;
 }
 
 int main() {
