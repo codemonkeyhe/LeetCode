@@ -3,7 +3,7 @@
  * @brief  1st-AC
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-09-0
+ * @date 2020-09-03
  * @tag
  * @similar
  */
@@ -46,7 +46,6 @@ Memory Usage: 10.1 MB, less than 30.14% of C++ online submissions for Partition 
             head = head->next;
         }
         p2->next = NULL;
-        //拼接left和right
         p1->next = right.next;
         return left.next;
     }
