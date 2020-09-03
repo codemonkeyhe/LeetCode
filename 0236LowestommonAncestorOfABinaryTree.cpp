@@ -10,7 +10,7 @@
 
 /*
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
-According to the definition of LCA on Wikipedia: The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).�
+According to the definition of LCA on Wikipedia: The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).€
 Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
 
 Example 1:
@@ -43,19 +43,18 @@ public:
 Runtime: 24 ms, faster than 66.85% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
 Memory Usage: 17.9 MB, less than 6.25% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
 
-??path=bt; ????????????C++11?????
+使用path=bt; 缩短耗时
 Runtime: 16 ms, faster than 98.33% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
 Memory Usage: 17.9 MB, less than 6.60% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
 */
+    //程序退出时bt不干净，因为push_back和pop_back不对称
     bool helper(TreeNode* root, TreeNode* son,  vector<TreeNode*> &bt, vector<TreeNode*> &path) {
         if (root == NULL)
             return false;
         bt.push_back(root);
         if (root == son) {
-            //path = bt;
-            path.assign(bt.begin(), bt.end());
-            //???return?????bt???????????push_back?pop_back????
-            //??bt???????????
+            path = bt;
+            // path.assign(bt.begin(), bt.end());
             return true;
         }
         bool inLeft = helper(root->left, son, bt, path);
@@ -65,9 +64,29 @@ Memory Usage: 17.9 MB, less than 6.60% of C++ online submissions for Lowest Comm
         return false;
     }
 
+    //Runtime: 24 ms, faster than 66.85% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
+//Memory Usage: 18.7 MB, less than 5.01% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
+    // 程序退出时，bt是空的，干净的
+    bool helper3(TreeNode* root, TreeNode* son,  vector<TreeNode*> &bt, vector<TreeNode*> &path) {
+        if (root == NULL)
+            return false;
+        if (root == son) {
+            path = bt;
+            path.push_back(son); //把自己也加入进去
+            return true;
+        }
+        bt.push_back(root);
+        bool inLeft = helper3(root->left, son, bt, path);
+        if (!inLeft)
+            helper3(root->right, son, bt, path);
+        bt.pop_back();
+        return false;
+    }
+
+
 /*
-TLE ??
-??????
+TLE 超时
+拷贝开销太大
 */
     bool helper2(TreeNode* root, TreeNode* son,  vector<TreeNode*> bt, vector<TreeNode*> &path) {
         if (root == NULL)
@@ -82,9 +101,10 @@ TLE ??
 
     void rootToNode(TreeNode* root, TreeNode* son,  vector<TreeNode*> &path) {
         vector<TreeNode*> bt;
-        //helper ??backtracking ???
-        helper(root, son, bt, path);
-        // helper2 ??DFS???? TLE
+        //helper ?基于backtracking
+        //helper(root, son, bt, path);
+        helper3(root, son, bt, path);
+        // helper2 基于DFS  TLE
         //helper2(root, son, bt, path);
         return;
     }
@@ -95,8 +115,11 @@ M1
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         vector<TreeNode*> pathP;
         vector<TreeNode*> pathQ;
-        rootToNode(root, p, pathP);
-        rootToNode(root, q, pathQ);
+        vector<TreeNode*> bt;
+        helper3(root, p, bt, pathP);
+        helper3(root, q, bt, pathQ);
+        //rootToNode(root, p, pathP);
+        //rootToNode(root, q, pathQ);
         int i = 0;
         for(; i < pathQ.size() && i < pathP.size(); i++) {
             if (pathQ[i] != pathP[i]) {
@@ -113,38 +136,37 @@ M1
 M3
 Runtime: 20 ms, faster than 89.38% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
 Memory Usage: 14.5 MB, less than 35.39% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
-??p??q??????????????
-??P??q???????????p??q?????!!
-??p??q?????????NULL
+如果p和q都在树里面，则返回LCA(p,q)
+如果p和q两者只有1个都在树里，则返回q或者q
+如果p和q都不在树里面，返回
 */
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (root == NULL) {
             return NULL;
         }
-        //????: if (root->val == p->val || root->val == q->val) {
+        //等价写法 if (root->val == p->val || root->val == q->val) {
         if (root == p || root == q) {
             return root;
         }
-        //??root??????p??q??????leftRes???p??q
-        //??root????????p??q??leftRes???p?q?LCA
-        //??root???????p?????q??leftRes=NULL
+        //p和q都在左子树，则leftRes=LCA(p,q)
+        //p和q只有1个在左子树，则leftRes=p或q
+        //p和q都不在左子树，则leftRes=NULL
         TreeNode* leftRes = lowestCommonAncestor(root->left, p, q);
         TreeNode* rightRes = lowestCommonAncestor(root->right, p, q);
-        if (leftRes == NULL) { //????????p??q??????????
+        if (leftRes == NULL) { //意味着左子树不存在p或者q节点
             return rightRes;
         }
-        if (rightRes == NULL) { //??
+        if (rightRes == NULL) { //
             return leftRes;
         }
-        if (leftRes && rightRes) { //???????p??q??????????????????
+        if (leftRes && rightRes) { //p和q一个在左子树 一个在右子树
             return root;
         }
-        //????????p q???NULL
         return NULL;
     }
 
 /*
-?????????
+等价写法 加深理解
 */
     TreeNode* lowestCommonAncestorM3(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (root == NULL) {
@@ -153,24 +175,21 @@ Memory Usage: 14.5 MB, less than 35.39% of C++ online submissions for Lowest Com
         if (root == p || root == q) {
             return root;
         }
-        //??root??????p??q??leftRes???p??q?????NULL
         TreeNode* leftRes = lowestCommonAncestorM3(root->left, p, q);
         TreeNode* rightRes = lowestCommonAncestorM3(root->right, p, q);
-        // if (leftRes == NULL) { //????????p??q??????????
         if (leftRes == NULL  ) {
-            //??? rightRes == p || rightRes == q || rightRes==LCA(p,q)
+            //意味着 rightRes == p || rightRes == q || rightRes==LCA(p,q)
             return rightRes;
         }
-        if (rightRes == NULL) { //??
-        // ??? (leftRes == p || leftRes == q || leftRes== LCA(p,q))
+        if (rightRes == NULL) { //
+        // 意味着 (leftRes == p || leftRes == q || leftRes== LCA(p,q))
             return leftRes;
         }
-        //if (leftRes && rightRes) { //???????p??q??????????????????
+        //if (leftRes && rightRes) {
         if ((leftRes == p && rightRes == q) ||
             (leftRes == q && rightRes == p)) {
             return root;
         }
-        //????????p q???NULL
         return NULL;
     }
 
@@ -189,21 +208,20 @@ int main() {
 
 /*
 Tips
-M1 ????? [???N??]
- ??root_to_p???  O(N)
- ??root_to_q??? O(N)
- ?????????????????? O(N)
+M1 公共路径法
+ root_to_p  O(N)
+ root_to_q O(N)
+ 寻找两条路径的公共前缀 O(N)
 
 
-M2  ?????[TODO]
-?????????????unordered_map<TreeNode*, TreeNode*>??? ???????
-???hashmap??p?????????root??????set<TreeNode*> setPathP??
-???hashmap??q???????????????setPathP??????????LCA
+M2  寻父节点法[TODO]
+子父关系映射 unordered_map<TreeNode*, TreeNode*> hashmap;
+在hashmap寻找p，路径存入set<TreeNode*> setPathP
+在hashmap寻找q, 对比setPathP可得LCA
 
 
 M3 Recursion
-????? ??? ???????
-???
+浓缩版
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/discuss/65225/4-lines-C%2B%2BJavaPythonRuby
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     if (!root || root == p || root == q) return root;
@@ -211,7 +229,6 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     TreeNode* right = lowestCommonAncestor(root->right, p, q);
     return !left ? right : !right ? left : root;
 }
-????
 https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/c-jing-dian-di-gui-si-lu-fei-chang-hao-li-jie-shi-/
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
 {
@@ -223,13 +240,6 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
     return root;
 }
 
-????????,?????????
-??root->val?p,q?val???????????root->left right?????????????
-??root->val?p,q?val?????
-?3???
-p,q??root->left
-p,q??root->right
-p,q???root->left ???root->right????root?????
 
 */
 
