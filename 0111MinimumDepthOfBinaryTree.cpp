@@ -73,6 +73,23 @@ Memory Usage: 19.7 MB, less than 83.33% of C++ online submissions for Minimum De
         return  (left <= right ? left : right) + 1;
     }
 
+/*
+Runtime: 16 ms, faster than 74.32% of C++ online submissions for Minimum Depth of Binary Tree.
+Memory Usage: 20.2 MB, less than 42.13% of C++ online submissions for Minimum Depth of Binary Tree.
+*/
+    int depthMinV21(TreeNode* root) {
+        if (root == NULL) {
+            return  0;
+        }
+        int left = depthMinV21(root->left); //当左子树为空时，left==0
+        int right = depthMinV21(root->right);
+        //return  (left <= right ? left : right) + 1;
+        //如果left和right都不等于0，取两者最小值加1
+        //如果任意一个为0，则取另外一个非0值+1
+        return (left && right ? min(left, right) : max(left, right)) + 1;
+    }
+
+
     int minDepth(TreeNode* root) {
         if (root== NULL) {
             return 0;
@@ -228,6 +245,12 @@ int main() {
 /*
 Tips
 M1 recursive
+https://leetcode.com/problems/minimum-depth-of-binary-tree/discuss/36060/3-lines-in-Every-Language
+int minDepth(TreeNode* root) {
+    if (!root) return 0;
+    int L = minDepth(root->left), R = minDepth(root->right);
+    return 1 + (L && R ? min(L, R) : max(L, R));
+}
 
 M2 iterate stack DFS
 M2.1  stack element  is pair<TreeNode*, Depth>
