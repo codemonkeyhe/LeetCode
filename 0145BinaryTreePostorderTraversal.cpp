@@ -329,4 +329,50 @@ M3.1的镜像版， 之前是按照右指针展开成链表，现在是按照左
     然后把右子树中的最左孩子的left指针 指向 左子树
     X再指向右子树。
 
+
+*/
+
+/*
+LXR XLR LRX 三种stack+cur遍历比较
+核心思路
+step1 cur一直往左孩子走，走过的节点入栈
+step2 如果cur走不通了，则从栈里面弹出一个节点，然后cur指向该节点的右孩子，继续step1
+在核心思路的基础上，决定何时访问cur->val，就决定了是LXR XLR LRX
+核心思路本质上就是 沿着树的轮廓 逆时针画1条线，何时访问cur->val，就造就了LXR XLR LRX
+
+基本套路
+    void TreeWalk(TreeNode* root, vector<int>& res) {
+        stack<TreeNode*> s;
+        TreeNode* cur = root;
+        while(!s.empty() || cur != NULL) {
+            while (cur != NULL) {
+                //1 XLR: visit cur->val
+                s.push(cur);
+                cur = cur->left;
+            }
+            cur = s.top();
+            s.pop();
+            //2 LXR: visit cur->val
+            cur = cur->right;
+
+            //3 LRX: if cur->right == pre then s.pop() and visit cur->val
+        }
+    }
+
+1 XLR
+在入栈前访问当前节点，也就是先访问X->val，因此是XLR
+2 LXR
+从根节点往左的轮廓线入栈，即按照XL的顺序入栈，在出栈时访问，先出来的节点是L，此时访问的是L->val,其次才是X。
+3 LRX
+按照XL入栈，出栈时先访问L，但是访问X时，不能pop，要把R入栈，得等R出来后才能pop X。
+也就是X会访问两次，第一次访问X，把X->right入栈，第二次访问X，意味着X->right都遍历完了，把X退栈。
+pre指针的作用就是识别第二次访问X，满足cur->right=pre
+当第一次访问X时， pre指向的是cur->left节点。
+
+pre指针记录了LRX中的cur节点的前驱，也就是当cur->X时，必有pre->R。
+所以当cur->right == pre 时，意味这cur的右孩子已经访问过了，此时没必要再把cur的右节点入栈，因此直接把cur节点退栈，访问cur->val。
+也即是在 R退栈后，才访问X->val，因此是LRX。
+
+
+
 */
