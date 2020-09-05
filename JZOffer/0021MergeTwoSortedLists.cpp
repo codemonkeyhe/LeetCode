@@ -17,15 +17,10 @@ Output: 1->1->2->3->4->4
 #include "stdio.h"
 #include "stdlib.h"
 #include <iostream>
+#include "common.h"
 
 using namespace std;
 
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
 
 class Solution {
 public:
