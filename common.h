@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+//for cpp and c
 struct TreeNode {
     int val;
     TreeNode* left;
@@ -14,8 +15,72 @@ struct TreeNode {
 };
 
 
+//for cpp and c
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
+    ListNode() {}
+};
 
+
+//for n-tree
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+    }
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+
+//used for graph
+namespace graph {
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
+namespace C {
+/* use for graph c langage
+ * Definition for a Node.
+*/
+struct Node {
+    int val;
+    int numNeighbors;
+    struct CNode** neighbors;
+};
+}  // graph::C
+
+} // graph
+
+//用 EMPTY_V来表示NULL节点
 const int EMPTY_V = 0x80000000;
+//nums里面必须包含完备的树节点
 TreeNode* buildBinaryTree(vector<int> nums) {
     if (nums.size() == 0) {
         return NULL;
@@ -46,6 +111,18 @@ TreeNode* buildBinaryTree(vector<int> nums) {
     }
     return data[0];
 }
+
+// "5, 4, 7, 3, null, 2, null, -1, null, 9"
+//Leetcode 297
+string serialize(TreeNode* root) {
+
+}
+
+TreeNode* deserialize(string data) {
+
+}
+
+
 
 template <typename T>
 void print2DVector(vector<vector<T>>& vec) {
@@ -88,14 +165,6 @@ void PrintLRX(TreeNode* root) {
     return;
 }
 
-
-
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
 ListNode* buildList(vector<int>& data, size_t len) {
     if (data.size() == 0) {
         return NULL;
@@ -128,40 +197,6 @@ void parseMatrix(int ** matrix, int row, int col, vector<vector<int>> *vv) {
         }
         vv->push_back(v);
     }
-}
-
-//used for graph
-class Node {
-public:
-    int val;
-    vector<Node*> neighbors;
-
-    Node() {
-        val = 0;
-        neighbors = vector<Node*>();
-    }
-
-    Node(int _val) {
-        val = _val;
-        neighbors = vector<Node*>();
-    }
-
-    Node(int _val, vector<Node*> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
-};
-
-namespace onlyC {
-/* use for graph c langage
- * Definition for a Node.
-*/
-struct Node {
-    int val;
-    int numNeighbors;
-    struct CNode** neighbors;
-};
-
 }
 
 
