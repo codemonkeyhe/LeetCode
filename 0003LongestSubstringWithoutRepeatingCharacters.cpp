@@ -4,8 +4,8 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-09-13
- * @tag
- * @similar
+ * @tag  slidingWindow;
+ * @similar  159, 340
  */
 
 /*
@@ -286,6 +286,19 @@ M2 滑动窗口+ hashmap去重
 
 M3 使用128或者256的数组 以及 vector<int> 去重
 因为 ascii码的字符一般是 8bit，256种足够覆盖
+浓缩版
+https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/1737/C%2B%2B-code-in-9-lines.
+int lengthOfLongestSubstring(string s) {
+        vector<int> dict(256, -1);
+        int maxLen = 0, start = -1;
+        for (int i = 0; i != s.length(); i++) {
+            if (dict[s[i]] > start)
+                start = dict[s[i]];
+            dict[s[i]] = i;
+            maxLen = max(maxLen, i - start);
+        }
+        return maxLen;
+    }
 
 总结
 1. 用hashmap好过hashset，大部分滑动窗口都是用hashmap
