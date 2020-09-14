@@ -246,6 +246,16 @@ sum=10-3=7  决定了L往左，而不是R往右
 
 M1 slidingWindow - LR-Pointer
 https://leetcode.com/problems/minimum-size-subarray-sum/discuss/433123/JavaC%2B%2BPython-Sliding-Window
+Sliding window:
+1248 Count Number of Nice Subarrays
+1234 Replace the Substring for Balanced String
+1004 Max Consecutive Ones III
+930 Binary Subarrays With Sum
+992 Subarrays with K Different Integers
+904 Fruit Into Baskets
+862 Shortest Subarray with Sum at Least K
+
+
 写得太罗嗦了，参见
 https://leetcode.com/problems/minimum-size-subarray-sum/discuss/59090/C%2B%2B-O(n)-and-O(nlogn)
     int minSubArrayLen(int s, vector<int>& nums) {
