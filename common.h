@@ -25,6 +25,7 @@ struct ListNode {
 
 
 //for n-tree
+namespace ntree {
 class Node {
 public:
     int val;
@@ -41,6 +42,7 @@ public:
         children = _children;
     }
 };
+}
 
 //used for graph
 namespace graph {

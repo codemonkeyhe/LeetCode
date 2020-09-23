@@ -60,6 +60,63 @@ public:
 
 class Solution {
    public:
+
+    /*
+    //M1
+    Runtime: 8 ms, faster than 99.58% of C++ online submissions for Copy List with Random Pointer.
+Memory Usage: 11.3 MB, less than 36.48% of C++ online submissions for Copy List with Random Pointer.
+    */
+    Node* copyRandomListM1(Node* head) {
+        if (head == NULL)
+            return NULL;
+        // copy next
+        unordered_map<Node*, Node*> hm;
+        Node* p = head;
+        Node cp(-1);
+        Node* tail = &cp;
+        while (p != NULL) {
+            Node* n = new Node(p->val);
+            hm[p] = n;
+            tail->next = n;
+            tail = tail->next;
+            p = p->next;
+        }
+        tail->next = NULL;
+        // copy random
+        Node* p1 = head;
+        Node* p2 = cp.next;
+        while (p1 != NULL) {
+            p2->random = hm[p1->random];
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+        return cp.next;
+    }
+
+
+//Runtime: 28 ms, faster than 6.75% of C++ online submissions for Copy List with Random Pointer.
+//Memory Usage: 11.5 MB, less than 8.16% of C++ online submissions for Copy List with Random Pointer.
+    Node* m2(Node* head, unordered_map<Node*, Node*>& m) {
+        if (head == NULL)
+            return NULL;
+        unordered_map<Node*, Node*>::iterator it;
+        if ( (it = m.find(head)) != m.end()) {
+            return it->second;
+        }
+        Node* n = new Node(head->val);
+        m.insert(make_pair(head, n));
+        n->next = m2(head->next, m);
+        n->random = m2(head->random, m);
+        return n;
+    }
+
+    Node* copyRandomListM2(Node* head) {
+        unordered_map<Node*, Node*>  m;
+        return m2(head, m);
+    }
+
+
+
     // Runtime: 28 ms, faster than 6.75% of C++ online submissions for Copy List
     // with Random Pointer. Memory Usage: 11.3 MB, less than 37.50% of C++ online
     // submissions for Copy List with Random Pointer.
@@ -97,32 +154,12 @@ class Solution {
         return h2;
     }
 
-    Node* copyRandomListM1(Node* head) {
+    //M3
+    Node* copyRandomList(Node* head) {
         if (head==NULL) return NULL;
         copyOldList(head);
         fixRandom(head);
         return splitList(head);
-    }
-
-//Runtime: 28 ms, faster than 6.75% of C++ online submissions for Copy List with Random Pointer.
-//Memory Usage: 11.5 MB, less than 8.16% of C++ online submissions for Copy List with Random Pointer.
-    Node* m2(Node* head, unordered_map<Node*, Node*>& m) {
-        if (head == NULL)
-            return NULL;
-        unordered_map<Node*, Node*>::iterator it;
-        if ( (it = m.find(head)) != m.end()) {
-            return it->second;
-        }
-        Node* n = new Node(head->val);
-        m.insert(make_pair(head, n));
-        n->next = m2(head->next, m);
-        n->random = m2(head->random, m);
-        return n;
-    }
-
-    Node* copyRandomListM2(Node* head) {
-        unordered_map<Node*, Node*>  m;
-        return m2(head, m);
     }
 
 //Runtime: 12 ms, faster than 90.69% of C++ online submissions for Copy List with Random Pointer.
@@ -181,7 +218,7 @@ a来自原表L1, b来自拷贝的表L2。
 第二步 再次遍历L1，修改random指针。例如L1中的ai->random=aj, 对应hashmap里面的bi->random=bj
 
 M2  当做图的复制去考虑
-依然用hashmap记录对应关系，相当于M1的改进版，只是hashmap多了一个访问去重的功能，相当于visited的功能。
+依然用hashmap记录对应关系，相当于M1的改进版，改成递归的写法
 
 
 M3 染色体的有丝分裂
