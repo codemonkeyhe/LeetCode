@@ -234,7 +234,7 @@ Memory Usage: 7.5 MB, less than 81.62% of C++ online submissions for Longest Sub
     M3
     相比M23 基本一毛一样  只是把hashmap换成vector而已
     */
-    int lengthOfLongestSubstring(string s) {
+    int lengthOfLongestSubstringM3(string s) {
         vector<int> hm(128,-1);
         int left = 0;
         int right = 0;
