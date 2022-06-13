@@ -124,7 +124,14 @@ TreeNode* deserialize(string data) {
 
 }
 
-
+template <typename T>
+void printVector(vector<T>& vec, string msg) {
+    cout << "["<< msg <<"] ";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << " ";
+    }
+    cout << endl;
+}
 
 template <typename T>
 void print2DVector(vector<vector<T>>& vec) {
