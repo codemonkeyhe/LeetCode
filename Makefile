@@ -13,3 +13,4 @@ test: $(src_exe)
 
 clean:
 	rm -rf *.bin
+	rm -rf *.bin.dSYM
