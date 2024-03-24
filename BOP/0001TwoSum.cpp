@@ -81,6 +81,33 @@ vector<int> M3(vector<int>& nums, int target) {
     return res;
 }
 
+// 依然遍历了2遍 
+vector<int> M31(vector<int>& nums, int target) {
+    vector<int> res;
+    unordered_map<int,  vector<int> > v2i;
+    int len = nums.size();
+    for (int i=0; i<len; i++) {
+        int val = nums[i];
+        v2i[val].push_back(i);
+    }
+    for (int i=0; i < len; i++) {
+        int cur = nums[i];
+        int want = target - cur;
+        auto it = v2i.find(want);
+        if (it == v2i.end()) {
+            continue;
+        }
+        for (auto j : it->second) {
+            if (j != i) {
+                res.push_back(i);
+                res.push_back(j);
+                return res;
+            }
+        }
+    }
+    return res;
+}
+
 
 vector<int> M4(vector<int>& nums, int target) {
     vector<int> res;
@@ -132,6 +159,27 @@ int* twoSum(int* nums, int numsSize, int target) {
 }
 
 
+class Solution38 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        unordered_map<int, int> v2i;
+        int len = nums.size();
+        for (int i = 0; i < len; i++) {
+            int val = nums[i];
+            int want = target - val;
+            auto it = v2i.find(want);
+            if (it != v2i.end()) {
+                return vector<int>{i, it->second};
+            }
+
+            v2i[val] = i;
+        }
+
+        return res;
+    }
+};
+
 int main() {
     const int len = 4;
     int nums[len] = {7,2, 11, 15};
@@ -166,6 +214,7 @@ BOP 2.12
 M1 暴力法  O(N^2)
 M2 排序+二分查找法O(N*logN)
 M3 哈希查找 O(N)
+核心点 ：只遍历一遍数据 
 M4 排序 + 两端逼近O(NlogN) + O(N)
 
 */
