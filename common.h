@@ -24,6 +24,19 @@ struct ListNode {
 };
 
 
+struct DLinkedNode {
+    int key;
+    int value;
+    DLinkedNode* prev;
+    DLinkedNode* next;
+
+    DLinkedNode(): key(0), value(0), prev(nullptr), next(nullptr) {}
+    
+    DLinkedNode(int _key, int _value): key(_key), value(_value), prev(nullptr), next(nullptr) {}
+};
+
+
+
 //for n-tree
 namespace ntree {
 class Node {
@@ -116,13 +129,9 @@ TreeNode* buildBinaryTree(vector<int> nums) {
 
 // "5, 4, 7, 3, null, 2, null, -1, null, 9"
 //Leetcode 297
-string serialize(TreeNode* root) {
+// string serialize(TreeNode* root) { }
 
-}
-
-TreeNode* deserialize(string data) {
-
-}
+// TreeNode* deserialize(string data) { }
 
 template <typename T>
 void printVector(vector<T>& vec, string msg) {
