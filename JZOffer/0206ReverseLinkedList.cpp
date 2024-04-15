@@ -65,7 +65,7 @@ Memory Usage: 8 MB, less than 100.00% of C++ online submissions for Reverse Link
 
 
     //改变head，返回void
-     void  reverseList(ListNode* head) {
+     void  reverseListM3(ListNode* head) {
         ListNode* pre = NULL;
         ListNode* cur = head;
         ListNode* ne = head;
@@ -102,7 +102,7 @@ int main() {
 
 
 /*
-递归的解法Skill
+M1 递归的解法Skill
 1. 把递归调用链当做stack去理解，快速进入到最后一个节点。
 然后函数末尾处写翻转逻辑。
 遇到最后一个节点时，他的地址一直往回带，作为新表头结点。
@@ -111,5 +111,11 @@ int main() {
 3. 递归终止条件 head->next == NULL是为了锁定到最后一个节点，而非最末位的NULL。
 4. 修改指向时，是通过head节点去操作。每一层递归栈都指向当前的节点。
     head->next->next = head;
+
+
+M2 就地置换
+
+M3 新开链表，头部插入法
+
 
 */
