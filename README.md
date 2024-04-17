@@ -8,6 +8,9 @@ Fri, 10 Jun 2022 22:06:56 +0800
 test ssh
 
 
+#### make
+g++ -g -std=c++0x  -Wall -o 0002AddTwoNumbers.bin 0002AddTwoNumbers.cpp
+
 
 
 
