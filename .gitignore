@@ -31,3 +31,11 @@
 *.out
 *.app
 *.bin
+
+# MacOS
+.DS_Store
+
+
+# VSCode
+.vscode/
+
