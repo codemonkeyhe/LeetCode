@@ -38,4 +38,5 @@
 
 # VSCode
 .vscode/
+.vscode/settings.json
 
