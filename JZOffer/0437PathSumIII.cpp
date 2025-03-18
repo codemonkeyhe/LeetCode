@@ -3,7 +3,7 @@
  * @brief  113-similar  CCI4.9
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-06-07
+ * @date 2020-06-07; 2025-03-17
  */
 
 /*
@@ -36,7 +36,7 @@ Return 3. The paths that sum to 8 are:
 
 using namespace std;
 
-class Solution {
+class SolutionOld {
 public:
 //Runtime: 24 ms, faster than 67.34% of C++ online submissions for Path Sum III.
 //Memory Usage: 15.6 MB, less than 68.32% of C++ online submissions for Path Sum III.
@@ -97,6 +97,98 @@ public:
 
 };
 
+/*
+ * @lc app=leetcode.cn id=437 lang=cpp
+ *
+ * [437] 路径总和 III
+ *
+ * https://leetcode.cn/problems/path-sum-iii/description/
+ *
+ * algorithms
+ * Medium (47.75%)
+ * Likes:    2016
+ * Dislikes: 0
+ * Total Accepted:    399.5K
+ * Total Submissions: 839.9K
+ * Testcase Example:  '[10,5,-3,3,2,null,11,3,-2,null,1]\n8'
+ *
+ * 给定一个二叉树的根节点 root ，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。
+ *
+ * 路径 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+ * 输出：3
+ * 解释：和等于 8 的路径有 3 条，如图所示。
+ *
+ *
+ * 示例 2：
+ * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+ * 输出：3
+ *
+ *
+ *
+ *
+ * 提示:
+ * 二叉树的节点个数的范围是 [0,1000]
+ * -10^9  
+ * -1000  
+ *
+ *
+ */
+
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        int res = 0;
+        vector<int> path;
+        unordered_map<long long, int> sumToCnt;
+        sumToCnt[0] = 1;
+        long long sum = 0;
+        bt(root, targetSum,  sumToCnt, sum, res);
+        return res;
+    }
+
+    // Notice: sum要用long long, 对count函数不要误解了，返回值只有0 和1，而非计数
+    //  sumToCnt[sum]++要放到前缀和之后，因为target可能为0,如果先插入hashmap，则任意节点的前缀和减去0 依然为本身。
+    // sumToCnt[0] =1 因为前缀和要包括根节点
+    void bt(TreeNode* root, int target,  unordered_map<long long, int>& sumToCnt,  long long sum, int& res) {
+        if (root == NULL) {
+            return;
+        }
+
+        sum = sum + root->val;
+        long long preS = sum - target;
+        if ( (sumToCnt[preS] > 0)) {
+            res +=  sumToCnt[preS];
+        //    cout << "sum=" << sum << " val=" << root->val << " preS=" << preS << " res=" << res <<  endl;
+        }
+        sumToCnt[sum]++;
+        bt(root->left, target,  sumToCnt, sum, res);
+        bt(root->right, target, sumToCnt, sum, res);
+        sumToCnt[sum]--;
+        return;
+    }
+
+};
+// @lc code=end
+
+
+
 int pathSum(struct TreeNode* root, int sum){
 
 }
@@ -110,19 +202,25 @@ int main() {
 
 
 /*
+
 Tips
-M1  路径简化为从根节点出发，到每个节点的路径，得到解法F1
+M1  递归DFS
+ 路径简化为从根节点出发，到每个节点的路径，得到解法F1
     然后DFS遍历树的每个节点，调用F1
     这样耗时太高 T=O(N) * O(N)　= O(N^2)
 
 
-M2　把M1的两步合为一步,则需要把路径信息存到vector里面
+M2 Backtracking
+本质就是回溯，记录所有的路径和path，然后暴力遍历path
+把M1的两步合为一步,则需要把路径信息存到vector里面
 
 M3 HashMap的O(N)解法
 核心原理
 tree looks like:  R--..--A--..--B
 SumPath(A,B) = SumPath(R, B) - SumPath(R, A) = PreSum(B) - PreSum(A)
 use map<int, int> to store <PreSum, Count>
+
+
 
 
 修改树结构 不推荐

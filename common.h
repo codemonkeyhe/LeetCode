@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <stack>
 using namespace std;
 
 //for cpp and c
@@ -31,7 +32,7 @@ struct DLinkedNode {
     DLinkedNode* next;
 
     DLinkedNode(): key(0), value(0), prev(nullptr), next(nullptr) {}
-    
+
     DLinkedNode(int _key, int _value): key(_key), value(_value), prev(nullptr), next(nullptr) {}
 };
 
@@ -95,7 +96,7 @@ struct Node {
 
 //用 EMPTY_V来表示NULL节点
 const int EMPTY_V = 0x80000000;
-//nums里面必须包含完备的树节点
+//nums里面必须包含完备的树节点，必须是一颗完全二叉树，即最下一层的右侧为空,左侧叶子结点为空指针的话，需要显示备注为 EMPTY_V
 TreeNode* buildBinaryTree(vector<int> nums) {
     if (nums.size() == 0) {
         return NULL;
@@ -127,6 +128,49 @@ TreeNode* buildBinaryTree(vector<int> nums) {
     return data[0];
 }
 
+
+
+TreeNode* BTreeXLR(vector<int> nums, int& cur) {
+    if ( (cur >= nums.size())  ) {
+        return NULL;
+    }
+    if (nums[cur] == EMPTY_V) { // leaf
+        cur++;
+        return NULL;
+    }
+
+    TreeNode* root = new TreeNode(nums[cur]);
+    cur++;
+    root->left =  BTreeXLR(nums, cur);
+    root->right =  BTreeXLR(nums, cur);
+    cout << " root= " << root->val;
+    if (root->left) {
+        cout << " root.left= " << root->left->val;
+    } else {
+        cout << " root.left= NULL";
+    }
+    if (root->right) {
+        cout << " root.right= " << root->right->val;
+    } else {
+        cout << " root.right= NULL";
+    }
+    cout << endl;
+    return root;
+}
+
+// testcase: [1, null, 2,3]  相当于 先序遍历
+// testcase2:   vector<int> nums = {1,2,4,EMPTY_V,EMPTY_V , 5,6,EMPTY_V,EMPTY_V, 7,EMPTY_V,EMPTY_V,3,EMPTY_V,8,9};
+// testcase2的XLR结果为  [1,2,4,5,6,7,3,8,9]  from LeetCode144
+// 所有叶子结点的空指针都必须打印出来
+TreeNode* BuildBTreeByXLR(vector<int> nums) {
+    if (nums.size() == 0) {
+        return NULL;
+    }
+    int cur = 0;
+    TreeNode* root = BTreeXLR(nums, cur);
+    return root;
+}
+
 // "5, 4, 7, 3, null, 2, null, -1, null, 9"
 //Leetcode 297
 // string serialize(TreeNode* root) { }
@@ -153,6 +197,7 @@ void print2DVector(vector<vector<T>>& vec) {
 }
 
 
+// LeetCode0144
 void PrintXLR(TreeNode* root) {
     if (root == NULL) {
         return;
@@ -163,6 +208,51 @@ void PrintXLR(TreeNode* root) {
     return;
 }
 
+vector<int> XLRByStack(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL) {
+        return res;
+    }
+    stack<TreeNode*> s;
+    TreeNode* cur = root;
+    while (!s.empty() || cur != NULL) {
+        while (cur != NULL) {
+            res.push_back(cur->val);
+            s.push(cur);
+            cur = cur->left;
+        }
+        cur = s.top();
+        s.pop();
+        cur = cur->right;
+    }
+    return res;
+}
+
+
+vector<int> XLRByStack2(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL) {
+        return res;
+    }
+    stack<TreeNode*> st;
+    st.push(root);
+
+    while (!st.empty()) {
+        TreeNode* tmp = st.top();
+        st.pop();
+        res.push_back(tmp->val);
+        if (tmp->right) {
+            st.push(tmp->right);
+        }
+        if (tmp->left) {
+            st.push(tmp->left);
+        }
+    }
+    return res;
+}
+
+
+// LeetCode0094
 void PrintLXR(TreeNode* root) {
     if (root == NULL) {
         return;
@@ -173,6 +263,27 @@ void PrintLXR(TreeNode* root) {
     return;
 }
 
+vector<int> LXRByStack(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL) {
+        return res;
+    }
+    stack<TreeNode*> st;
+    TreeNode* cur = root;
+    while (!st.empty() || (cur != NULL)) {
+        while (cur != NULL) {
+            st.push(cur);
+            cur = cur->left;
+        }
+        cur = st.top();
+        st.pop();
+        res.push_back(cur->val);
+        cur = cur->right;
+    }
+    return res;
+}
+
+// LeetCode0145
 void PrintLRX(TreeNode* root) {
     if (root == NULL) {
         return;
@@ -181,6 +292,32 @@ void PrintLRX(TreeNode* root) {
     PrintLRX(root->right);
     cout << root->val << " ";
     return;
+}
+
+vector<int> LRXByStack(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL) {
+        return res;
+    }
+    stack<TreeNode*> st;
+    TreeNode* pre = NULL;
+    TreeNode* cur = root;
+    while (!st.empty() || cur != NULL) {
+        while (cur != NULL) {
+            st.push(cur);
+            cur = cur->left;
+        }
+        cur = st.top();
+        if (cur->right == NULL || (cur->right == pre)) {
+            st.pop();
+            res.push_back(cur->val);
+            pre = cur;
+            cur = NULL;
+        } else {
+            cur = cur->right;
+        }
+    }
+    return res;
 }
 
 ListNode* buildList(vector<int>& data, size_t len) {
@@ -197,7 +334,6 @@ ListNode* buildList(vector<int>& data, size_t len) {
     return head;
 }
 
-
 void printList(ListNode* head) {
     ListNode* p = head;
     while (p != NULL) {
@@ -207,8 +343,8 @@ void printList(ListNode* head) {
     cout << endl;
 }
 
-void parseMatrix(int ** matrix, int row, int col, vector<vector<int>> *vv) {
-    for (auto i=0;i < row; ++i) {
+void parseMatrix(int** matrix, int row, int col, vector<vector<int>>* vv) {
+    for (auto i = 0; i < row; ++i) {
         vector<int> v;
         for (auto j = 0; j < col; ++j) {
             v.push_back(matrix[i][j]);
@@ -216,7 +352,5 @@ void parseMatrix(int ** matrix, int row, int col, vector<vector<int>> *vv) {
         vv->push_back(v);
     }
 }
-
-
 
 #endif
