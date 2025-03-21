@@ -196,6 +196,48 @@ void print2DVector(vector<vector<T>>& vec) {
     }
 }
 
+ListNode* buildList(vector<int>& data, size_t len) {
+    if (data.size() == 0) {
+        return NULL;
+    }
+    struct ListNode* head = new ListNode(data[0]);
+    struct ListNode* tail = head;
+    for (size_t i = 1; i < data.size() && i < len; ++i) {
+        ListNode* p = new ListNode(data[i]);
+        tail->next = p;
+        tail = tail->next;
+    }
+    return head;
+}
+
+void printList(ListNode* head) {
+    ListNode* p = head;
+    while (p != NULL) {
+        cout << p->val << " ";
+        p = p->next;
+    }
+    cout << endl;
+}
+
+void parseMatrix(int** matrix, int row, int col, vector<vector<int>>* vv) {
+    for (auto i = 0; i < row; ++i) {
+        vector<int> v;
+        for (auto j = 0; j < col; ++j) {
+            v.push_back(matrix[i][j]);
+        }
+        vv->push_back(v);
+    }
+}
+
+
+
+
+////////////////////////////////////////////////////
+///////////          TREE                    ///////
+////////////////////////////////////////////////////
+
+
+
 
 // LeetCode0144
 void PrintXLR(TreeNode* root) {
@@ -320,37 +362,29 @@ vector<int> LRXByStack(TreeNode* root) {
     return res;
 }
 
-ListNode* buildList(vector<int>& data, size_t len) {
-    if (data.size() == 0) {
-        return NULL;
-    }
-    struct ListNode* head = new ListNode(data[0]);
-    struct ListNode* tail = head;
-    for (size_t i = 1; i < data.size() && i < len; ++i) {
-        ListNode* p = new ListNode(data[i]);
-        tail->next = p;
-        tail = tail->next;
-    }
-    return head;
+
+// 094
+vector<int> MorrisLXR(TreeNode* root) {
+    vector<int> res;
+    return res;
 }
 
-void printList(ListNode* head) {
-    ListNode* p = head;
-    while (p != NULL) {
-        cout << p->val << " ";
-        p = p->next;
-    }
-    cout << endl;
+
+
+// 144
+vector<int> MorrisXLR(TreeNode* root) {
+    vector<int> res;
+    return res;
 }
 
-void parseMatrix(int** matrix, int row, int col, vector<vector<int>>* vv) {
-    for (auto i = 0; i < row; ++i) {
-        vector<int> v;
-        for (auto j = 0; j < col; ++j) {
-            v.push_back(matrix[i][j]);
-        }
-        vv->push_back(v);
-    }
+
+// 145
+vector<int> MorrisLRX(TreeNode* root) {
+    vector<int> res;
+    return res;
 }
+
+
+
 
 #endif
