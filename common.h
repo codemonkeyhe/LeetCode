@@ -94,6 +94,81 @@ struct Node {
 
 } // graph
 
+
+template <typename T>
+void printVector(vector<T>& vec, string msg) {
+    cout << "["<< msg <<"] ";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << " ";
+    }
+    cout << endl;
+}
+
+template <typename T>
+void print2DVector(vector<vector<T>>& vec) {
+    for (size_t i = 0; i < vec.size(); ++i) {
+        for (size_t j = 0; j < vec[i].size(); ++j) {
+            cout << vec[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+ListNode* buildList(vector<int>& data, size_t len) {
+    if (data.size() == 0) {
+        return NULL;
+    }
+    struct ListNode* head = new ListNode(data[0]);
+    struct ListNode* tail = head;
+    for (size_t i = 1; i < data.size() && i < len; ++i) {
+        ListNode* p = new ListNode(data[i]);
+        tail->next = p;
+        tail = tail->next;
+    }
+    return head;
+}
+
+void printList(ListNode* head) {
+    ListNode* p = head;
+    while (p != NULL) {
+        cout << p->val << " ";
+        p = p->next;
+    }
+    cout << endl;
+}
+
+void parseMatrix(int** matrix, int row, int col, vector<vector<int>>* vv) {
+    for (auto i = 0; i < row; ++i) {
+        vector<int> v;
+        for (auto j = 0; j < col; ++j) {
+            v.push_back(matrix[i][j]);
+        }
+        vv->push_back(v);
+    }
+}
+
+
+
+
+////////////////////////////////////////////////////
+///////////          TREE                    ///////
+////////////////////////////////////////////////////
+
+
+//LeetCode TreeFormat
+
+/*
+层序，从左到右，包括空节点，最下层右侧的空节点可省略
+https://support.leetcode.cn/hc/kb/article/1567641/
+右上角「树结构可视化」按钮可帮助你查看输入的二叉树实际的样子，如下图所示
+
+
+ 输入标准格式为[]或[值1,值2,值3,值4,值5,……]。
+若只输入[]则代表输入的测试用例是一棵空二叉树。
+若按[值1,值2,值3,值4,值5,……]格式输入，则“值 1”代表的是这棵二叉树的根节点，且从“值 1”开始一直到最后的数，依次是水平顺序遍历二叉树的各个节点的值，函数入参是已经构建完成的二叉树的根节点。
+Tips：若二叉树非空节点的某个子节点为空，则用null 表示，例如下图中“1”的右子节点为空，我们输入的测试用例即为[1,2,null,4,5]。
+*/
+
 //用 EMPTY_V来表示NULL节点
 const int EMPTY_V = 0x80000000;
 //nums里面必须包含完备的树节点，必须是一颗完全二叉树，即最下一层的右侧为空,左侧叶子结点为空指针的话，需要显示备注为 EMPTY_V
@@ -176,66 +251,6 @@ TreeNode* BuildBTreeByXLR(vector<int> nums) {
 // string serialize(TreeNode* root) { }
 
 // TreeNode* deserialize(string data) { }
-
-template <typename T>
-void printVector(vector<T>& vec, string msg) {
-    cout << "["<< msg <<"] ";
-    for (size_t i = 0; i < vec.size(); ++i) {
-        cout << vec[i] << " ";
-    }
-    cout << endl;
-}
-
-template <typename T>
-void print2DVector(vector<vector<T>>& vec) {
-    for (size_t i = 0; i < vec.size(); ++i) {
-        for (size_t j = 0; j < vec[i].size(); ++j) {
-            cout << vec[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-
-ListNode* buildList(vector<int>& data, size_t len) {
-    if (data.size() == 0) {
-        return NULL;
-    }
-    struct ListNode* head = new ListNode(data[0]);
-    struct ListNode* tail = head;
-    for (size_t i = 1; i < data.size() && i < len; ++i) {
-        ListNode* p = new ListNode(data[i]);
-        tail->next = p;
-        tail = tail->next;
-    }
-    return head;
-}
-
-void printList(ListNode* head) {
-    ListNode* p = head;
-    while (p != NULL) {
-        cout << p->val << " ";
-        p = p->next;
-    }
-    cout << endl;
-}
-
-void parseMatrix(int** matrix, int row, int col, vector<vector<int>>* vv) {
-    for (auto i = 0; i < row; ++i) {
-        vector<int> v;
-        for (auto j = 0; j < col; ++j) {
-            v.push_back(matrix[i][j]);
-        }
-        vv->push_back(v);
-    }
-}
-
-
-
-
-////////////////////////////////////////////////////
-///////////          TREE                    ///////
-////////////////////////////////////////////////////
-
 
 
 
