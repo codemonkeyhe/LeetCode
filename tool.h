@@ -90,4 +90,22 @@ void remLast(string& str) {
     str.pop_back();
 }
 
+
+
+
+// frequently use
+/*
+isalpha()
+isalnum()
+isdigit()
+islower()
+isupper()
+
+
+
+    int diff = 32;
+    int diff = 'a' - 'A'; // 97-65
+
+*/
+
 #endif
