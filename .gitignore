@@ -40,3 +40,6 @@
 .vscode/
 .vscode/settings.json
 
+# tmp
+00Tmp.*
+
