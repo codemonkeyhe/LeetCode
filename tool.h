@@ -81,6 +81,18 @@ vector<string> strSplitBy(string str, char delimiter) {
     return res;
 }
 
+vector<string> strSplitBy2(string str, char delimiter) {
+    size_t pos = 0;
+    size_t prev = 0;
+    vector<string> res;
+    while ((pos = str.find(delimiter, pos)) != string::npos) {
+        res.push_back(str.substr(prev, pos-prev));
+        pos++;
+        prev = pos;
+    }
+    res.push_back(str.substr(prev));
+    return res;
+}
 
 // string 删除末尾字符
 void remLast(string& str) {
