@@ -132,6 +132,44 @@ M1
     }
 
 
+
+
+    bool helper3b(TreeNode* root, TreeNode* son,  vector<TreeNode*>& path) {
+        if (root == NULL)
+            return false;
+
+        path.push_back(root);
+        if (root == son) {
+            return true;
+        }
+        bool inLeft = helper3b(root->left, son, path);
+        if (inLeft) {
+            return true;
+        }
+        bool inRight = helper3b(root->right, son, path);
+        if (inRight) {
+            return true;
+        }
+        path.pop_back();
+        return false;
+    }
+
+    TreeNode* lowestCommonAncestor3B(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode*> pathP;
+        vector<TreeNode*> pathQ;
+        helper3b(root, p,  pathP);
+        helper3b(root, q,  pathQ);
+        int i = 0;
+        for(; i < pathQ.size() && i < pathP.size(); i++) {
+            if (pathQ[i] != pathP[i]) {
+                break;
+            }
+        }
+        if (i == 0)
+            return NULL;
+        return pathQ[i - 1];
+    }
+
 /*
 M3
 Runtime: 20 ms, faster than 89.38% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
