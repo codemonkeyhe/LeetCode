@@ -3,7 +3,8 @@
  * @brief  P19
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-05-27
+ * @date 2020-05-27;20250504
+ * @similar 2415
  */
 
 /*
@@ -35,7 +36,85 @@ Follow up: Solve it both recursively and iteratively.
 
 using namespace std;
 
+/*
+ * @lc app=leetcode.cn id=101 lang=cpp
+ *
+ * [101] 对称二叉树
+ *
+ * https://leetcode.cn/problems/symmetric-tree/description/
+ *
+ * algorithms
+ * Easy (60.28%)
+ * Likes:    2945
+ * Dislikes: 0
+ * Total Accepted:    1.3M
+ * Total Submissions: 2.1M
+ * Testcase Example:  '[1,2,2,3,4,4,3]'
+ *
+ * 给你一个二叉树的根节点 root ， 检查它是否轴对称。
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：root = [1,2,2,3,4,4,3]
+ * 输出：true
+ *
+ *
+ * 示例 2：
+ * 输入：root = [1,2,2,null,3,null,3]
+ * 输出：false
+ *
+ *
+ *
+ *
+ * 提示：
+ * 树中节点数目在范围 [1, 1000] 内
+ * -100 <= Node.val <= 100
+ *
+ *
+ *
+ *
+ * 进阶：你可以运用递归和迭代两种方法解决这个问题吗？
+ *
+ */
+
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        return isMirror(root->left, root->right);
+    }
+
+
+    bool isMirror(TreeNode* r1, TreeNode* r2) {
+        if (r1 == NULL && (r2 == NULL)) {
+            return true;
+        }
+        if (r1 == NULL || (r2 == NULL)) {
+            return false;
+        }
+        if (r1->val != r2->val) {
+            return false;
+        }
+        return isMirror(r1->left, r2->right) && isMirror(r1->right, r2->left);
+    }
+};
+// @lc code=end
+
+
+
+class SolutionJZ {
 public:
 /*
 InOrder as a full binary tree, a full binary tree is every node has 0 or 2 sons.
@@ -227,7 +306,7 @@ int main() {
     vector<int> nu(nums, nums + len);
     TreeNode* root = buildBinaryTree(nu);
 
-    Solution s;
+    SolutionJZ s;
     cout << s.isSymmetricM33(root) << endl;
 
     return 0;
