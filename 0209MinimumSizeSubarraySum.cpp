@@ -3,7 +3,7 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-09-14
+ * @date 2020-09-14,20250504
  * @tag  slidingWindow;
  * @similar
  */
@@ -27,7 +27,7 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 using namespace std;
 
-class Solution {
+class SolutionOld {
 public:
 /*
 Runtime: 16 ms, faster than 82.71% of C++ online submissions for Minimum Size Subarray Sum.
@@ -196,11 +196,133 @@ int maximumCopy2(const vector<int>& nums, int s, int& start, int& end) {
         return maxS == INT_MIN ? -1 : (s - maxS);
     }
 
+/*
+ * @lc app=leetcode.cn id=209 lang=cpp
+ *
+ * [209] 长度最小的子数组
+ *
+ * https://leetcode.cn/problems/minimum-size-subarray-sum/description/
+ *
+ * algorithms
+ * Medium (46.40%)
+ * Likes:    2443
+ * Dislikes: 0
+ * Total Accepted:    1M
+ * Total Submissions: 2.2M
+ * Testcase Example:  '7\n[2,3,1,2,4,3]'
+ *
+ * 给定一个含有 n 个正整数的数组和一个正整数 target 。
+ *
+ * 找出该数组中满足其总和大于等于 target 的长度最小的 子数组 [numsl, numsl+1, ..., numsr-1, numsr]
+ * ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：target = 7, nums = [2,3,1,2,4,3]
+ * 输出：2
+ * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+ *
+ *
+ * 示例 2：
+ * 输入：target = 4, nums = [1,4,4]
+ * 输出：1
+ *
+ *
+ * 示例 3：
+ * 输入：target = 11, nums = [1,1,1,1,1,1,1,1]
+ * 输出：0
+ *
+ *
+ *
+ *
+ * 提示：
+ * 1 <= target <= 10^9
+ * 1 <= nums.length <= 10^5
+ * 1 <= nums[i] <= 10^4
+ *
+ *
+ *
+ *
+ * 进阶：
+ *
+ *
+ * 如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。
+ *
+ *
+ */
+
+// @lc code=start
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int minLen = INT_MAX;
+        int i = 0;
+        int j = 0;
+        int len = nums.size();
+        long long sum = 0;
+        while(i < len) {
+            if (sum >= target) {
+                int curLen = j - i;
+                if (curLen < minLen) {
+                    minLen = curLen;
+                }
+                sum -= nums[i];
+                i++;
+            } else {
+                if (j >= len) {
+                    break;
+                }
+                sum += nums[j];
+                j++;
+            }
+        }
+        if (minLen == INT_MAX) {
+            return 0;
+        }
+        return minLen;
+    }
+};
+// @lc code=end
+
+/*
+
+Wrong Answer
+16/21 cases passed (N/A)
+Testcase
+11
+[1,1,1,1,1,1,1,1]
+Answer
+10000
+Expected Answer
+0
+
+
+ * 输入：target = 7, nums = [2,3,1,2,4,3]
+ * 输出：2
+ * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+
+2,3,1,2,4,3
+
+
+2,3,1,2
+3 1 2
+3 1 2 4
+1 2 4  相等 left++
+2 4
+2 4 3
+4 3   相等 left++
+3    left right = len-1
+       left = len-1 j=len
+j++
+
+
+*/
 
 int main() {
     int sum = 3;
     vector<int> v{1, 1};
-    Solution s;
+    SolutionOld s;
     // cout << s.minSubArrayLen(sum, v) << endl;
 
     int C = 8;
