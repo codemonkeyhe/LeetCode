@@ -3,10 +3,10 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-09-13  
+ * @date 2020-09-13
  * 2024-04-15
  * @tag  slidingWindow;
- * @similar  159, 340
+ * @similar  159, 340, 209, 713
  */
 
 /*
@@ -46,35 +46,35 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
  * Testcase Example:  '"abcabcbb"'
  *
  * 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
- * 
- * 
- * 
+ *
+ *
+ *
  * 示例 1:
  * 输入: s = "abcabcbb"
- * 输出: 3 
+ * 输出: 3
  * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
- * 
- * 
+ *
+ *
  * 示例 2:
  * 输入: s = "bbbbb"
  * 输出: 1
  * 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
- * 
- * 
+ *
+ *
  * 示例 3:
  * 输入: s = "pwwkew"
  * 输出: 3
  * 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
  * 请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * 提示：
  * 0 <= s.length <= 5 * 10^4
  * s 由英文字母、数字、符号和空格组成
- * 
- * 
+ *
+ *
  */
 
 
@@ -89,12 +89,13 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
 
 using namespace std;
 
+
+
+// @lc code=start
 class Solution {
 public:
 
-
-    // 2024-04-15
-    int lengthOfLongestSubstring(string s) {
+    int lengthOfLongestSubstringM1(string s) {
         unordered_set<char> dup;
         int len = s.size();
         int i = 0;
@@ -116,6 +117,48 @@ public:
         return maxLen;
     }
 
+    // nodup right++
+    // dup left++
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char, int> dup;
+        int len = s.size();
+        int i = 0;
+        int j = 0;
+        int maxLen = 0;
+        while(j < len) {
+            dup[s[j]]++;
+            while(dup[s[j]] > 1) { // means dup
+                dup[s[i]]--;
+                i++;  // left++
+            }
+            maxLen = max(maxLen, j - i + 1);
+            // means no dup
+            j++;
+        }
+        return maxLen;
+    }
+
+};
+// @lc code=end
+
+
+/*
+
+Wrong Answer
+986/987 cases passed (N/A)
+Testcase
+""
+Answer
+-1
+Expected Answer
+0
+
+*/
+
+
+
+class SolutionOld {
+public:
 
 /*
 Runtime: 40 ms, faster than 56.19% of C++ online submissions for Longest Substring Without Repeating Characters.
@@ -339,7 +382,7 @@ int lengthOfLongestSubstring(char * s){
 
 
 int main() {
-    Solution s;
+    SolutionOld s;
     // string str = "abcabcbb";
     // string str = "tmmzuxt";
     string str = "aabaab!bb";

@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2020-09-14,20250504
  * @tag  slidingWindow;
- * @similar
+ * @similar 3, 713
  */
 
 /*
@@ -255,7 +255,7 @@ int maximumCopy2(const vector<int>& nums, int s, int& start, int& end) {
 // @lc code=start
 class Solution {
 public:
-    int minSubArrayLen(int target, vector<int>& nums) {
+    int minSubArrayLenM1(int target, vector<int>& nums) {
         int minLen = INT_MAX;
         int i = 0;
         int j = 0;
@@ -282,6 +282,27 @@ public:
         }
         return minLen;
     }
+
+
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int minLen = INT_MAX;
+        int le = 0;
+        int ri = 0;
+        int len = nums.size();
+        int sum = 0;
+        while ((ri < len)) {
+            sum += nums[ri];
+            while (sum >= target) {
+                minLen = min(minLen, ri - le + 1);
+                sum -= nums[le];
+                le++;
+            }
+            ri++;
+        }
+        return (minLen == INT_MAX)? 0 : minLen;
+    }
+
+
 };
 // @lc code=end
 
