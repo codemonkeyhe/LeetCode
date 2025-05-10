@@ -3,9 +3,9 @@
  * @brief 1st-AC
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-09-10
+ * @date 2020-09-10;20250509
  * @tag
- * @similar  35
+ * @similar  35, 744
  */
 
 /*
@@ -35,7 +35,155 @@ nums is a non decreasing array.
 
 using namespace std;
 
+
+/*
+ * @lc app=leetcode.cn id=34 lang=cpp
+ *
+ * [34] 在排序数组中查找元素的第一个和最后一个位置
+ *
+ * https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/description/
+ *
+ * algorithms
+ * Medium (43.47%)
+ * Likes:    3007
+ * Dislikes: 0
+ * Total Accepted:    1.2M
+ * Total Submissions: 2.7M
+ * Testcase Example:  '[5,7,7,8,8,10]\n8'
+ *
+ * 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
+ *
+ * 如果数组中不存在目标值 target，返回 [-1, -1]。
+ *
+ * 你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：nums = [5,7,7,8,8,10], target = 8
+ * 输出：[3,4]
+ *
+ * 示例 2：
+ * 输入：nums = [5,7,7,8,8,10], target = 6
+ * 输出：[-1,-1]
+ *
+ * 示例 3：
+ * 输入：nums = [], target = 0
+ * 输出：[-1,-1]
+ *
+ *
+ *
+ * 提示：
+ * 0 <= nums.length <= 10^5
+ * -10^9 <= nums[i] <= 10^9
+ * nums 是一个非递减数组
+ * -10^9 <= target <= 10^9
+ *
+ *
+ */
+
+// @lc code=start
 class Solution {
+public:
+    vector<int> searchRangeM1(vector<int>& nums, int target) {
+        // first >=
+        auto posL = lower_bound(nums.begin(), nums.end(), target);
+        if (posL == nums.end() || (*posL != target)) {
+            return {-1, -1};
+        }
+        int idxLeft = posL - nums.begin();
+
+        // first >
+        auto posR = upper_bound(nums.begin(), nums.end(), target);
+        // must exist, else lower_bound will return
+        int idxRight = posR - nums.begin();
+        return {idxLeft, idxRight - 1};
+    }
+
+
+    vector<int> searchRangeM2(vector<int>& nums, int target) {
+        // first >=
+        auto posL = lower_bound(nums.begin(), nums.end(), target);
+        if (posL == nums.end() || (*posL != target)) {
+            return {-1, -1};
+        }
+        int idxLeft = posL - nums.begin();
+
+        // first >=
+        auto posR = lower_bound(nums.begin(), nums.end(), target+1);
+        // must exist, else lower_bound will return
+        int idxRight = posR - nums.begin();
+        return {idxLeft, idxRight - 1};
+    }
+
+    bool isBlue(int val, int target) {
+        if (val < target) {
+            return true;
+        }
+        return false;
+    }
+
+    // find first >= target
+    // blueDef:   any val < target   redDef any val >= target
+    // answer = right
+    // mid range [0, N)
+    /* 3 case
+    INT_MAX  left = N-1, right = N  return -1
+    INT_MIN  left = -1  right = 0
+    [1]  1  left = -1 right = 0
+
+    */
+    int lowBound(vector<int>& nums, int target) {
+        int left = -1;
+        int right = nums.size();
+        while (left+1 < right) {
+            int mid = left + ((right - left) >> 1);
+            if (isBlue(nums[mid], target)) { //
+                left = mid;
+            } else { //
+                right = mid;
+            }
+        }
+        return right;
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        auto posL = lowBound(nums, target);
+        if (posL ==  nums.size() || nums[posL] != target) {
+            return {-1, -1};
+        }
+        auto posR = lowBound(nums, target + 1);
+        return {posL, posR - 1};
+    }
+};
+// @lc code=end
+
+/*
+Wrong Answer
+67/88 cases passed (N/A)
+Testcase
+[1]
+1
+Answer
+[-1,-1]
+Expected Answer
+[0,0]
+
+
+Wrong Answer
+56/88 cases passed (N/A)
+Testcase
+[5,7,7,8,8,10]
+6
+Answer
+[1,0]
+Expected Answer
+[-1,-1]
+
+*/
+
+
+class SolutionOld {
 public:
 
 /*
@@ -115,7 +263,7 @@ Memory Usage: 14.1 MB, less than 9.76% of C++ online submissions for Find First 
 
 
     /*
-        C++的 lowerBound就是 [low,high)区间
+        C++的 lowerBound 就是 [low,high)区间
         找到第一个元素大于等于 target的位置,
             找不到时，就返回high!!!
             找不到时，就返回high!!!
@@ -131,6 +279,7 @@ Memory Usage: 14.1 MB, less than 9.76% of C++ online submissions for Find First 
         nums[mid-1]==target，此时high=mid 没问题
         nums[mid-1] < target, 此时high=mid，最后会找不到target,返回大于target的第一个位置，也即是mid-1+1=mid
     */
+   // 左闭右开 [low, high)
     int lowerBound(vector<int>& nums, int low, int high, int target) {
         //如果用<=可能越界
         while (low < high) {
@@ -206,7 +355,7 @@ int main() {
     //int target = 8;
     int targets[6] = {5,6,7,8,9,10};
     vector<int> tg(targets, targets + 6);
-    Solution s;
+    SolutionOld s;
     for (auto t: tg) {
         auto res = s.searchRange(data, t);
         for (int i : res) {
