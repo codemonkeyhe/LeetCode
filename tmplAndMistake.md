@@ -42,3 +42,43 @@ int BlueRedSplit(vector<int> nums, int target) {
 
 ```
 
+
+### lower_bound返回的是迭代器
+
+#### leetcode2089
+``` cpp
+
+    vector<int> targetIndicesM2(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        vector<int> res;
+        // first >=
+        vector<int>::iterator it = lower_bound(nums.begin(), nums.end(), target);
+        if (it == nums.end() || (*it != target)) {
+            return res;
+        }
+        int idx = it - nums.begin();
+        while (idx < nums.size() && (nums[idx] == target)) {
+            res.push_back(idx);
+            idx++;
+        }
+        return res;
+    }
+
+    vector<int> targetIndices(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        vector<int> res;
+        // first >=
+        int it = lower_bound(nums.begin(), nums.end(), target) - nums.begin();
+        if (it == nums.size() || (nums[it] != target)) {
+            return res;
+        }
+        while (it < nums.size() && (nums[it] == target)) {
+            res.push_back(it);
+            it++;
+        }
+        return res;
+    }
+
+
+```
+
