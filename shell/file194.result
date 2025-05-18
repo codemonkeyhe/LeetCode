@@ -1,0 +1,24 @@
+Test1
+a 
+Want 
+a
+
+Solution1 Error
+cut -d ' ' -f 1 file.txt  | tr  '\n' ' '
+cut -d ' ' -f 2 file.txt  | tr  '\n' ' '
+
+
+
+
+Solution2 
+# Read from the file file.txt and print its transposed content to stdout.
+cnt=$(cat file.txt | awk 'END{print NF}')
+for ((i=1; i<=$cnt; i++))
+do
+    line=$(cut -d ' ' -f $i file.txt  | tr  '\n' ' ')
+    echo $line
+done
+
+
+Extra
+cnt=$(head -1 file.txt | wc -w)

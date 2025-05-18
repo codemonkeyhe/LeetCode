@@ -1,0 +1,19 @@
+Line 10
+
+Solution 1
+awk 'NR==10{printf $0}'  file.txt
+
+Solution2
+# Read from the file file.txt and output the tenth line to stdout.
+cnt=$(wc -l file.txt | awk '{printf $1}')
+if [ $cnt -lt 10 ];then
+    exit 0
+fi
+cat file.txt | head -n 10 | tail -n 1
+
+Solution3
+ sed -n '10p'  file.txt 
+
+
+
+
