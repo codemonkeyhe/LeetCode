@@ -7,6 +7,18 @@ Error:
 OK:
        int mid = left + ((right - left) >> 1);
 
+# STD
+1 求max和min
+min(op1, op2)
+min({op1, op2, op3}) // C++ 11 新方法
+
+2  vector求min max
+在 C++ 中查找Vector中的最小值或最大值
+std::min_element 和 std::max_element 分别返回指定范围内的最小值和最大值的迭代器
+   std::vector<int> v = {2, 1, 3, 6, 7, 9, 8};
+    int max = *max_element(v.begin(), v.end());
+    int min = *min_element(v.begin(), v.end());
+
 
 
 # 模版
