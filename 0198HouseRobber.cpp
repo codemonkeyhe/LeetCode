@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-05-14
  * @tag dynamicProgramming
- * @similar
+ * @similar   198, 213, 337, 2560
  */
 
 /*
@@ -94,7 +94,7 @@ public:
         vector<int> res(len + 2, 0);
         for (int i = 0; i < len; i++) {
             // i = 1, i-2 = -1
-            // 往右偏移2个单位
+            // nums不变， res往右偏移2个单位
             // res[i] = max(res[i-2]+nums[i], res[i-1]);
             res[i + 2] = max(res[i] + nums[i], res[i + 1]);
         }
