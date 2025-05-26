@@ -70,6 +70,7 @@ vector<string> strSplit(string str) {
 }
 
 // only for one delimiter string, if too many spaces between strings, not use
+/*
 vector<string> strSplitBy(string str, char delimiter) {
     stringstream ss;
     ss << str;
@@ -94,16 +95,51 @@ vector<string> strSplitBy2(string str, char delimiter) {
     return res;
 }
 
-// string 删除末尾字符
-void remLast(string& str) {
-    //C++
-    //str.erase(str.end() - 1);
-    // C++ 11
-    str.pop_back();
+
+
+*/
+
+
+// support leetcode71
+vector<string> strSplitBy(string& str, char delimiter) {
+    stringstream ss;
+    ss << str;
+    vector<string> res;
+    string tmp;
+    while (getline(ss, tmp, delimiter)) {
+        if (tmp.size() > 0) {
+            res.push_back(tmp);
+        }
+    }
+    return res;
 }
 
+vector<string> strSplitBy2(string& str, char delimiter) {
+    size_t pos = 0;
+    size_t prev = 0;
+    vector<string> res;
+    while ((pos = str.find(delimiter, pos)) != string::npos) {
+        int len = pos - prev;
+        if (len != 0) {
+            res.push_back(str.substr(prev, len));
+        }
+        pos++;
+        prev = pos;
+    }
+    string lastpart = str.substr(prev);
+    if (lastpart.size() > 0) {
+        res.push_back(lastpart);
+    }
+    return res;
+}
 
-
+// string 删除末尾字符
+void remLast(string& str) {
+    // C++
+    // str.erase(str.end() - 1);
+    //  C++ 11
+    str.pop_back();
+}
 
 // frequently use
 /*
