@@ -2,11 +2,84 @@
  * @file 0053MaximumSubarray.cpp
  * @brief  最大子段和   JZOffer:P31  CCI5th:17.8
  * @author MonkeyHe
- * @version 2.0
- * @date 2018-09-17
- * @date 2020-03-06
+ * @version 3.0
+ * @date 2018-09-17,2020-03-06,20250528
+ * @similar 53, 152
  *
  */
+
+
+/*
+ * @lc app=leetcode.cn id=53 lang=cpp
+ *
+ * [53] 最大子数组和
+ *
+ * https://leetcode.cn/problems/maximum-subarray/description/
+ *
+ * algorithms
+ * Medium (55.34%)
+ * Likes:    7043
+ * Dislikes: 0
+ * Total Accepted:    2.1M
+ * Total Submissions: 3.8M
+ * Testcase Example:  '[-2,1,-3,4,-1,2,1,-5,4]'
+ *
+ * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+ *
+ * 子数组 是数组中的一个连续部分。
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+ * 输出：6
+ * 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+ *
+ *
+ * 示例 2：
+ * 输入：nums = [1]
+ * 输出：1
+ *
+ *
+ * 示例 3：
+ * 输入：nums = [5,4,-1,7,8]
+ * 输出：23
+ *
+ *
+ *
+ *
+ * 提示：
+ * 1 <= nums.length <= 10^5
+ * -10^4 <= nums[i] <= 10^4
+ *
+ *
+ * 进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
+ *
+ */
+
+// @lc code=start
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> dp(len, 0);
+        dp[0] = nums[0];
+        for (int i = 1; i < len; i++) {
+            dp[i] = max(nums[i], nums[i] + dp[i - 1]);
+        }
+
+        return *max_element(dp.begin(), dp.end());
+    }
+};
+// @lc code=end
+
+/*
+dp[i] 表示以 nums[i]结尾的最大子数组和
+dp[i] = max{nums[i], nums[i]+dp[i-1]}
+
+answer=max(dp[0...i])
+
+*/
 
 /*
 
@@ -33,7 +106,7 @@ using namespace std;
 //#define INT_MAX 0x7fffffff
 //#define INT_MIN 0x80000000
 
-class Solution
+class SolutionOld
 {
 public:
     int maxSubArray(vector<int> &nums)
@@ -120,7 +193,7 @@ public:
     }
 
 
-    // M4 规律法 O(N)
+    // M4 规律法 O(N) 贪心
     int M4(vector<int>& nums) {
         int curSum = 0;
         int maxSum = 0x80000000;
@@ -177,7 +250,7 @@ int maxSubSum(int *nums, int left, int right) {
     int sumLeft = maxSubSum(nums, left, pos);
     int sumRight = maxSubSum(nums, pos+1, right);
     int sumCenter = getMaxCenter(nums, pos, left, right);
-    int maxSum = -1000;
+    int maxSum = INT_MIN;
     if (sumLeft < sumRight) {
         maxSum = sumRight;
     } else {
@@ -189,10 +262,11 @@ int maxSubSum(int *nums, int left, int right) {
     return maxSum;
 }
 
+// maxSum必然经过 nums[pos]，因此 从pos往两边扩展，求最大和
 int getMaxCenter(int *nums, int pos, int left, int right) {
     int sum = 0;
-    int maxLeft = -1000;
-    int maxRight = -1000;
+    int maxLeft = INT_MIN;
+    int maxRight = INT_MIN;
     for (int i = pos; i >= left; i--) {
         sum += nums[i];
         if (sum > maxLeft) {
@@ -222,7 +296,7 @@ int main()
     cout <<"HI2"<<endl;
 
     // cpp
-    Solution s;
+    SolutionOld s;
     int re = s.maxSubArray(nu);
     cout << "CPP: " << re << endl;
     return 0;
@@ -236,6 +310,7 @@ int main()
 /*
 Tips:
 编程之美 2.14
+
 M1 暴力法 O(N^3) => O(N^2)
 M2 分治法 O(N*logN)
     MaxSum(A[0..N]):
@@ -250,7 +325,8 @@ M3 动态规划 O(N)
     其中Start[n] = A[n] , MaxSum[n..n] = A[n]
 
 
-M4 规律法 O(N) 和 动态规划很相似
+M4 规律法 O(N)  本质上算是贪心
+和 动态规划很相似
     M4 规律法原理
     假设数组为 A[1...N]
       令最大连续子数组和 MaxSum = A[i...k]
@@ -261,5 +337,8 @@ M4 规律法 O(N) 和 动态规划很相似
        因此从左开始遍历数组，但凡遇到 Sum[k...i-1]　<=0的，直接舍弃，则i为潜在的MaxSum的左边界。
        左边界找到了，因此往右遍历，尝试每一个右边界，把每次新加进来的右边界节点求和，与MaxSum比较。
 
-M4缺点： 如果数组的元素全是负数，M4最后的结果maxsum=0，不一定符合题意
+M4 SpecialCase： 如果数组的元素全是负数，M4最后的结果maxsum=最大的负数，也符合题意
+需要注意写法，写完用 [-2, -1, -3] 以及 [-5] 做测试
+
+
 */
