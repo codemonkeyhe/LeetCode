@@ -13,6 +13,7 @@ using namespace std;
 /*
 C++11
 string std::to_string(int num)
+to_string支持负数
 
 C style
 snprintf
@@ -175,5 +176,6 @@ max
 swap
 
 */
+
 
 #endif
