@@ -3,8 +3,85 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-03-12
+ * @date 2020-03-12,2025-06-09
+ * @similar  70,746
  */
+
+/*
+ * @lc app=leetcode.cn id=70 lang=cpp
+ *
+ * [70] 爬楼梯
+ *
+ * https://leetcode.cn/problems/climbing-stairs/description/
+ *
+ * algorithms
+ * Easy (54.57%)
+ * Likes:    3833
+ * Dislikes: 0
+ * Total Accepted:    1.9M
+ * Total Submissions: 3.4M
+ * Testcase Example:  '2'
+ *
+ * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+ * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+ *
+ *
+ *
+ * 示例 1：
+ * 输入：n = 2
+ * 输出：2
+ * 解释：有两种方法可以爬到楼顶。
+ * 1. 1 阶 + 1 阶
+ * 2. 2 阶
+ *
+ * 示例 2：
+ * 输入：n = 3
+ * 输出：3
+ * 解释：有三种方法可以爬到楼顶。
+ * 1. 1 阶 + 1 阶 + 1 阶
+ * 2. 1 阶 + 2 阶
+ * 3. 2 阶 + 1 阶
+ *
+ *
+ *
+ *
+ * 提示：
+ * 1 <= n <= 45
+ *
+ *
+ */
+
+// @lc code=start
+class Solution {
+public:
+    // TLE
+    int climbStairsM1(int n) {
+        if (n==0) {
+            return 1;
+        }
+        if (n==1) {
+            return 1;
+        }
+        return climbStairs(n - 2) + climbStairs(n - 1);
+    }
+
+
+    unordered_map<int, int> cache;
+    int climbStairs(int n) {
+        if (n <= 1) {
+            return 1;
+        }
+        if (cache.count(n)) {
+            return cache[n];
+        }
+        int res = climbStairs(n - 2) + climbStairs(n - 1);
+        cache[n] = res;
+        return  res;
+    }
+};
+// @lc code=end
+
+
 
 /*
 You are climbing a stair case. It takes n steps to reach to the top.
@@ -35,7 +112,7 @@ Explanation: There are three ways to climb to the top.
 
 using namespace std;
 
-class Solution {
+class SolutionOld {
 public:
     int climbStairs(int n) {
         if (n==1) {
@@ -63,7 +140,7 @@ int climbStairs(int n){
 int main() {
     int n = 7;
     printf("%d\n", climbStairs(n));
-    Solution s;
+    SolutionOld s;
     cout <<  s.climbStairs(n) << endl;
     return 0;
 }
