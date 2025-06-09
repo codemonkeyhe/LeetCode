@@ -7,6 +7,12 @@ Error:
 OK:
        int mid = left + ((right - left) >> 1);
 
+### Case2 &
+Error:
+     if (cur & (cur - 1)  == 0) {
+OK:
+    if ((cur & (cur - 1) ) == 0) {
+
 # STD
 1 求max和min
 min(op1, op2)
