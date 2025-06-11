@@ -13,36 +13,37 @@
 */
 
 /*
-494
 
-32
+DP
+377
+435
+354
 
-22
-
-greedy
-860
-
-
-todo
-89  134 150  164 166
-
-tre
-543
-
-
-TODO
+TODO 15
 https://leetcode.cn/studyplan/top-100-liked/
 42-739
 76 560 239
 41
-207 208 994
+207-210
+208 994
 4
 84-394-739
 347-295
 763
 
 
+TODO 30
 https://leetcode.cn/studyplan/top-interview-150/
+123-188
+
+Design
+295
+208 460 535
+622
+703 705 706 707
+380-381
+
+
 
 
 
