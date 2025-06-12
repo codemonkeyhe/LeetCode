@@ -4,7 +4,8 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2025-03-12
- * @tag
+ * @tag DFS; backtracking
+ * @similar  39,40,216,322,377,518
  */
 
 /*

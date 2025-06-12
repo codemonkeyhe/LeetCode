@@ -3,9 +3,9 @@
  * @brief   similar 40 46 47  78  90
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-06-22
- * @date 2025-03-12
- * @tag
+ * @date 2020-06-22  2025-03-12
+ * @tag backtracking
+ * @similar  39,40,216,322,377,518
  */
 
 /*

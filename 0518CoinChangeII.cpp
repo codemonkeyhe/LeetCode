@@ -3,9 +3,9 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2025-05-16
+ * @date 2025-05-16;2025-06-12
  * @tag  dynamicProgramming
- * @similar  322
+ * @similar  322,377,518
  */
 
 /*
@@ -80,7 +80,7 @@ public:
     int res = 0;
     unordered_map<int, int> cache;
 
-    int change(int amount, vector<int>& coins) {
+    int changeDP1(int amount, vector<int>& coins) {
       //  vector<int> path;
        // changeBT(amount, coins, 0, path);
       //sort(coins.begin(), coins.end());
@@ -136,8 +136,78 @@ public:
             path.pop_back();
         }
     }
+
+    //     dp[i][j] = dp[i-1][j]+dp[i][j-coins[i]]
+    int change(int amount, vector<int>& coins) {
+        int n = coins.size();
+        vector<vector<unsigned long> > dp(n, vector<unsigned long>(amount+1, 0));
+
+        for (int j = 1; j <= amount; j++) {
+            if (j % coins[0] == 0) {
+                dp[0][j] = 1;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                dp[i][j] = dp[i-1][j];
+                if (j >= coins[i]) {
+                    dp[i][j] += dp[i][j - coins[i]];
+                }
+            }
+        }
+
+        return dp[n-1][amount];
+    }
 };
 // @lc code=end
+
+/*
+
+DP的思维误区
+
+    dp[i][j]表示coins[0...i]凑成j的组合数
+    1 不选coins[i], 组合数为dp[i-1][j]
+    2 选用coins[i], 组合数为dp[i][j-coins[i]]
+    加法原理
+    dp[i][j] = dp[i-1][j]+dp[i][j-coins[i]]
+
+思维陷阱
+    注意， 选coins[i], 组合数不是dp[i-1][j-coins[i]]，因为硬币可以无限使用
+    错误的DP
+    dp[i][j] = dp[i-1][j]+dp[i-1][j-coins[i]]
+
+因为 dp[i-1][j-coins[i]]意味着 coins[0 .. i-1]凑成j -coins[i]的组合数
+此时，选择coins[i]加入到上面的组合结果时，表明了 coins[i]只用了一次，
+而题意是可以无限使用硬币，因此，上面的DP公示是错误的
+
+而 dp[i][j-coins[i]] 表示 coins[0 .. i] 凑成  j -coins[i]的组合数，也包含了硬币coins[i]，并且不限次数， 然后，在 j -coins[i]的组合数的基础上，最后使用一次 coins[i]，构成j ，因此 ， dp[i][j-coins[i]]是正确的
+
+
+若要从 coins[i]的使用次数来推到DP公式，正确版本如下：
+    dp[i][j] = dp[i-1][j]
+        +dp[i-1][j-coins[i]] // coins[i]使用1 次
+        +dp[i-1][j-coins[i]*2] // coins[i]使用2 次
+        +dp[i-1][j-coins[i]*3] // coins[i]使用3 次
+        ...
+        +dp[i-1][j-coins[i]*k] // coins[i]使用k 次
+
+    而  上面的
+dp[i-1][j-coins[i]]  + dp[i-1][j-coins[i]*2] + dp[i-1][j-coins[i]*k]
+等价于   dp[i][j-coins[i]]
+
+详见下面的解法，与上面同理
+ f[i][j] =  f[i - 1][j] +  f[i - 1][j - k * val];  k从1到 k*val<=j
+https://leetcode.cn/problems/coin-change-ii/solutions/821592/gong-shui-san-xie-xiang-jie-wan-quan-bei-6hxv/
+将形如 f[i−1][j−k∗val] 的式子更替为 f[j−val]，
+
+
+*/
+
 
 /*
 BT时的去重
@@ -246,10 +316,10 @@ dp[5]=旧dp[5]+dp[3](use coin=2)=1+2=3
 3=1+2 (use 2)
 
 
-
+coins=[1,2]
 扩成2维
-dp[3,2]表示使用前2枚硬币凑成数额3的组合数
-dp[3,2]=dp[3,1]+dp[1, 2] = 1+1=2
+dp[2,3]表示使用前2枚硬币凑成数额3的组合数
+dp[2,3]=dp[1,3]+dp[2, 1] = 1+1=2
 
 
 
