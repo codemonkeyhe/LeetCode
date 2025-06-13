@@ -3,8 +3,8 @@
  * @brief 1st-AC
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-09-10;20250509
- * @tag
+ * @date 2020-09-10;2025-05-09
+ * @tag binarySearch
  * @similar  35, 744
  */
 
@@ -385,7 +385,7 @@ lower_bound：
 
 upper_bound:
 功能：查找非递减序列[first,last) 内第一个大于某个元素的位置。
-返回值：如果找到第一个大于或等于的，返回找到元素的地址,否则返回last的地址。（同样这样不注意的话会越界，小心）
+返回值：如果找到第一个大于，返回找到元素的地址,否则返回last的地址。（同样这样不注意的话会越界，小心）
 用法：int t=upper_bound(a+l,a+r,key)-a; (a是数组)
 
 M23  左闭右闭[low, high]

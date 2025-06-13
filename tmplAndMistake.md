@@ -138,7 +138,48 @@ int BlueRedSplit(vector<int> nums, int target) {
 
 
 
-### lower_bound返回的是迭代器
+## lower_bound & upper_bound
+返回的是迭代器 vector<int>::iterator  it;  使用前需判空，如果it= nums.end(); 使用*it会报错
+要获取下标 idx = it - nums.begin();
+lower_bound 意思 find the first >= target
+upper_bound 意思 find the first > target
+
+lower_bound：
+功能：查找非递减序列[first,last) 内第一个大于或等于某个元素的位置。
+返回值：如果找到第一个大于或等于的，则返回找到元素的地址,否则返回last的地址。（这样不注意的话会越界，小心）
+用法：
+1 auto it=lower_bound(a.begin(),a.end(), target);
+2 int t=lower_bound(a.begin(),a.end(), target)-a.begin();
+
+Case1 即target不在范围内，会返回两种值:
+一种是first，说明target比整个数组都小
+一种是last，说明target比整个数组都大
+
+Case2 target在范围内，并且存在: 则有 *it == target
+
+Case3 target在范围内，但不存在: 则有 *it != target && *it > target
+
+upper_bound:
+功能：查找非递减序列[first,last) 内第一个大于某个元素的位置。
+返回值：如果找到第一个大于，返回找到元素的地址,否则返回last的地址。（同样这样不注意的话会越界，小心）
+用法同上
+
+Case1 即target不在范围内，会返回两种值:
+一种是first，说明target比整个数组都小
+一种是last，说明target比整个数组都大
+
+Case2 target在范围内，并且存在: 则有 *(it-1) == target
+Case3 target在范围内，但不存在: 则有 *it != target && *it > target
+
+target=7
+     UB3(target3=6)
+        |     LB2-1  LB2(target2=8)
+        |       |     |
+1   3   7   7   7     9
+        |       |     |
+        LB    UB-1    UB
+
+
 
 #### leetcode2089
 ``` cpp
@@ -176,11 +217,23 @@ int BlueRedSplit(vector<int> nums, int target) {
 
 
 ```
+## sort
 ### sort与pair<int, int>
 默认使用pair的first元素进行排序，不用额外写cmp函数
     vector<pair<int, int> > datas;
     sort(datas.begin(), datas.end());
 
+
+### 对于二维Vector排序，需要写cmpFn，必须保证严格弱序
+ vector<vector<int>>& intervals
+    // 弱序 严格   a=b must return false
+    // a < b return true
+    static bool cmpFn(vector<int>& a, vector<int>& b) {
+        if (a[0] < b[0]) {
+            return true;
+        }
+        return false;
+    }
 
 
 
