@@ -25,6 +25,65 @@ std::min_element 和 std::max_element 分别返回指定范围内的最小值和
     int max = *max_element(v.begin(), v.end());
     int min = *min_element(v.begin(), v.end());
 
+# sort
+## sort与pair<int, int>
+默认使用pair的first元素进行排序，不用额外写cmp函数
+    vector<pair<int, int> > datas;
+    sort(datas.begin(), datas.end());
+
+
+## 对于二维Vector排序，需要写cmpFn，必须保证严格弱序
+``` cpp
+ vector<vector<int>>& intervals
+    // 弱序 严格   a=b must return false
+    // a < b return true
+    static bool cmpFn(vector<int>& a, vector<int>& b) {
+        if (a[0] < b[0]) {
+            return true;
+        }
+        return false;
+    }
+
+```
+
+
+
+
+# String API
+<cctype>
+ 0-9
+int isdigit(int ch)
+
+int isupper(int ch)
+大写字母 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+int islower(int ch)
+小写字母 abcdefghijklmnopqrstuvwxyz
+
+
+大写+小写判定
+int isalpha(int ch)
+
+字母或数字
+int isalnum(int ch)
+
+
+
+# stack -Skill
+stack可以用vector来代替，因为stack不方便遍历中间元素，必须不断地top和pop
+也不方便从栈底构建结果
+
+对应vector操作
+back()            | top 访问栈顶元素
+pop_back()        | pop 删除栈顶元素
+push_back()       | push 向栈顶插入元素
+empty()           | empty 检查底层的容器是否为空
+size()            | size 返回容纳的元素数
+emplace()         | emplace (C++11) 于顶原位构造元素
+
+## demo
+LeetCode-394
+
 
 
 # 模版
@@ -217,24 +276,4 @@ target=7
 
 
 ```
-## sort
-### sort与pair<int, int>
-默认使用pair的first元素进行排序，不用额外写cmp函数
-    vector<pair<int, int> > datas;
-    sort(datas.begin(), datas.end());
-
-
-### 对于二维Vector排序，需要写cmpFn，必须保证严格弱序
- vector<vector<int>>& intervals
-    // 弱序 严格   a=b must return false
-    // a < b return true
-    static bool cmpFn(vector<int>& a, vector<int>& b) {
-        if (a[0] < b[0]) {
-            return true;
-        }
-        return false;
-    }
-
-
-
 
