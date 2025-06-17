@@ -4,8 +4,8 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2025-06-16
- * @tag stack, monotonic-stack
- * @similar 496, 739
+ * @tag stack, monotonicStack
+ * @similar 42, 496, 739
  */
 
 /*
