@@ -85,6 +85,78 @@ emplace()         | emplace (C++11) 于顶原位构造元素
 LeetCode-394
 
 
+# deque
+## demo
+LeetCode-239
+
+## CoreAPI
+
+push_back
+emplace_back
+pop_back
+
+push_front
+emplace_front
+pop_front
+
+clear
+erase
+
+## 小结
+stack和queue核心API相同，都是push和pop
+stack是pop栈顶，queue是pop队列头
+
+deque和vector的核心API相同，都有push_back和pop_back，
+vector没有push_front的API的
+
+stack可以用vector来代替
+queue可以用deque来代替
+vector也可以用deque来代替
+stack和queue底层就是deque, deque更加通用
+
+
+https://en.cppreference.com/w/cpp/container/stack.html
+https://en.cppreference.com/w/cpp/container/queue.html
+https://www.apiref.com/cpp-zh/cpp/container/deque.html
+
+
+# ProirityQueue
+
+## demo
+LeetCode-23, 215, 264, 239
+
+默认是大根堆
+        priority_queue<int> maxHeap;
+等价写法
+    priority_queue<int,vector<int>,less<int>> maxHeap;
+
+
+默认是大根堆，且按照pair.first元素排序
+       priority_queue<pair<int, int>> q;
+
+初始化方式
+        priority_queue<int> maxHeap(nums.begin(), nums.end());
+
+小根堆写法
+       priority_queue<int, vector<int>, greater<int>> minHeap;
+记忆方法，cmp函数取反，greater就是minHeap, less就是maxHeap
+
+### 仿函数less & greater
+bool less(T& a, T& b)
+  a < b 则返回true,  a less b return true ,  a 在前面
+
+bool greater(T& a, T& b)
+  a > b 则返回true,  a greater b return true ， a在前面
+
+从小到大
+sort(nums.begin(), nums.end(), less<int>());
+
+从大到小
+sort(nums.begin(), nums.end(), greater<int>());
+
+无论是less还是 greater，当a==b时，都返回false，保证严格弱序
+
+
 
 # 模版
 
