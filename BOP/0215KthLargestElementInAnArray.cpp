@@ -3,7 +3,9 @@
  * @brief  BOP 2.5
  * @author MonkeyHe
  * @version  1.0
- * @date 2020-03-31
+ * @date 2020-03-31;2025-06-23
+ * @tag  sort,quickSelect,heapSort
+ * @similar 215, 347, 692
  */
 
 /*
@@ -31,7 +33,130 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 using namespace std;
 
+
+/*
+ * @lc app=leetcode.cn id=215 lang=cpp
+ *
+ * [215] 数组中的第K个最大元素
+ *
+ * https://leetcode.cn/problems/kth-largest-element-in-an-array/description/
+ *
+ * algorithms
+ * Medium (61.40%)
+ * Likes:    2760
+ * Dislikes: 0
+ * Total Accepted:    1.4M
+ * Total Submissions: 2.3M
+ * Testcase Example:  '[3,2,1,5,6,4]\n2'
+ *
+ * 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
+ *
+ * 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+ *
+ * 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
+ *
+ *
+ *
+ * 示例 1:
+ * 输入: [3,2,1,5,6,4], k = 2
+ * 输出: 5
+ *
+ *
+ * 示例 2:
+ * 输入: [3,2,3,1,2,4,5,5,6], k = 4
+ * 输出: 4
+ *
+ *
+ *
+ * 提示：
+ * 1 <= k <= nums.length <= 10^5
+ * -10^4 <= nums[i] <= 10^4
+ *
+ *
+ */
+
+// @lc code=start
 class Solution {
+public:
+    int partitions(vector<int>& a, int low, int high) {
+        int pivot = a[low];
+        int i = low;
+        int j = high;
+        while (i < j) {
+            // 从右往左找到第一个小于pivot的值的下标
+            while (i < j && a[j] >= pivot)
+                --j;
+            // 从左往右找到第一个大于pivot的值的下标
+            while (i < j && a[i] <= pivot)
+                ++i;
+            if (i < j) {
+                swap(a[i], a[j]);
+            }
+        }
+        swap(a[low], a[i]);
+        return i;
+    }
+
+    int quickFind(vector<int>& nums, int low, int high, int k) {
+        int pivotidx = partitions(nums, low, high);
+        int order = nums.size() - pivotidx;
+        if (order == k) {
+            return nums[pivotidx];
+        }
+        if (order > k) {
+            return quickFind(nums, pivotidx + 1, high, k);
+        } else {
+            return quickFind(nums, low, pivotidx - 1, k);
+        }
+        return nums[low];
+    }
+
+    int findKthLargestM1(vector<int>& nums, int k) {
+        return quickFind(nums, 0, nums.size() - 1, k);
+    }
+
+
+    void HeapAdjust(vector<int>& a, int i, int n) {
+        int cur = a[i];
+        int j = (i << 1) + 1;  // j指向左孩子
+        while (j < n) {
+            if (j + 1 < n && a[j] < a[j + 1]) {
+                // 右孩子大的话,j指向右孩子
+                j++;
+            }
+            if (a[j] <= cur)
+                break;
+            a[i] = a[j];  // 大的孩子往上浮
+            i = j;
+            j = (i << 1) + 1;
+        }
+        a[i] = cur;
+    }
+
+    int findKthLargest(vector<int>& nums, int k) {
+        // BuildMaxHeap
+        int n = nums.size();
+        int idx = (n - 1) / 2;  // last non-leaf node
+        for (int i = idx; i >= 0; --i) {
+            HeapAdjust(nums, i, n);
+        }
+        // k-1次最大放末尾，堆顶就是第K大
+        int last = n - 1;
+        for (int i = 0; i < k - 1; i++) {
+            // 把堆顶最大值放到末尾
+            swap(nums[0], nums[last]);
+            // 对剩余的a[0..last-1]重新调整为堆
+            HeapAdjust(nums, 0, last);
+            last--;
+        }
+        return nums[0];
+    }
+};
+// @lc code=end
+
+
+
+class SolutionOld {
 public:
 
     //Runtime: 28 ms, faster than 26.58% of C++ online submissions for Kth Largest Element in an Array.

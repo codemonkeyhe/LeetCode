@@ -68,8 +68,8 @@ int isalpha(int ch)
 int isalnum(int ch)
 
 
-
-# stack -Skill
+#STD
+## stack -Skill
 stack可以用vector来代替，因为stack不方便遍历中间元素，必须不断地top和pop
 也不方便从栈底构建结果
 
@@ -85,11 +85,11 @@ emplace()         | emplace (C++11) 于顶原位构造元素
 LeetCode-394
 
 
-# deque
-## demo
+## deque
+### demo
 LeetCode-239
 
-## CoreAPI
+### CoreAPI
 
 push_back
 emplace_back
@@ -102,7 +102,7 @@ pop_front
 clear
 erase
 
-## 小结
+### 小结
 stack和queue核心API相同，都是push和pop
 stack是pop栈顶，queue是pop队列头
 
@@ -120,9 +120,9 @@ https://en.cppreference.com/w/cpp/container/queue.html
 https://www.apiref.com/cpp-zh/cpp/container/deque.html
 
 
-# ProirityQueue
+## ProirityQueue
 
-## demo
+### demo
 LeetCode-23, 215, 264, 239
 
 默认是大根堆
@@ -156,6 +156,13 @@ sort(nums.begin(), nums.end(), greater<int>());
 
 无论是less还是 greater，当a==b时，都返回false，保证严格弱序
 
+
+## unordered_map
+插入时，如果负载因子过大，可能会触发rehash
+也可以主动调用rehash函数
+
+unordered_map遍历是无序的
+在没有调用各种写入API(插入/扩容/rehash)的前提下，多次遍历的顺序是固定的(依然是无序)，但是最好不要对这种顺序有依赖，即使unordered_map的数据相同，不同编译环境编译的可执行程序的遍历顺序也可能是不一致的
 
 
 # 模版

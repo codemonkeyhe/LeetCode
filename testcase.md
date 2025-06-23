@@ -1,4 +1,11 @@
-请问 [1, null, 2, 3] 在二叉树测试用例中代表什么
+# leetcode的自定义的cmpFun代码必须位于下面的范围内，否则编译错误
+// @lc code=start
+cmpFun
+// @lc code=end
+详见LC-347
+
+
+# 请问 [1, null, 2, 3] 在二叉树测试用例中代表什么
 力扣 • 发表于：2018年10月26日 早上 00:39:08 • 更新于：2019年05月21日 下午 4:32:22
 https://support.leetcode-cn.com/hc/kb/article/1194353/
 
