@@ -3,8 +3,9 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2025-02-21
- * @tag
+ * @date 2025-02-21;2025-06-24
+ * @tag prefixSum,
+ * @similar 560
  */
 
 /*
@@ -75,9 +76,9 @@ using namespace std;
 
 // @lc code=start
 
-class NumArray {
+class NumArray1 {
 public:
-    NumArray(vector<int>& nums) {
+    NumArray1(vector<int>& nums) {
          //_nums.resize(nums.size());
          _nums = nums;
     }
@@ -94,6 +95,27 @@ public:
 
 };
 
+class NumArray {
+public:
+    NumArray(vector<int>& nums) {
+        int n = nums.size();
+        preSum.resize(n+1, 0);
+        for (int i = 0; i < n; i++) {
+            preSum[i+1] = preSum[i] + nums[i];
+        }
+    }
+
+    int sumRange(int left, int right) {
+        // nums[left] + ... nums[right]
+        return preSum[right + 1] - preSum[left];
+    }
+
+    // ps[i] = nums[0] + ... nums[i-1]
+    // ps[1] = nums[0]
+    // ps[0] = 0
+    vector<int> preSum;
+
+};
 /**
  * Your NumArray object will be instantiated and called as such:
  * NumArray* obj = new NumArray(nums);

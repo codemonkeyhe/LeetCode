@@ -25,6 +25,9 @@ std::min_element 和 std::max_element 分别返回指定范围内的最小值和
     int max = *max_element(v.begin(), v.end());
     int min = *min_element(v.begin(), v.end());
 
+https://en.cppreference.com/w/cpp/algorithm/minmax_element.html
+    const auto [min, max] = std::minmax_element(begin(v), end(v));
+
 # sort
 ## sort与pair<int, int>
 默认使用pair的first元素进行排序，不用额外写cmp函数
@@ -102,6 +105,16 @@ return res;
 2种优化：
 M1 提前用 auto it = vec.rbegin(); it != vec.rend(); it++来构造res
 M2 提前把res设置容量，vector<int> res(N, 0); 然后逆序赋值  res[k--]  = 123;
+
+
+### 二维vector扩容
+
+LC-304
+``` cpp
+        int row = matrix.size();
+        int col = matrix[0].size();
+        ps.resize(row + 1, vector<int>(col + 1, 0));
+```
 
 
 ## stack -Skill
