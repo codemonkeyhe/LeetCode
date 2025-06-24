@@ -46,6 +46,30 @@ std::min_element 和 std::max_element 分别返回指定范围内的最小值和
 
 ```
 
+## sort利用外关键字排序
+
+LC-692
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/top-k-frequent-words/solutions/785903/qian-kge-gao-pin-dan-ci-by-leetcode-solu-3qk0/
+``` cpp
+   vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string, int> cnt;
+        for (auto& word : words) {
+            ++cnt[word];
+        }
+        vector<string> rec;
+        for (auto& [key, value] : cnt) {
+            rec.emplace_back(key);
+        }
+        sort(rec.begin(), rec.end(), [&](const string& a, const string& b) -> bool {
+            return cnt[a] == cnt[b] ? a < b : cnt[a] > cnt[b];
+        });
+        rec.erase(rec.begin() + k, rec.end());
+        return rec;
+    }
+```
+
+
 
 
 
@@ -69,6 +93,17 @@ int isalnum(int ch)
 
 
 #STD
+## vector
+vector<int> res;
+经常需要逆序后再返回
+reverse(res.begin(), res.end());
+return res;
+
+2种优化：
+M1 提前用 auto it = vec.rbegin(); it != vec.rend(); it++来构造res
+M2 提前把res设置容量，vector<int> res(N, 0); 然后逆序赋值  res[k--]  = 123;
+
+
 ## stack -Skill
 stack可以用vector来代替，因为stack不方便遍历中间元素，必须不断地top和pop
 也不方便从栈底构建结果

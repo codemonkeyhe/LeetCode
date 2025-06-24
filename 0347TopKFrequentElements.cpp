@@ -156,7 +156,7 @@ public:
     }
 
 
-    vector<int> topKFrequent(vector<int>& nums, int k) {
+    vector<int> topKFrequentM2(vector<int>& nums, int k) {
         unordered_map<int, int> num2cnt;
         for (auto& num: nums) {
             num2cnt[num]++;
@@ -172,6 +172,46 @@ public:
         return res;
     }
 
+
+    // minHeap优化版，不用和小根队堆顶比较，直接pop n-k次，把前面小的清理掉，后面剩余的就是k大,和 LC 215类似
+    /*
+    核心点：
+    假设n=100,k=3
+    数组排序后，第1大 k=1的元素就是n[99]
+    数组排序后，第2大 k=2的元素就是n[98]
+    数组排序后，第3大 k=3的元素就是n[97]
+    minHeap小根堆大小为3， 先放入3个元素，这3个元素要么比 n[97-99]小，要么就是n[97-99]
+    接下来放入第4个元素，然后 minHeap.size=4> k，需要pop一个，pop是4个元素的最小值，
+    这个最小值必然不是n[97-99],因为他们是nums数组里前3大的， 必然不是第4小，否则就矛盾了。
+    因此，每次都是pop第4小的元素，总共执行了 100-4+1 = 97次，剩余的3个元素，就是前k大的
+
+    */
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> num2cnt;
+        for (auto& num: nums) {
+            num2cnt[num]++;
+        }
+
+        vector<int> res;
+
+        auto cmpFn3 = [](pair<int, int>& a, pair<int, int>& b) -> bool {
+            return a.first > b.first;
+        };
+        priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(cmpFn3)> minHeap;
+
+        for (auto& [num, cnt]: num2cnt) {
+            minHeap.push(make_pair(cnt, num));
+            if (minHeap.size() > k) {
+                minHeap.pop();
+            }
+        }
+        while(!minHeap.empty()) {
+            res.push_back(minHeap.top().second);
+            minHeap.pop();
+        }
+
+        return res;
+    }
 
 };
 // @lc code=end
