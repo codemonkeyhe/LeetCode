@@ -107,6 +107,15 @@ M1 提前用 auto it = vec.rbegin(); it != vec.rend(); it++来构造res
 M2 提前把res设置容量，vector<int> res(N, 0); 然后逆序赋值  res[k--]  = 123;
 
 
+## queue&stack坑
+From LC207
+cur使用引用，pop后，对象容易被回收，后续再利用cur时，容易出问题
+           //BUG int& cur = que.front();
+            int cur = que.front();
+            que.pop();
+            // 后续利用cur
+
+
 ### 二维vector扩容
 
 LC-304
