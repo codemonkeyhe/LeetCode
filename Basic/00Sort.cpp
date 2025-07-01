@@ -241,7 +241,7 @@ void HeapAdjust(T a[], int i, int n) {
 template <typename T>
 void HeapSort(T a[], int n) {
     // BuildMaxHeap
-    int idx = n / 2 - 1;
+    int idx = n / 2 - 1;  //实现正确
     for (int i = idx; i >= 0; --i) {
         //把a[i..n-1]调整为堆
         HeapAdjust(a, i, n);

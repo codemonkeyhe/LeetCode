@@ -136,7 +136,8 @@ public:
     int findKthLargest(vector<int>& nums, int k) {
         // BuildMaxHeap
         int n = nums.size();
-        int idx = (n - 1) / 2;  // last non-leaf node
+        //int idx = (n - 1) / 2;  // last non-leaf node
+        int idx = n/2 - 1;  // still ok, because n is not idx
         for (int i = idx; i >= 0; --i) {
             HeapAdjust(nums, i, n);
         }

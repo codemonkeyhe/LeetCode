@@ -207,6 +207,8 @@ void QuickSort(vector<int>& a, int low, int high) {
     }
 }
 
+
+// for maxHeap adjust
 void HeapAdjust(vector<int>& a, int i, int n) {
     int cur = a[i];
     int j = (i << 1) + 1;  // j指向左孩子
@@ -228,7 +230,8 @@ void HeapAdjust(vector<int>& a, int i, int n) {
 void HeapSort(vector<int>& a) {
     // BuildMaxHeap
     int n = a.size();
-    int idx = (n - 1) / 2; // last non-leaf node
+    //int idx = (n - 1) / 2; // last non-leaf node
+    int idx = n / 2 - 1; // last non-leaf node
     for (int i = idx; i >= 0; --i) {
         HeapAdjust(a, i, n);
     }
