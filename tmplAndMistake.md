@@ -319,10 +319,13 @@ int BlueRedSplit(vector<int> nums, int target) {
 
 [intMin, left) 为蓝色  , 因为 ==left为待判定区间， 所以<left为蓝色，
 (right, intMax] 为红色
+[left, right]为待染色区间，因此，闭区间非空时要继续循环
+
 明确isBlue的条件，然后明确return left/right or+-1
 优点1： 不用考虑==等情况
 需要考虑+-1
 [left,      mid-1,  mid,  mid+1,       right]
+
     当mid是blue时， left=mid+1，
     直接 left=blue，依然满足 [intMin, left)为蓝色的条件，
     否则 right=mid-1，依然满足 （right， intMax]为红色
@@ -336,7 +339,7 @@ int BlueRedSplit(vector<int> nums, int target) {
     int left = 0;
     int right = nums.size() -1;
 
-    while(left <= right) { //  [left, right] 开区间非空
+    while(left <= right) { //  [left, right] 闭区间非空
         int mid = left + ((right-left) >> 1);
         if (isBlue(nums, mid, target)) {
             left = mid + 1;
