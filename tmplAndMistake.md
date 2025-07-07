@@ -1,3 +1,20 @@
+## TimeComplexity
+### Order
+O(1)
+O(logn)
+O(sqrt(n))
+O(n)
+O(n*logn)
+O(n^2)
+O(n^3)
+O(2^n)
+O(n!)
+O(n^n)
+
+
+
+
+
 # 优先级
 ## ErrorCase
 

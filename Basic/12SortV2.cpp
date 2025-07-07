@@ -359,6 +359,45 @@ void CountingSort(vector<int>& a, vector<int>& res) {
     }
 }
 
+void CountingSortV2(vector<int>& a) {
+    int n = a.size();
+    if (n == 0)
+        return;
+    int min = a[0];
+    int max = a[0];
+    for (int i = 1; i < n; ++i) {
+        if (a[i] < min) {
+            min = a[i];
+        } else if (a[i] > max) {
+            max = a[i];
+        }
+    }
+    int k = max - min + 1;
+    vector<int> count(k, 0);
+    for (int i = 0; i < k; ++i) {
+        count[i] = 0;  //初始化为0
+    }
+    for (int i = 0; i < n; ++i) {
+        //统计出现的次数
+        count[a[i] - min]++;
+    }
+    for (int i = 1; i < k; ++i) {
+        //统计数字i在最终排序数组中最后出现的位置
+        // 位置从1开始计数，因此复制到res时lastPos要减去1
+        count[i] = count[i] + count[i-1];
+    }
+
+    vector<int> res(n,0);
+    for (int i = n-1; i>=0; i--) {
+        int offset = a[i] - min;
+        int lastPos = count[offset];
+        res[lastPos-1] = a[i];
+        count[offset]--;
+    }
+    a = res;
+}
+
+
 /*
 支持负数，负数放前10个桶[1~10]，正数放后10个桶[10~19]
 LC164
