@@ -197,14 +197,33 @@ int PartitionV2(vector<int>& a, int low, int high) {
     return i;
 }
 
+int Partition(vector<int>& a, int low, int high) {
+    int pivot = a[low];
+    while (low < high) {
+        //从右往左找到第一个小于pivot的值的下标
+        while (low < high && a[high] >= pivot)
+            --high;
+        a[low] = a[high];
+        //从左往右找到第一个大于pivot的值的下标
+        while (low < high && a[low] <= pivot)
+            ++low;
+        a[high] = a[low];
+    }
+    a[low] = pivot;
+    return low;
+}
+
 
 // LC215 TLE41-42
+// LC912 TLE19-21
 void QuickSort(vector<int>& a, int low, int high) {
-    if (low < high) {
-        int p = PartitionV2(a, low, high);
-        QuickSort(a, low, p - 1);
-        QuickSort(a, p + 1, high);
+    if (low >= high) {
+        return;
     }
+    //int p = Partition(a, low, high);
+    int p = PartitionV2(a, low, high);
+    QuickSort(a, low, p - 1);
+    QuickSort(a, p + 1, high);
 }
 
 
@@ -296,6 +315,7 @@ void MergeV2(vector<int>& a,  int s, int m, int e, vector<int>& help) {
 
 //把a[s..e]递归的归并到h[s..e]
 //LC215 42/42 cases passed
+//LC912 21/21 cases passed (74 ms)
 void MSort(vector<int>& a, int s, int e, vector<int>& help) {
     if (s >= e) {
         return;
@@ -304,14 +324,14 @@ void MSort(vector<int>& a, int s, int e, vector<int>& help) {
     MSort(a, s, m, help);      //递归左序列
     MSort(a, m + 1, e, help);  //递归右序列
     //LC215 42/42 cases passed (71 ms)
-    //MergeV1(a, s, m, e, help);
+    MergeV1(a, s, m, e, help);
     //LC215 42/42 cases passed (79 ms)
-    MergeV2(a, s, m, e, help);
+   // MergeV2(a, s, m, e, help);
 }
 
 void MergeSort(vector<int>& a) {
     int n = a.size();
-    vector<int> help(n, 0)
+    vector<int> help(n, 0);
     MSort(a, 0, n - 1, help);
 }
 
@@ -359,6 +379,8 @@ void CountingSort(vector<int>& a, vector<int>& res) {
     }
 }
 
+//LC274  pass
+//LC912 21/21 cases passed (19 ms)
 void CountingSortV2(vector<int>& a) {
     int n = a.size();
     if (n == 0)
