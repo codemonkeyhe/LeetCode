@@ -123,11 +123,46 @@ return res;
 M1 提前用 auto it = vec.rbegin(); it != vec.rend(); it++来构造res
 M2 提前把res设置容量，vector<int> res(N, 0); 然后逆序赋值  res[k--]  = 123;
 
+### 二维Vector的复制
+LC289
+
+``` cpp
+    void gameOfLife(vector<vector<int>>& board) {
+        vector<vector<int> > oldbd(board.begin(), board.end());
+    }
+
+```
+
 
 ## vector作为方向数组
+### 上下左右4格子
 等价写法
     const vector<pair<int, int> > dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+
+### 周围8格子
+LC289
+``` cpp
+    const vector<pair<int, int> > dires = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
+
+        int getAround(vector<vector<int>>& oldbd, int i, int j) {
+        int cnt = 0;
+        for (auto& dir: dires) {
+            int ni =  i + dir.first;
+            int nj =  j + dir.second;
+            if (ni < 0 || ni >= row || nj < 0 || nj >= col) {
+                continue;
+            }
+            if (oldbd[ni][nj]) {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+```
+
 
 ## queue&stack坑
 From LC207
