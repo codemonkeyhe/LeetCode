@@ -31,6 +31,7 @@ OK:
     if ((cur & (cur - 1) ) == 0) {
 
 # STD
+## min&max
 1 求max和min
 min(op1, op2)
 min({op1, op2, op3}) // C++ 11 新方法
@@ -44,6 +45,34 @@ std::min_element 和 std::max_element 分别返回指定范围内的最小值和
 
 https://en.cppreference.com/w/cpp/algorithm/minmax_element.html
     const auto [min, max] = std::minmax_element(begin(v), end(v));
+
+## next_permutation &  prev_permutation
+LC556 LC31
+template<class Iterator>
+  bool next_permutation (Iterator first, Iterator last);
+next_permutation的作用是在给定范围内找到下一个排列，如果有下一个排列，则返回true，否则返回false。
+
+https://cppreference.cn/w/cpp/algorithm/next_permutation
+https://cppreference.cn/w/cpp/algorithm/prev_permutation
+
+``` cpp
+int main()
+{
+    std::string s = "aba";
+    do
+    {
+        std::cout << s << '\n';
+    }
+    while (std::next_permutation(s.begin(), s.end()));
+    std::cout << s << '\n';
+}
+
+输出
+aba
+baa
+aab
+```
+
 
 # sort
 ## sort与pair<int, int>
