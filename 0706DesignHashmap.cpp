@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-07-13
  * @tag design,hashTable
- * @similar   705,706,1206
+ * @similar  705,706,1206
  */
 
 /*
