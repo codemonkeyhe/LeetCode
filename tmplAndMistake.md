@@ -183,6 +183,10 @@ LC289
 
 ```
 
+### vector逆向拷贝
+ LC126
+      vector<string> one(path.rbegin(), path.rend());
+
 
 ## vector作为方向数组
 ### 上下左右4格子
