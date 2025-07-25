@@ -8,6 +8,7 @@ using namespace std;
 
 
 //// #################  GCD
+
 // https://oi-wiki.org/math/number-theory/gcd/
 // LeetCode 1979
 // 辗转相除法
@@ -41,7 +42,13 @@ int gcd(int x, int y) {
     return x;
 }
 
+/*
+公约数可以是负数，但是最大公约数必须是非负整数
+LeetCode149
+gcd(0, -7) 使用自己实现的gcd返回-7
+使用std::gcd，返回7
 
+*/
 
 
 
