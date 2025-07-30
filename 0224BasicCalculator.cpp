@@ -70,6 +70,7 @@ using namespace std;
 // @lc code=start
 class Solution {
   public:
+    // Ugly
     int calculateUgly(string s) {
         int res = 0;
         int len = s.size();
@@ -80,15 +81,13 @@ class Solution {
                 continue;
             }
             if (cur == '(' || cur == '+' || cur == '-') {
-                string tmp;
-                tmp = cur;
-                st.push(tmp);
+                st.push(string(1, cur));
                 continue;
             }
             if (cur == ')') { // pop until meet (
                 int sum = 0;
                 int preNum = 0;
-                // A+B;  A-B;  -B
+                // ( A+B;  (A-B; ( -B
                 while (!st.empty()) {
                     auto ss = st.top();
                     st.pop();
@@ -114,10 +113,9 @@ class Solution {
             while (j < len && isdigit(s[j])) {
                 j++;
             }
-            int len = j - i;
-            string num = s.substr(i, len);
+            string num = s.substr(i, j - i);
             st.push(num);
-            i = j-1;
+            i = j-1; // beCareful, not i=j , as i will i++
         }
         int preNum = 0;
         while (!st.empty()) {
@@ -138,12 +136,67 @@ class Solution {
         return res;
     }
 
-
-
+    int calculate(string s) {
+        int res = 0;
+        int len = s.size();
+        int sign = 1;  // 1 means + , -1 means -
+        stack<int> signs;
+        signs.push(sign);
+        for (int i = 0; i < len; i++) {
+            char &cur = s[i];
+            if (cur == ' ') {
+                continue;
+            }
+            if (cur == '+') { // no need to change sign
+                sign = signs.top();
+            } else if (cur == '-') {
+                sign = -signs.top();
+            } else if (cur == '(') {
+                signs.push(sign);
+            } else if (cur == ')') {
+                signs.pop();
+            } else {
+                /* still ok
+                int j = i;
+                while (j < len && isdigit(s[j])) {
+                    j++;
+                }
+                int num = stoi(s.substr(i, j - i));
+                i = j - 1;
+                */
+                long num = 0;
+                while (i < len && s[i] >= '0' && s[i] <= '9') {
+                    num = num * 10 + s[i] - '0';
+                    i++;
+                }
+                res += sign * num;
+                i--;
+            }
+        }
+        return res;
+    }
 };
 // @lc code=end
 
 /*
+TestCase
+
+"6-(-((-2)))"
+want: 6-2=4
+
+"6-(-(-(-2)))"
+Want: 6+2 = 8
+
+Wrong Answer
+1/47 cases passed (N/A)
+Testcase
+" 2-1 + 2 "
+Answer
+-1
+Expected Answer
+3
+
+
 (1+3)-(6+8)  = 4-14=-10
 stack1
 8
