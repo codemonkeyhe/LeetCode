@@ -3,7 +3,7 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2025-07-
+ * @date 2025-08-
  * @tag
  * @similar
  */
@@ -14,42 +14,47 @@
 
 /*
 
-DONE
+VIP100
+https://leetcode.cn/studyplan/premium-algo-100/
+
+VIP-DP
+https://leetcode.cn/studyplan/dynamic-programming-grandmaster/
+
+DP
+https://leetcode.cn/studyplan/dynamic-programming/
+
+TOP100 DONE
 https://leetcode.cn/studyplan/top-100-liked/
-
-
 
 
 TODO 20
 https://leetcode.cn/studyplan/top-interview-150/
-127-212
-30
-1456
-135
 123-188
-149
-224
-280
+224-227-241-772VIP
 373
 399
 427
-433
 452
 502
 918
 909
-377-R
-520-R
+280 vip
 
 
 Design
 460 535
 707
-380-381
 
-weekend
- 705
- 2095
+
+O(1)
+380-381
+432
+
+Weekend
+419
+382
+384
+398
 
 
 LeetCode - System Design Interview and Beyond
@@ -84,5 +89,3 @@ M1
 M2
 
 */
-
-
