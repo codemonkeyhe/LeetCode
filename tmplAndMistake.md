@@ -164,6 +164,24 @@ int isalnum(int ch)
 
 #STD
 ## vector
+
+### 三纬Vector初始化
+LC241
+``` cpp
+
+    vector<vector<vector<int>>> cache;
+    cache = vector<vector<vector<int>>>(len, vector<vector<int> >(len, vector<int>()));
+
+```
+
+### vector值初始化
+LC57
+``` cpp
+    vector<vector<int> > res;
+    res.push_back(vector<int>{left, right});
+```
+
+### vector逆序构造
 vector<int> res;
 经常需要逆序后再返回
 reverse(res.begin(), res.end());
