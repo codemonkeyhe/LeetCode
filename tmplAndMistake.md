@@ -327,6 +327,9 @@ LeetCode-23, 215, 264, 239
        priority_queue<int, vector<int>, greater<int>> minHeap;
 记忆方法，cmp函数取反，greater就是minHeap, less就是maxHeap
 
+同理， 默认是大根堆,按照 tuple第一个元素排序
+  priority_queue<tuple<int, int, int>> pq;
+
 ### 仿函数less & greater
 bool less(T& a, T& b)
   a < b 则返回true,  a less b return true ,  a 在前面
@@ -341,6 +344,71 @@ sort(nums.begin(), nums.end(), less<int>());
 sort(nums.begin(), nums.end(), greater<int>());
 
 无论是less还是 greater，当a==b时，都返回false，保证严格弱序
+
+### 优先队列的仿函数
+
+LC347 LC373
+
+M1
+``` cpp
+    // greater
+    static bool cmpFn(pair<int, int>& a, pair<int, int>& b) {
+        return a.first > b.first;
+    }
+
+
+    priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(&cmpFn)> minHeap(cmpFn);
+
+//ERROR1
+ // priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(&cmpFn)> minHeap;
+
+//ERROR2
+ // priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(cmpFn)> minHeap;
+
+```
+
+
+
+M2
+``` cpp
+
+class CmpFun2 {
+    public:
+    bool operator()(pair<int, int>& a, pair<int, int>& b) {
+        return a.first > b.first;
+    }
+};
+
+priority_queue<pair<int, int>, vector<pair<int, int> >, CmpFun2> minHeap;
+
+```
+
+
+M3
+``` cpp
+// LC347
+        auto cmpFn3 = [](pair<int, int>& a, pair<int, int>& b) -> bool {
+            return a.first > b.first;
+        };
+        priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(cmpFn3)> minHeap;
+
+//LC373
+
+
+        auto greateCmp = [&nums1, &nums2](pair<int, int>& v1, pair<int, int>& v2) -> bool {
+            if ((nums1[v1.first]+nums2[v1.second]) > (nums1[v2.first]+nums2[v2.second])) {
+                return true;
+            }
+            return false;
+        };
+
+        priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(greateCmp)> minHeap(greateCmp);
+
+        //ERROR 去掉greateCmp初始化minHeap则报错
+        //priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(greateCmp)> minHeap;
+
+```
+
 
 
 ## unordered_map
