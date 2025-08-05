@@ -116,21 +116,34 @@ vector<string> strSplitBy(string& str, char delimiter) {
 }
 
 vector<string> strSplitBy2(string& str, char delimiter) {
-    size_t pos = 0;
-    size_t prev = 0;
+    int start = 0;
+    int end = 0;
     vector<string> res;
-    while ((pos = str.find(delimiter, pos)) != string::npos) {
-        int len = pos - prev;
+    while ((end = str.find(delimiter, start)) != string::npos) {
+        int len = end - start;
         if (len != 0) {
-            res.push_back(str.substr(prev, len));
+            res.push_back(str.substr(start, len));
         }
-        pos++;
-        prev = pos;
+        start = end + 1;
     }
-    string lastpart = str.substr(prev);
+    string lastpart = str.substr(start);
     if (lastpart.size() > 0) {
         res.push_back(lastpart);
     }
+    return res;
+}
+
+vector<string> strSplitBy3(string& str, char delimiter) {
+    int start = 0;
+    int end = 0;
+    vector<string> res;
+    while ((end = str.find(delimiter, start)) != string::npos) {
+        int len = end - start;
+        res.push_back(str.substr(start, len));
+        start = end + 1;
+    }
+    string lastpart = str.substr(start);
+    res.push_back(lastpart);
     return res;
 }
 
