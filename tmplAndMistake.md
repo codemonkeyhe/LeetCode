@@ -162,7 +162,7 @@ int isalpha(int ch)
 int isalnum(int ch)
 
 
-#STD
+# STD
 ## vector
 
 ### 三纬Vector初始化
@@ -291,6 +291,7 @@ erase
 ### 小结
 stack和queue核心API相同，都是push和pop
 stack是pop栈顶，queue是pop队列头
+stack是top访问栈顶，queue是front/back访问队列头尾，和vector类似
 
 deque和vector的核心API相同，都有push_back和pop_back，
 vector没有push_front的API的
@@ -423,6 +424,26 @@ unordered_map遍历是无序的
 也适用于 map和vector，
 不可以直接用==比较  int arr1[10] 和 int arr2[10]是否相等，参见LC438，数组名会转化为指针，可以用 std::equal来比较
 
+
+## 接收pair的值
+M1 用tie
+LC474
+``` cpp
+
+
+    vector<pair<int, int> > cnt01;
+        int cnt0 = 0;
+        int cnt1 = 0;
+        tie(cnt0, cnt1) = cnt01[i];
+
+```
+
+M2 用auto [v1, v2]
+``` cpp
+
+    vector<pair<int, int> > cnt01;
+    auto [cnt0, cnt1] = cnt01[i];
+```
 
 # 模版
 
