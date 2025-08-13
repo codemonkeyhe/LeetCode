@@ -320,6 +320,11 @@ LeetCode-23, 215, 264, 239
 
 默认是大根堆，且按照pair.first元素排序
        priority_queue<pair<int, int>> q;
+       相当于
+       priority_queue<pair<int, int>, vector<pair<int, int>>, less<pair<int, int>> > q;
+
+LC743
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > minHeap;
 
 初始化方式
         priority_queue<int> maxHeap(nums.begin(), nums.end());
