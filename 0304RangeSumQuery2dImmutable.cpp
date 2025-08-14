@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-06-24
  * @tag prefixSum,matrix
- * @similar
+ * @similar  304, 427
  */
 
 /*
@@ -135,13 +135,21 @@ public:
         int row = matrix.size();
         int col = matrix[0].size();
         ps.resize(row + 1, vector<int>(col + 1, 0));
-        ps[0][0] = matrix[0][0];
+        // ErrorCode  虽然过了，但是实际的前缀和矩阵是错的
+        //ps[0][0] = matrix[0][0];
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 ps[i+1][j+1] = matrix[i][j] + ps[i][j+1] + ps[i+1][j] - ps[i][j];
             }
         }
+        /*
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                cout << "i=" << i << " j=" << j << " ps=" << ps[i][j] << endl;
+            }
+        }
+        */
     }
 
     int sumRegion(int row1, int col1, int row2, int col2) {
@@ -163,6 +171,15 @@ public:
 preSum[i][j] = mat[i][j] + preSum[i-1][j] + preSum[i][j-1] - preSum[i-1][j-1]
 preSum[0][0] = mat[0][0]
 第1行和第一列参照一维数组前缀和即可
+
+二维Presum和一维不同，一维通常有前缀0
+ preSum[0] = 0， preSum[1] = nums[0]
+ 二维不需要前缀0
+ ,但是因为下标偏移了1位，也相当于有了前缀0
+ row[0][j] = 0 ,第一排全0
+ row[i][0] = 0, 第一列全0
+
+
 
 
 sumReg(r1,c1, r2,c2) = preSum[r2][c2] - (preSum[r1-1][c2] + preSum[r2][c1-1] - preSum[r1-1][c1-1])
