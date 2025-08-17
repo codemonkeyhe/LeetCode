@@ -4,7 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2025-08-03
- * @tag  math,randomized
+ * @tag  math,randomized,reservoirSampling
  * @similar   382, 394, 398, 470
  */
 
