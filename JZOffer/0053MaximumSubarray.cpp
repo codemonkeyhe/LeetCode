@@ -3,8 +3,9 @@
  * @brief  最大子段和   JZOffer:P31  CCI5th:17.8
  * @author MonkeyHe
  * @version 3.0
- * @date 2018-09-17,2020-03-06,20250528
- * @similar 53, 152
+ * @date 2018-09-17,2020-03-06,2025-05-28, 2025-08-18
+ * @tag dynamicProgramming
+ * @similar 53, 152, 918
  *
  */
 
@@ -60,22 +61,51 @@
 // @lc code=start
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
+    int maxSubArrayM1(vector<int>& nums) {
         int len = nums.size();
         vector<int> dp(len, 0);
         dp[0] = nums[0];
         for (int i = 1; i < len; i++) {
-            dp[i] = max(nums[i], nums[i] + dp[i - 1]);
+            //dp[i] = max(nums[i], nums[i] + dp[i - 1]);
+            // 等价写法
+            dp[i] = nums[i] + max(0, dp[i - 1]);
         }
 
         return *max_element(dp.begin(), dp.end());
+    }
+
+    // M1 DP 的 状态压缩版本
+    int maxSubArrayM1V2(vector<int> &nums) {
+        int len = nums.size();
+        //dp[0] = nums[0];
+        int f0 = nums[0];
+        int f1 = 0;
+        int maxF = f0;
+        for (int i = 1; i < len; i++) {
+            //dp[i] = nums[i] + max(0, dp[i - 1]);
+            f1 = nums[i] + max(0, f0);
+            maxF = max(maxF, f1);
+            f0 = f1;
+        }
+        return maxF;
+    }
+
+    int maxSubArray(vector<int> &nums) {
+        int len = nums.size();
+        int f0 = nums[0];
+        int maxF = f0;
+        for (int i = 1; i < len; i++) {
+            f0 = nums[i] + max(0, f0);
+            maxF = max(maxF, f0);
+        }
+        return maxF;
     }
 };
 // @lc code=end
 
 /*
 dp[i] 表示以 nums[i]结尾的最大子数组和
-dp[i] = max{nums[i], nums[i]+dp[i-1]}
+dp[i] = max{nums[i], nums[i]+dp[i-1]} = nums[i] + max{0, dp[i-1]}
 
 answer=max(dp[0...i])
 
