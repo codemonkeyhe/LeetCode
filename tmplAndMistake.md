@@ -166,11 +166,13 @@ int isalnum(int ch)
 ## vector
 
 ### 三纬Vector初始化
-LC241
 ``` cpp
-
+\\ LC241
     vector<vector<vector<int>>> cache;
     cache = vector<vector<vector<int>>>(len, vector<vector<int> >(len, vector<int>()));
+
+\\ LC123
+    vector<vector<vector<int>>> dp(len, vector<vector<int>>(2, vector<int>(4, 0)));
 
 ```
 

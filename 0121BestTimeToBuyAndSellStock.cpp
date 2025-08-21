@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2020-08-28
  * @tag   DP
- * @similar  122 123
+ * @similar  121,122,123,188, 309
  */
 
 /*
@@ -197,11 +197,18 @@ O(N)
 则第i天的获利为下面2种情况的最大值:
 1.第i天卖出的获利
  profit(i) = P[i]-minP[i-1], if(P[i]>minP[i-1])
+
 2.第i天不卖，则第i天的获利等于第i-1天的获利
  profit(i) = f[i-1], if(P[i]<=minP[i-1])
+
+两者汇总，有
+ profit(i) = max(P[i]-minP[i-1], profit[i-1])
+
+换种写法,f(n)表示第N天的最大利润
 即 f[n] = max(f[n-1], P[n] - minP[n-1]);
 
 记f[0]=0
 f[1] = max(f[0], p[1]-minP[0]) = max(f[0], P[1]-P[0]) = max(0, p[1]-p[0])
+
 
 */
