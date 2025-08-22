@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-08-21
  * @tag  dynamicProgramming
- * @similar  121,122,123,188, 309
+ * @similar  121,122,123,188, 309, 714
  */
 
 /*
