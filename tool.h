@@ -70,6 +70,19 @@ vector<string> strSplit(string str) {
     return res;
 }
 
+// LC537 stringstream的用法
+// s format A+ (-B)i
+pair<int, int> parseNumV2(string &s) {
+    stringstream ss(s);
+    int n1, n2;
+    char plus;
+    // char i ;
+    // ss >> n1 >> plus >> n2 >> i;
+    //  still ok
+    ss >> n1 >> plus >> n2;
+    return make_pair(n1, n2);
+}
+
 // only for one delimiter string, if too many spaces between strings, not use
 /*
 vector<string> strSplitBy(string str, char delimiter) {
