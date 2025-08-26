@@ -4,8 +4,8 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2024-03-25
- * @tag
- * @similar
+ * @tag   hashTable,doublyLinkedList
+ * @similar  146, 460
  */
 
 /*
@@ -36,7 +36,7 @@ lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=
 lRUCache.get(1);    // 返回 -1 (未找到)
 lRUCache.get(3);    // 返回 3
 lRUCache.get(4);    // 返回 4
- 
+
 
 提示：
 
@@ -164,8 +164,8 @@ int main() {
 /*
 Tips
 坑点
-1  put存在时，依然要更新优先级 
-2  DlinkedNode的key是大部分时是多余的，当数量超过限制，淘汰时才用得着 
+1  put存在时，依然要更新优先级
+2  DlinkedNode的key是大部分时是多余的，当数量超过限制，淘汰时才用得着
 
 M1
 
