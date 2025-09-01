@@ -11,6 +11,27 @@ O(2^n)
 O(n!)
 O(n^n)
 
+## size_t 和 int的坑
+不要把 int  i,j 和各种vector.size()直接比较，先把size转成int再比较
+
+
+``` cpp
+\\ LC355
+   for (int i = 0; i < k; i++) {
+            vector<int>& cur = alltw[i];
+            for (int j = cur.size() - 1; j >= 0; j--) {
+                int& timeid = tweetTime[cur[j]];
+                maxHeap.push(make_pair(timeid, cur[j]));
+                if (j < int(cur.size() - 10)) { // enough
+                // ERROR TYPE WTF
+                //if (j < cur.size() - 10) { // enough
+                    break;
+                }
+            }
+        }
+
+```
+
 
 ## ASCII
 把26个小写字母 映射到 下标0-25    ch - 'a'
