@@ -3,7 +3,7 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2025-08-
+ * @date 2025-09-
  * @tag
  * @similar
  */
@@ -13,6 +13,17 @@
 */
 
 /*
+Milestone
+TOP100 DONE
+https://leetcode.cn/studyplan/top-100-liked/
+
+TOP150 DONE
+https://leetcode.cn/studyplan/top-interview-150/
+
+PN150 DONE 20250919
+
+TODO
+LeetCode - System Design Interview and Beyond
 
 VIP100
 https://leetcode.cn/studyplan/premium-algo-100/
@@ -20,44 +31,53 @@ https://leetcode.cn/studyplan/premium-algo-100/
 VIP-DP
 https://leetcode.cn/studyplan/dynamic-programming-grandmaster/
 
-DP
-https://leetcode.cn/studyplan/dynamic-programming/
-
-TOP100 DONE
-https://leetcode.cn/studyplan/top-100-liked/
-
-
-TODO 20
-https://leetcode.cn/studyplan/top-interview-150/
-123-188
-224-227-241-772VIP
-373
-399
-427
-452
-502
-918
-909
+772 vip
 280 vip
 
-
-Design
-460 535
-707
+StarList
+https://leetcode.cn/problem-list/kzj57i5/
 
 
-O(1)
-380-381
-432
+DP
+https://leetcode.cn/studyplan/dynamic-programming/
+1137
+712
+646
+1027
+983
+790
+2140
+2466
+1218
+
+
+2343
+679
+
+Graph
+778
+721
+815
 
 Weekend
-419
-382
-384
-398
+738
+720
+LC057
+LC060
+https://leetcode.cn/problem-list/bucket-sort/
 
 
-LeetCode - System Design Interview and Beyond
+
+Redo
+547
+146LRU
+641-2nd
+114
+677
+8-DFA
+
+backup
+
 
 
 */

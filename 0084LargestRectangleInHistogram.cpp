@@ -60,25 +60,23 @@ using namespace std;
  *
  */
 
-// @lc code=start
-class Solution {
-public:
+
 /*
 V1:
-寻找右侧比自己小的元素
-fromLeftToRight:
+寻找右侧第一个比自己小的元素
+fromLeftToRight:  意味着stack里面都是left元素，越底部越left, 当前元素是最right的元素
 monotonicStack: bottom->top: small -> big
-如果栈顶大于当前元素，则出栈，并记录   栈顶的右侧比自己小的元素就是当前元素
+如果栈顶大于当前元素，则出栈，并记录   栈顶的右侧第一个比自己小的元素就是当前元素
 栈里面保存的是左侧元素，当前元素就是右侧元素
 
-寻找左侧比自己小的元素
+寻找左侧第一个比自己小的元素
 fromRightToLeft
 monotonicStack: bottom->top: small -> big
 如果栈顶大于当前元素，则出栈，并记录   栈顶的左侧比自己小的元素就是当前元素
 栈里面保存的是右侧元素，当前元素就是左侧元素
 
 V2:
-寻找右侧比自己小的元素
+寻找右侧第一个比自己小的元素
 fromRightToLeft
 monotonicStack: bottom->top: small -> big
 如果栈顶大于等于当前元素，则出栈
@@ -86,7 +84,7 @@ monotonicStack: bottom->top: small -> big
 栈里面保存的是右侧元素，当前元素就是左侧元素
 因此，当前元素右侧比自己小的元素就是栈顶
 
-寻找左侧比自己小的元素
+寻找左侧第一个比自己小的元素
 fromLeftToRight:
 monotonicStack: bottom->top: small -> big
 如果栈顶大于等于当前元素，则出栈
@@ -114,6 +112,12 @@ monotonicStack: bottom->top: small -> big
 
 
 */
+
+
+// @lc code=start
+class Solution {
+public:
+
     int largestRectangleAreaV1(vector<int>& heights) {
         int len = heights.size();
         vector<int> right(len, len);
