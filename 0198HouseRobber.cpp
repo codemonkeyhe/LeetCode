@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-05-14
  * @tag dynamicProgramming
- * @similar   198, 213, 337, 740, 2560
+ * @similar   198, 213, 337, 740, 2140, 2560
  */
 
 /*
@@ -117,7 +117,7 @@ public:
         return res[len - 1];
     }
 
-    int rob(vector<int>& nums) {
+    int robM1v3(vector<int>& nums) {
         int len = nums.size();
         if (len == 1) {
             return nums[0];
@@ -138,6 +138,23 @@ public:
         return r2;
     }
 
+
+    int rob(vector<int>& nums) {
+        int len = nums.size();
+        if (len == 1) {
+            return nums[0];
+        }
+        vector<int> dp(len, 0);
+        dp[len-1] = nums[len-1];
+        dp[len-2] = max(nums[len-1], nums[len-2]);
+
+        for (int i = len - 3; i >= 0; i--) {
+            dp[i] = max(nums[i] + dp[i + 2], dp[i + 1]);
+        }
+        return dp[0];
+    }
+
+
 };
 // @lc code=end
 
@@ -148,11 +165,32 @@ public:
 2 1 = 3
 Max=1+3=4
 
-f(i)表示到第i间房子打劫的最大金额
+V1 从右往左考虑
+f(i)表示到第i间房子打劫的最大金额，即nums[0..i]的最大金额
+考虑最后一间nums[i]
+偷的话， 价值为nums[i]+f(i-2)
+不偷的话，价值为f(i-1)
 f(i) = max{nums[i]+f(i-2), f(i-1)}
 f(0)= max{nums[0]+f(-2), f(-1)} = max{nums[0], 0} = nums[0]
 f(1) = max{nums[1]+f(1-2), f(1-1)} = max{nums[1]+f(-1), f{0}} = max{nums[1],
 nums[0]}
+
+dp[i] = max(nums[i]+dp[i-2], dp[i-1])
+
+
+V2 从左往右考虑
+dp[i]表示从第i间房子开始打劫,一直到末尾的的最大金额，即nums[i..N-1]的最大金额
+
+偷第i间房子  nums[i]，则金额为  nums[i]+dp[i+2]
+不偷第i间房子  nums[i]，则金额为  dp[i+1]
+
+dp[i] = max(nums[i]+dp[i+2], dp[i+1])
+
+i依赖于i+1,i+2, 所以 for i = N-1开始计算
+dp[N-1] = max(nums[N-1]+ dp[N-1 +2], dp[N]不存在)  = nums[N-1] + dp[N+1] = nums[N-1]
+dp[N-2] = max(nums[N-2]+ dp[N-2 +2], dp[N-2+1])  = max(nums[N-2], nums[N-1])
+
+
 
 
 Runtime Error
