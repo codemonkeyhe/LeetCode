@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-06-13
  * @tag greedy,dynamicProgramming
- * @similar 300,435, 452
+ * @similar 300,435, 452, 646
  */
 
 /*
