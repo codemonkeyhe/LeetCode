@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2020-03-12, 20250523
  * @tag   dynamicProgramming
- * @similar  300, 1143
+ * @similar  300, 583, 712, 1143
  */
 
 /*
