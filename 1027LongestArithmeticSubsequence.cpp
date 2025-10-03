@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-10-02
  * @tag    dynamicProgramming
- * @similar 1027,2453
+ * @similar 1027, 1218, 2453
  */
 
 /*
@@ -99,6 +99,25 @@ public:
         return ans;
     }
 
+    // M1V2
+    int longestArithSeqLength(vector<int> &nums) {
+        int maxV = *max_element(nums.begin(), nums.end());
+        int ans = 0;
+        for (int d = -maxV; d <= maxV; d++) {
+            //vector<int> dp(maxV+1, 0);
+            unordered_map<int, int> dp;
+            for (auto x : nums) {
+                int y = x - d;
+                if (y < 0 || y > maxV) {
+                    dp[x] = 1;
+                } else {
+                    dp[x] = dp[y] + 1;
+                }
+                ans = max(ans, dp[x]);
+            }
+        }
+        return ans;
+    }
 
     int longestArithSeqLengthError15_65(vector<int>& nums) {
         int len = nums.size();
@@ -131,8 +150,9 @@ public:
         return ans;
     }
 
+
     // Works
-    int longestArithSeqLength(vector<int>& nums) {
+    int longestArithSeqLengthM2(vector<int>& nums) {
         int len = nums.size();
         int maxV = *max_element(nums.begin(), nums.end());
         int minV = *min_element(nums.begin(), nums.end());
