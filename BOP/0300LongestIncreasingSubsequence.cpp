@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2020-04-11,2025-05-23
  * @tag dynamicProgramming,binarySearch+greedy
- * @similar 72, 300, 354, 673, 1143
+ * @similar 72, 300, 354, 673, 1143, 1964
  */
 
 /*

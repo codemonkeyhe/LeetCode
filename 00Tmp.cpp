@@ -22,6 +22,11 @@ https://leetcode.cn/studyplan/top-interview-150/
 
 PN150 DONE 20250919
 
+DP DONE 20251006
+https://leetcode.cn/studyplan/dynamic-programming/
+
+
+
 TODO
 LeetCode - System Design Interview and Beyond
 
@@ -37,11 +42,6 @@ https://leetcode.cn/studyplan/dynamic-programming-grandmaster/
 StarList
 https://leetcode.cn/problem-list/kzj57i5/
 
-
-DP
-https://leetcode.cn/studyplan/dynamic-programming/
-1027
-1218
 
 2343
 679
