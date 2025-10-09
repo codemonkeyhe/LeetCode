@@ -5,7 +5,8 @@
  * @version  1.0
  * @date 2024-04-23
  * @tag hashmap,slidingWindow
- * @similar 30, 242, 438
+ * @similar 30, 242, 438, 567
+ * @trick diffArray
  */
 
 /*
