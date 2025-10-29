@@ -122,6 +122,19 @@ aab
     vector<pair<int, int> > datas;
     sort(datas.begin(), datas.end());
 
+    set<pair<int, int>> setData 一样用pair.first进行红黑树的有序组织
+    map<pair<int, int>> mapData 一样用pair.first进行红黑树的有序组织
+
+From LeetCode729
+    set和map的遍历是有序的，
+    访问有序列表的第一个元素 setData.begin()
+    访问有序列表的最后一个元素 setData.rbegin()
+    XXX 访问有序列表的最后一个元素V2 it = setData.end(); 再 *(--it)，不可以是 *(it--);
+     换句话说， --setData.end()是合法的
+
+    当 it = setData.begin()时， --it未定义
+
+
 
 ## 对于二维Vector排序，需要写cmpFn，必须保证严格弱序
 ``` cpp
@@ -666,4 +679,26 @@ target=7
 
 
 ```
+
+## setmentTree线段树
+动态开点 懒标记
+LeetCode729
+
+
+### 线段
+[s1, e1]  [s2, e2]
+不相交Cond：  s2>e1 or  s1 > e2
+相交Cond：  s2<=e1 &&  s1 <= e2
+Exp1:  [s1, e1]  [s2, e2]
+Exp2:  [s2, e2] [s1, e1]
+
+交集： [left, right]
+left = max(s1, s2)
+right = min(e1, e2)
+
+
+
+
+
+
 
