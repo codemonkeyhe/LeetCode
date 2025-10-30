@@ -143,9 +143,9 @@ public:
 };
 
 
-class MyCalendar {
+class MyCalendar2 {
 public:
-    MyCalendar() {}
+    MyCalendar2() {}
 
     bool book(int startTime, int endTime) {
         //cout << "cur =[" << startTime << ", " << endTime << "]" << endl;
@@ -173,6 +173,30 @@ public:
     //vector<pair<int, int> > segments;
     set<pair<int, int>> segments;
 };
+
+
+class MyCalendar {
+public:
+    MyCalendar() {}
+
+    bool book(int startTime, int endTime) {
+        posDiff[startTime] += 1;
+        posDiff[endTime] -= 1;
+        int originCnt = 0;
+        for (auto& [pos, diff] : posDiff) {
+            originCnt += diff;
+            if (originCnt > 1) { // revert
+                posDiff[startTime] -= 1;
+                posDiff[endTime] += 1;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    map<int, int> posDiff;
+};
+
 
 /**
  * Your MyCalendar object will be instantiated and called as such:
