@@ -4,7 +4,8 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2024-04-24
- * @tag
+ * @tag  bitManipulation
+ * @similar   461, 477
  */
 
 /*
@@ -66,7 +67,7 @@ using namespace std;
 
 // @lc code=start
 class Solution {
-public:
+  public:
     int hammingDistance(int x, int y) {
         int sum = x^y;
         int  res = 0;
