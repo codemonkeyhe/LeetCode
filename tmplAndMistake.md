@@ -136,11 +136,11 @@ From LeetCode729
 
 
 
-## 对于二维Vector排序，需要写cmpFn，必须保证严格弱序
+## 对于二维Vector排序，需要写cmpFn，必须保证严格弱序  strit order
 ``` cpp
  vector<vector<int>>& intervals
     // 弱序 严格   a=b must return false
-    // a < b return true
+    // a < b return true  ; means a is before b
     static bool cmpFn(vector<int>& a, vector<int>& b) {
         if (a[0] < b[0]) {
             return true;
