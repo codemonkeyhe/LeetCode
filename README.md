@@ -70,6 +70,7 @@ https://leetcode.cn/problem-list/bucket-sort/
 
 
 ## Redo
+378-binarySearch
 413-DP , diffArray
 448-EASY
 729-segmentTree

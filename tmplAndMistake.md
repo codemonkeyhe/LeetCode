@@ -325,9 +325,19 @@ clear
 erase
 
 ### 小结
-stack和queue核心API相同，都是push和pop
-stack是pop栈顶，queue是pop队列头
-stack是top访问栈顶，queue是front/back访问队列头尾，和vector类似
+priority_queue stack和queue核心API相同，都是push\pop\size\empty
+
+#### pop
+priority_queue的pop堆顶
+stack是pop栈顶
+queue是pop队列头
+
+#### top
+priority_queue的top访问堆顶
+stack是top访问栈顶
+queue 没有top,front/back访问队列头尾，和vector类似
+
+
 
 deque和vector的核心API相同，都有push_back和pop_back，
 vector没有push_front的API的
@@ -341,6 +351,20 @@ stack和queue底层就是deque, deque更加通用
 https://en.cppreference.com/w/cpp/container/stack.html
 https://en.cppreference.com/w/cpp/container/queue.html
 https://www.apiref.com/cpp-zh/cpp/container/deque.html
+
+
+## tuple
+https://cppreference.cn/w/cpp/utility/tuple
+#### leetcode 378
+默认按照 tuple第一个元素排序
+priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> minHeap;
+
+priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, less<tuple<int, int, int>>> maxHeap;
+
+auto tu = make_tuple("str", 1, 2);
+k从0开始计数
+get<0>(tu);
+get<1>(tu);
 
 
 ## ProirityQueue
@@ -369,8 +393,10 @@ LC743
        priority_queue<int, vector<int>, greater<int>> minHeap;
 记忆方法，cmp函数取反，greater就是minHeap, less就是maxHeap
 
+
 同理， 默认是大根堆,按照 tuple第一个元素排序
   priority_queue<tuple<int, int, int>> pq;
+
 
 ### 仿函数less & greater
 bool less(T& a, T& b)
@@ -386,6 +412,37 @@ sort(nums.begin(), nums.end(), less<int>());
 sort(nums.begin(), nums.end(), greater<int>());
 
 无论是less还是 greater，当a==b时，都返回false，保证严格弱序
+
+#### 结构体的less & greater
+
+leetcode0378
+
+``` cpp
+
+
+struct Node{
+    int val;
+    int x;
+    int y;
+
+    Node(int v, int i, int j) {
+        val = v;
+        x = i;
+        y = j;
+    }
+
+};
+
+
+struct cmpST {
+    bool operator()(Node &a, Node &b) {
+        return a.val > b.val;
+     }
+};
+
+        priority_queue<Node, vector<Node>, cmpST> minHeap;
+
+```
 
 ### 优先队列的仿函数
 
