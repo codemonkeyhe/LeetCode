@@ -45,7 +45,6 @@ https://leetcode.cn/studyplan/dynamic-programming-grandmaster/
 
 ### StarList
 https://leetcode.cn/problem-list/kzj57i5/
-679
 980
 1074
 1092
