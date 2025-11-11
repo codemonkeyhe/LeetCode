@@ -34,7 +34,7 @@ LeetCode - System Design Interview and Beyond
 
 
 
-##TaskList
+## TaskList
 ### VIP100
 https://leetcode.cn/studyplan/premium-algo-100/
 
@@ -45,7 +45,6 @@ https://leetcode.cn/studyplan/dynamic-programming-grandmaster/
 
 ### StarList
 https://leetcode.cn/problem-list/kzj57i5/
-980
 1074
 1092
 1139-221

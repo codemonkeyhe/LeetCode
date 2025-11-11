@@ -198,6 +198,25 @@ int isalnum(int ch)
 
 # STD
 ## vector
+### 1纬vector初始化
+``` cpp
+//M1
+    const int len = 7;
+    int nums[len] = {1, 2, 3, EMPTY_V, EMPTY_V, 6, 7};
+    vector<int> nu(nums, nums + len);
+
+// 下面的方式以来gcc版本，vscode IDE不支持，leetcode支持
+// vscode需要配置 C++11的配置
+// /usr/bin/g++ -fdiagnostics-color=always -std=c++11 -stdlib=libc++ -g /Users/monkey/codeSpace/cppSpace/demo/demo.cpp -o /Users/monkey/codeSpace/cppSpace/demo/demo
+//M2
+        vector<int> candidates = {1,2,3,4,5,6,7,8,9};
+// M3
+        vector<int> candidates = vector<int>({1,2,3,4,5,6,7,8,9});
+
+        vector<int> candidates({1,2,3,4,5,6,7,8,9});
+
+```
+
 
 ### 三纬Vector初始化
 ``` cpp
@@ -517,10 +536,21 @@ M3
 unordered_map遍历是无序的
 在没有调用各种写入API(插入/扩容/rehash)的前提下，多次遍历的顺序是固定的(依然是无序)，但是最好不要对这种顺序有依赖，即使unordered_map的数据相同，不同编译环境编译的可执行程序的遍历顺序也可能是不一致的
 
-## 判断两个 unordered_map 是否相等
+### 判断两个 unordered_map 是否相等
 直接用 == 判断即可，参见 LC30
 也适用于 map和vector，
 不可以直接用==比较  int arr1[10] 和 int arr2[10]是否相等，参见LC438，数组名会转化为指针，可以用 std::equal来比较
+
+### 不支持pair为key
+pair无法直接作为key，需要另外提供hash函数
+unordered_map<pair<int, int>, int>  cache;
+
+## unordered_set
+
+### 不支持存pair<int, int>
+from Leetcode0980
+需要自定义pairHash
+        unordered_set<pair<int, int> > walked;
 
 
 ## 接收pair的值
