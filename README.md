@@ -67,7 +67,6 @@ LC060
 https://leetcode.cn/problem-list/bucket-sort/
 
 ## TODO
-462
 
 ## Redo
 457-topologic
