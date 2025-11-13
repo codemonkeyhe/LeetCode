@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-06-22
  * @tag prefixSum,hashTable
- * @similar 303,523
+ * @similar 303,523, 560, 1074
  */
 
 /*
