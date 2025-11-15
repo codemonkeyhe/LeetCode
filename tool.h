@@ -176,12 +176,58 @@ isdigit()
 islower()
 isupper()
 
-
+int tolower(int c)
 
 
 */
 
+// LC0709
+//C++没有把字符串转为小写的函数，大小写转换得自己写
 
+string toLowerStr(string& s) {
+    string res = "";
+    for (auto& ch : s) {
+        res += tolower(ch);
+    }
+    return res;
+}
+
+
+string toLowerStr2(string& s) {
+    static int diff = 'a' - 'A';
+    string res = "";
+    for (auto& ch : s) {
+        if (isupper(ch)) {
+            res += char(ch + diff);
+        } else {
+            res += ch;
+        }
+    }
+    return res;
+}
+
+
+string toUpperStr(string& s) {
+    string res = "";
+    for (auto& ch : s) {
+        res += toupper(ch);
+    }
+    return res;
+}
+
+
+string toUpperStr2(string& s) {
+    static int diff = 'a' - 'A';
+    string res = "";
+    for (auto& ch : s) {
+        if (islower(ch)) {
+            res += char(ch - diff);
+        } else {
+            res += ch;
+        }
+    }
+    return res;
+}
 
 
 /*
