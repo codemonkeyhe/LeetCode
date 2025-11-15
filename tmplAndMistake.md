@@ -432,6 +432,11 @@ sort(nums.begin(), nums.end(), greater<int>());
 
 无论是less还是 greater，当a==b时，都返回false，保证严格弱序
 
+
+### topK
+#### 分数从大到小排，同分数按照ID从小到大排
+
+
 #### 结构体的less & greater
 
 leetcode0378
