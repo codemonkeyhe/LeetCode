@@ -59,7 +59,6 @@ Graph
 815
 
 ### Weekend
-442
 1162
 LC057
 LC060
@@ -68,6 +67,7 @@ https://leetcode.cn/problem-list/bucket-sort/
 ## TODO
 
 ## Redo
+523-525
 457-topologic
 378-binarySearch
 413-DP , diffArray
