@@ -660,9 +660,12 @@ int BlueRedSplit(vector<int> nums, int target) {
 需要考虑+-1
 [left,      mid-1,  mid,  mid+1,       right]
 
-    当mid是blue时， left=mid+1，
-    直接 left=blue，依然满足 [intMin, left)为蓝色的条件，
+    当mid是blue时， left=mid+1，满足[intMin, left)为蓝色
+    相当于 left=mid+1，依然满足 [intMin, mid]为蓝色的条件，
+
+    当mid是red时, right = mid-1
     否则 right=mid-1，依然满足 （right， intMax]为红色
+    right=mid-1，即 [mid， intMax]为红色； >mid-1 等价于>=mid
 
 
 ``` CPP
