@@ -604,9 +604,11 @@ M2 用auto [v1, v2]
 
 3Case
 INT_MAX
+持续moveLeft
 right=N, left=N-1 不满足left+1 < right
 
 INT_MIN
+持续moveRight
 left=-1, right=0 ,不满足 left+1 < right
 
 [1] left=-1,right=1, mid=0,
@@ -654,7 +656,12 @@ int BlueRedSplit(vector<int> nums, int target) {
 [intMin, left) 为蓝色  , 因为 ==left为待判定区间， 所以<left为蓝色，
 (right, intMax] 为红色
 [left, right]为待染色区间，因此，闭区间非空时要继续循环
+当left==right时，循环继续
+然后int mid = left=right，最后必然是下面2种情况才结束循环
+left = right+1; right的初始值时N-1; left=right+1=N，因此left可能越界，需要考虑
+right = left-1; left的初始值为0，right=left-1=-1; 因此left可能越界，需要考虑
 
+#### Demo LC0704
 明确isBlue的条件，然后明确return left/right or+-1
 优点1： 不用考虑==等情况
 需要考虑+-1

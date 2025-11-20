@@ -63,7 +63,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int search(vector<int>& nums, int target) {
+    int searchM1(vector<int>& nums, int target) {
         int i = 0;
         int j = nums.size()-1;
         while(i <= j) {
@@ -79,10 +79,65 @@ public:
         }
         return  -1;
     }
+
+    // blue: <= target
+    // red > target
+    /*
+    blueZone <=target
+    redZone > target
+           blue   red
+    -1,0,3,5,9,   12
+
+    */
+    int searchM2(vector<int>& nums, int target) {
+        int i = 0;
+        int j = nums.size()-1;
+        while(i <= j) {//[1,2]
+            int mid = i + (j - i) / 2;
+            // left mid T right
+            if (nums[mid] <= target) {
+                i = mid + 1;
+            } else {
+            // left T mid  right
+                j = mid - 1;
+            }
+        }
+        if (i >= 1 && nums[i-1] == target) {
+            return i-1;
+        }
+        return -1;
+    }
+
+
+    /*
+    blueZone < target
+    RedZone >= target
+    */
+    int search(vector<int>& nums, int target) {
+        int i = 0;
+        int j = nums.size()-1;
+        while(i <= j) {//[1,2]
+            int mid = i + (j - i) / 2;
+            // left mid T right
+            if (nums[mid] < target) {
+                i = mid + 1;
+            } else {
+            // left T mid  right
+                j = mid - 1;
+            }
+        }
+        /*
+        if (i < nums.size() && nums[i] == target) {
+            return i;
+        }*/
+        if (j+1 >=0 && j+1 < nums.size() && nums[j+1] == target) {
+            return j+1;
+        }
+        return -1;
+    }
+
 };
 // @lc code=end
-
-
 
 int main() {
     Solution s;
