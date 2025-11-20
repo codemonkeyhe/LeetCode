@@ -4,7 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2020-09-13
- * 2024-04-15
+ * 2024-04-15; 20251120
  * @tag  slidingWindow;
  * @similar  159, 340, 209, 713
  */
@@ -119,7 +119,7 @@ public:
 
     // nodup right++
     // dup left++
-    int lengthOfLongestSubstring(string s) {
+    int lengthOfLongestSubstringM2(string s) {
         unordered_map<char, int> dup;
         int len = s.size();
         int i = 0;
@@ -134,6 +134,48 @@ public:
             maxLen = max(maxLen, j - i + 1);
             // means no dup
             j++;
+        }
+        return maxLen;
+    }
+
+    int lengthOfLongestSubstringM21(string s) {
+        int slen = s.size();
+        unordered_map<char, int> chcnt;
+        int i = 0;
+        int j = 0;
+        int maxLen = 0;
+        while (i < slen && j < slen) {
+            auto& right = s[j];
+            chcnt[right]++;
+            while (i < slen && chcnt[right] > 1) {
+                auto& left = s[i];
+                chcnt[left]--;
+                i++;
+            }
+            int curLen = j - i + 1;
+            j++;
+            maxLen = max(maxLen, curLen);
+        }
+        return maxLen;
+    }
+
+    // ababa
+    int lengthOfLongestSubstring(string s) {
+        int slen = s.size();
+        unordered_map<char, int> chidx;
+        int i = 0;
+        int j = 0;
+        int maxLen = 0;
+        while (i < slen && j < slen) {
+            auto& right = s[j];
+            int inHash = chidx.count(right);
+            if (inHash && chidx[right] >= i ) { // right dup
+                i = chidx[right] + 1;
+            }
+            chidx[right] = j;
+            int curLen = j - i + 1;
+            j++;
+            maxLen = max(maxLen, curLen);
         }
         return maxLen;
     }
