@@ -71,7 +71,7 @@ vector<string> strSplit(string str) {
 }
 
 // LC537 stringstream的用法
-// s format A+ (-B)i
+// s format A+ (-B)i : A+Bi/A-Bi
 pair<int, int> parseNumV2(string &s) {
     stringstream ss(s);
     int n1, n2;

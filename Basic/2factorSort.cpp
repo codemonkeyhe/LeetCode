@@ -65,9 +65,9 @@ int main() {
 
     vector<pair<int, int>> data = {
         {3, 100}, {4, 10}, {3, 60}, {2, 72}, {3, 80}, {4, 123}, {2, 0}};
-    
 
-    priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(&lessFn1asc2desc)> heap(lessFn1asc2desc);   
+
+    priority_queue<pair<int, int>, vector<pair<int, int> >, decltype(&lessFn1asc2desc)> heap(lessFn1asc2desc);
     for (auto& pa : data) {
         heap.push(pa);
     }
@@ -85,7 +85,7 @@ int main() {
         cout << "[" << cur.first << "," << cur.second << "], ";
     }
     cout << endl;
-   
+
     cout << "========== MAIN END ============" << endl;
 
     return 0;
@@ -103,7 +103,7 @@ int main() {
 
 默认大根堆
     priority_queue<int> maxHeap
-等价 
+等价
     priority_queue<int,vector<int>,less<int>> maxHeap;
 小根堆
     priority_queue<int,vector<int>,greater<int>> minHeap;

@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2020-03-31;2025-06-23
  * @tag  sort,quickSelect,heapSort
- * @similar 215, 347, 692
+ * @similar 215, 347, 692, 1985
  */
 
 /*

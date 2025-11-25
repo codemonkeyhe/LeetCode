@@ -56,6 +56,33 @@ B 66
 大写变小写、小写变小写 : 字符 |= 32;
 小写变大写、大写变大写 : 字符 &= -33;
 
+## String API
+<cctype>
+ 0-9
+int isdigit(int ch)
+
+int isupper(int ch)
+大写字母 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+int islower(int ch)
+小写字母 abcdefghijklmnopqrstuvwxyz
+
+大写+小写判定
+int isalpha(int ch)
+
+字母或数字
+int isalnum(int ch)
+
+###  大小写
+没有把字符串转大写或小写的API，需要手写
+参见 tool.h
+
+### stringstream用途
+参见 tool.h
+1 类型转换str2int, int2str
+2 字符串分割，支持多个空格
+3 字符串格式化解析：例如A+Bi或者A-Bi这种格式化字符
+
 
 # 优先级
 ## ErrorCase
@@ -72,7 +99,7 @@ Error:
 OK:
     if ((cur & (cur - 1) ) == 0) {
 
-# STD
+# STL
 ## min&max
 1 求max和min
 min(op1, op2)
@@ -174,26 +201,11 @@ LC-692
 ```
 
 
+## 分数从大到小排，同分数按照ID从小到大排
+参见 Basic/2factorSort.cpp
 
 
 
-# String API
-<cctype>
- 0-9
-int isdigit(int ch)
-
-int isupper(int ch)
-大写字母 ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-int islower(int ch)
-小写字母 abcdefghijklmnopqrstuvwxyz
-
-
-大写+小写判定
-int isalpha(int ch)
-
-字母或数字
-int isalnum(int ch)
 
 
 # STD
@@ -235,6 +247,15 @@ LC57
     vector<vector<int> > res;
     res.push_back(vector<int>{left, right});
 ```
+### 二维vector扩容
+
+LC-304
+``` cpp
+        int row = matrix.size();
+        int col = matrix[0].size();
+        ps.resize(row + 1, vector<int>(col + 1, 0));
+```
+
 
 ### vector逆序构造
 vector<int> res;
@@ -261,14 +282,14 @@ LC289
       vector<string> one(path.rbegin(), path.rend());
 
 
-## vector作为方向数组
-### 上下左右4格子
+### vector作为方向数组
+上下左右4格子
 等价写法
     const vector<pair<int, int> > dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
 
-### 周围8格子
+### vector周围8格子
 LC289
 ``` cpp
     const vector<pair<int, int> > dires = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {1, 1}, {1, -1}, {-1, 1}};
@@ -300,17 +321,9 @@ cur使用引用，pop后，对象容易被回收，后续再利用cur时，容�
             // 后续利用cur
 
 
-### 二维vector扩容
-
-LC-304
-``` cpp
-        int row = matrix.size();
-        int col = matrix[0].size();
-        ps.resize(row + 1, vector<int>(col + 1, 0));
-```
 
 
-## stack -Skill
+### stack -Skill
 stack可以用vector来代替，因为stack不方便遍历中间元素，必须不断地top和pop
 也不方便从栈底构建结果
 
@@ -343,7 +356,7 @@ pop_front
 clear
 erase
 
-### 小结
+## 小结
 priority_queue stack和queue核心API相同，都是push\pop\size\empty
 
 #### pop
@@ -355,7 +368,6 @@ queue是pop队列头
 priority_queue的top访问堆顶
 stack是top访问栈顶
 queue 没有top,front/back访问队列头尾，和vector类似
-
 
 
 deque和vector的核心API相同，都有push_back和pop_back，
@@ -432,9 +444,57 @@ sort(nums.begin(), nums.end(), greater<int>());
 
 无论是less还是 greater，当a==b时，都返回false，保证严格弱序
 
+### dicOrder vs numOrder
+dicOrder  10 100 3 4 5
+numOrder  3 4 5 10 100
+
+LeetCode1985
+``` cpp
+
+//dicOrder
+priority_queue<string, vector<string>, greater<string>> minHeap;
+
+
+//numOrder
+        priority_queue<string, vector<string>, bool(*)(string&, string&)> minHeap(&cmpFn2);
+
+//numOrder+decltype
+        priority_queue<string, vector<string>, decltype(&cmpFn2)> minHeap(cmpFn2);
+
+   static bool cmpFn2(string& a, string& b) {
+        int lena = a.size();
+        int lenb = b.size();
+        if (lena > lenb) {
+            return true;
+        } else if (lena < lenb) {
+            return false;
+        }
+        return a > b;
+    }
+
+```
 
 ### topK
-#### 分数从大到小排，同分数按照ID从小到大排
+LC215,LC347,LC692,LC1985
+M1 sort+遍历
+M2 用快排实现
+M3 用堆
+#### 第K大和TopK大 问题
+用minHeap解决
+len=N，k从1开始计数，从小往大排序
+第1小 第2小      第n-k+1小     第N小
+a[0], a[1], . .a[n-k]..    a[n-1]
+第N大 第N-1大    第K大        第1大
+
+minHeap.size() == K
+每次先入minHeap，if（minHeap.size()>k）pop出第K+1小的元素;
+全部走一遍后，剩余的就是topK大的元素，同时，堆顶就是topK里面最小的元素，也就是第K大
+
+#### 第K小和TopK小 问题
+用maxHeap解决
+maxHeap.size() == K
+每次先入maxHeap，if（maxHeap.size()>k）pop出第K+1大的元素;
+全部走一遍后，剩余的就是topK小的元素，同时，堆顶就是topK里面最大的元素，也就是第K小
 
 
 #### 结构体的less & greater
@@ -492,7 +552,7 @@ M1
 
 
 
-M2
+M2 函数对象
 ``` cpp
 
 class CmpFun2 {
@@ -507,7 +567,7 @@ priority_queue<pair<int, int>, vector<pair<int, int> >, CmpFun2> minHeap;
 ```
 
 
-M3
+M3 lambda表达式(本质上是函数对象)
 ``` cpp
 // LC347
         auto cmpFn3 = [](pair<int, int>& a, pair<int, int>& b) -> bool {
