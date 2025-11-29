@@ -57,15 +57,16 @@ Graph
 815
 
 ### Weekend
-497
 1162
 LC057
 LC060
 https://leetcode.cn/problem-list/bucket-sort/
 
 ## TODO
+678
 
 ## Redo
+526-DP; bitmask
 523-525
 457-topologic
 378-binarySearch
