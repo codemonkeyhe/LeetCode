@@ -135,3 +135,27 @@ M1
 M2
 
 */
+
+
+/*
+@golang
+
+
+func getImportance(employees []*Employee, id int) int {
+    id2e := make(map[int]*Employee)
+    for _, em := range employees {
+        id2e[em.Id] = em
+    }
+    return dfs(id2e, id)
+}
+
+func dfs(id2e map[int]*Employee, id int) int {
+    em := id2e[id]
+    sum := em.Importance
+    for _, sid := range em.Subordinates {
+        sum += dfs(id2e, sid)
+    }
+    return sum
+}
+
+*/
