@@ -3,8 +3,8 @@
  * @brief
  * @author MonkeyHe
  * @version  1.0
- * @date 2025-11-
- * @tag
+ * @date 2025-11-30
+ * @tag   concurrency
  * @similar
  */
 
@@ -97,7 +97,7 @@ func (f *Foo) Third(printThird func()) {
 	//f.Ch1 <- struct{}{}
 }
 
-func main() {
+func main1114() {
 	foo := NewFoo()
 	go foo.Third(func() {
 		fmt.Printf("third\n")
