@@ -137,3 +137,48 @@ M2
 OHOHOOHHOHHOOHHHHOOHOOHHOHHOOHHHOOHOHHOHHOHHHHHOHHHHHHHHHHHH
 
 */
+
+/* M2 only use chan
+use chan as semaphore
+
+type H2O struct {
+    HCh chan struct{}
+    OCh chan struct{}
+    hCount int
+    mu sync.Mutex
+}
+
+func NewH2O() *H2O {
+    h := &H2O{
+        HCh: make(chan struct{}, 2),
+        OCh: make(chan struct{}, 1),
+        hCount: 0,
+    }
+    h.HCh <- struct{}{}
+    h.HCh <- struct{}{}
+    return h
+}
+
+func (h *H2O) Hydrogen(releaseHydrogen func()) {
+    // releaseHydrogen() outputs "H". Do not change or remove this line.
+    <- h.HCh
+    releaseHydrogen()
+    h.mu.Lock()
+    h.hCount++
+    if (h.hCount == 2) {
+        h.OCh <- struct{}{}
+        h.hCount = 0
+    }
+    h.mu.Unlock()
+}
+
+func (h *H2O) Oxygen(releaseOxygen func()) {
+    // releaseOxygen() outputs "H". Do not change or remove this line.
+    <- h.OCh
+    releaseOxygen()
+    h.HCh <- struct{}{}
+    h.HCh <- struct{}{}
+}
+
+
+*/
