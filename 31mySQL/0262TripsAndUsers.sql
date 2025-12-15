@@ -4,7 +4,7 @@
  * @author MonkeyHe
  * @version  1.0
  * @date 2025-12-15
- * @tag   sql;
+ * @tag   sql; leftJoin; sum-if
  * @similar
  */
 
