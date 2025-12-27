@@ -1,9 +1,22 @@
 #ifndef  __COMMON_H__
 #define  __COMMON_H__
 
-#include <vector>
 #include <iostream>
+#include <string>
+#include <cstdio>
+#include <cctype>
+#include <cmath>
+#include <vector>
 #include <stack>
+#include <queue>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <sstream>
+#include <numeric>
+#include <iterator>
+#include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 //for cpp and c
