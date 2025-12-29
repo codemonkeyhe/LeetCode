@@ -125,7 +125,7 @@ public:
         return res;
     }
 
-
+    // 这个函数有BUG，单线程场景下居然过了
     string getHost(string& url) {
         auto pos = url.find("//", 0);
         if (pos == string::npos) {
@@ -133,7 +133,7 @@ public:
         }
         auto beginPos = pos+2;
         auto p2 = url.find('/', pos+2);
-        if (pos == string::npos) {
+        if (p2 == string::npos) {
             return "NOTFOUND";
         }
         int len = p2 - beginPos;
