@@ -68,6 +68,10 @@ https://leetcode.cn/problem-list/bucket-sort/
 2343
 
 ## Redo
+1242-Golang Ver
+1242-Golang Ver
+1242-Golang Ver
+
 1117 -not use mutex and cond
 526-DP; bitmask
 523-525
