@@ -5,7 +5,7 @@
  * @version  1.0
  * @date 2025-04-08
  * @tag binaryTree
- * @similar 2385
+ * @similar 742, 863, 2385
  */
 
 /*
@@ -153,6 +153,12 @@ int main() {
 
 
 /*
+
+BinaryTree FindFather
+M1 Dfs and build son2fa map
+M2 DFS parse tree to graph
+
+
 Tips
 M1
 
